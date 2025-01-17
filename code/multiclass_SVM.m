@@ -1,4 +1,4 @@
-folder = "mitdbase/";
+folder = "databases/";
 fileList = dir(fullfile(folder, '*.hea'));
 fileList = {fileList.name};
 
@@ -22,23 +22,17 @@ for i = 1:length(fileList)
     [R_peaks_val, R_peaks_ind, Q_peaks_ind, Q_peaks_val, ...
      S_peaks_ind, S_peaks_val, T_peaks_ind, T_peaks_val, delay] = pan_tompkin(ecg, Fs,0);
 
-    % Calculate RR and QS intervals
-    RR_int = []; QS_int = [];
-    count = 1; temp_i = R_peaks_ind(1);
-    for i = R_peaks_ind(2:end)
-        RR_int = [RR_int, (i - temp_i) / Fs];
-        temp_i = i;
-    end
-    for i = 1:length(S_peaks_ind)
-        QS_int = [QS_int, (S_peaks_ind(i) - Q_peaks_ind(i)) / Fs];
-    end
-
-    % Rhythm Identification
-    rhythm = comments(1);
-    count = 1;
-    my_classes = {'N', 'VFL', 'VT'};
-    while count < length(ann)
-        if (type(count) == '+')
+     rhythm = comments(1);
+     count = 1;
+     while count < length(ann)
+        if (recordname(end-3) == 'c')
+            if (type(count) == '[')
+                rhythm = {'(VT'};
+            end    
+            if (type(count) == ']')
+                rhythm = {'[]'};
+            end    
+        elseif (type(count) == '+')
             rhythm = comments(count);
         end
         comments(count) = rhythm;
@@ -180,9 +174,8 @@ y_train = Y(trainIdx);
 X_test = X(testIdx, :);
 y_test = Y(testIdx);
 
-%% =====================================================================
-%% One-vs-All Multiclass Classification
 
+%% ===================================================================== GPU NEW
 % Unique classes in the labels
 unique_classes = unique(Y);
 num_classes = length(unique_classes);
@@ -191,8 +184,24 @@ num_classes = length(unique_classes);
 models = cell(num_classes, 1);
 binary_predictions = zeros(length(Y), num_classes);
 
-% Train a binary SVM for each class
-for i = 1:num_classes
+% Transfer data to GPU (optional, but not used by fitcsvm)
+X_train_gpu = gpuArray(X_train);
+Y_gpu = gpuArray(Y);
+
+% Create a DataQueue to handle progress updates
+q = parallel.pool.DataQueue;
+afterEach(q, @nUpdateProgress);
+
+% Initialize progress bar
+hWaitBar = waitbar(0, 'Training SVM models...');
+
+% Function to update progress bar
+function nUpdateProgress(~)
+    waitbar(i/num_classes, hWaitBar);
+end
+
+% Train a binary SVM for each class using parallel computing
+parfor i = 1:num_classes
     fprintf('Training binary SVM for class %d vs all...\n', unique_classes(i));
     
     % Create binary labels: 1 for current class, -1 for all others
@@ -200,32 +209,160 @@ for i = 1:num_classes
     binary_labels(Y == unique_classes(i)) = 1;
     
     % Train SVM for the current class
-    models{i} = fitcsvm(X_train, binary_labels(trainIdx), ...
+    models{i} = fitcsvm(X_train_gpu, binary_labels(trainIdx), ...
         'KernelFunction', 'linear', ...
         'ClassNames', [-1, 1], ...
         'BoxConstraint', 1, ...
         'Standardize', true);
+    
+    % Send progress update
+    send(q, i);
 end
+
+% Close the progress bar
+close(hWaitBar);
 
 %% Testing and One-vs-All Prediction
 binary_predictions = zeros(size(X_test, 1), num_classes); % Preallocate
 
+% Transfer test data to GPU
+X_test_gpu = gpuArray(X_test);
+
 for i = 1:num_classes
     % Predict scores for each class
-    [~, scores] = predict(models{i}, X_test);
+    [~, scores] = predict(models{i}, X_test_gpu);
 
     % Assign only the positive class score
-    binary_predictions(:, i) = scores(:, 2);
+    binary_predictions(:, i) = gather(scores(:, 2)); % Transfer back to CPU
 end
 
 % Assign the class with the highest score as the prediction
 [~, predicted_labels] = max(binary_predictions, [], 2);
 
+% Transfer labels back to CPU
+predicted_labels = gather(predicted_labels);
 
 %% Evaluate Performance
 test_accuracy = sum(predicted_labels == Y(testIdx)) / length(Y(testIdx)) * 100;
 
 fprintf('Test accuracy (One-vs-All): %.2f%%\n', test_accuracy);
+
+
+
+
+
+
+% %% ===================================================================== GPU OLD
+% % Unique classes in the labels
+% unique_classes = unique(Y);
+% num_classes = length(unique_classes);
+
+% % Initialize models and predictions
+% models = cell(num_classes, 1);
+% binary_predictions = zeros(length(Y), num_classes);
+
+% % Transfer data to GPU
+% X_train_gpu = gpuArray(X_train);
+% Y_gpu = gpuArray(Y);
+
+% % Create a DataQueue to handle progress updates
+% q = parallel.pool.DataQueue;
+% afterEach(q, @nUpdateProgress);
+
+
+% % Train a binary SVM for each class
+% for i = 1:num_classes
+%     fprintf('Training binary SVM for class %d vs all...\n', unique_classes(i));
+    
+%     % Create binary labels: 1 for current class, -1 for all others
+%     binary_labels = -ones(size(Y_gpu));
+%     binary_labels(Y_gpu == unique_classes(i)) = 1;
+    
+%     % Train SVM for the current class
+%     models{i} = fitcsvm(X_train_gpu, binary_labels(trainIdx), ...
+%         'KernelFunction', 'linear', ...
+%         'ClassNames', [-1, 1], ...
+%         'BoxConstraint', 1, ...
+%         'Standardize', true);
+% end
+
+% %% Testing and One-vs-All Prediction
+% binary_predictions = zeros(size(X_test, 1), num_classes); % Preallocate
+
+% % Transfer test data to GPU
+% X_test_gpu = gpuArray(X_test);
+
+% for i = 1:num_classes
+%     % Predict scores for each class
+%     [~, scores] = predict(models{i}, X_test_gpu);
+
+%     % Assign only the positive class score
+%     binary_predictions(:, i) = gather(scores(:, 2)); % Transfer back to CPU
+% end
+
+% % Assign the class with the highest score as the prediction
+% [~, predicted_labels] = max(binary_predictions, [], 2);
+
+% % Transfer labels back to CPU
+% predicted_labels = gather(predicted_labels);
+
+% %% Evaluate Performance
+% test_accuracy = sum(predicted_labels == Y(testIdx)) / length(Y(testIdx)) * 100;
+
+% fprintf('Test accuracy (One-vs-All): %.2f%%\n', test_accuracy);
+
+
+
+
+
+
+%% ===================================================================== CPU OLD
+
+% %% One-vs-All Multiclass Classification
+
+% % Unique classes in the labels
+% unique_classes = unique(Y);
+% num_classes = length(unique_classes);
+
+% % Initialize models and predictions
+% models = cell(num_classes, 1);
+% binary_predictions = zeros(length(Y), num_classes);
+
+% % Train a binary SVM for each class
+% for i = 1:num_classes
+%     fprintf('Training binary SVM for class %d vs all...\n', unique_classes(i));
+    
+%     % Create binary labels: 1 for current class, -1 for all others
+%     binary_labels = -ones(size(Y));
+%     binary_labels(Y == unique_classes(i)) = 1;
+    
+%     % Train SVM for the current class
+%     models{i} = fitcsvm(X_train, binary_labels(trainIdx), ...
+%         'KernelFunction', 'linear', ...
+%         'ClassNames', [-1, 1], ...
+%         'BoxConstraint', 1, ...
+%         'Standardize', true);
+% end
+
+% %% Testing and One-vs-All Prediction
+% binary_predictions = zeros(size(X_test, 1), num_classes); % Preallocate
+
+% for i = 1:num_classes
+%     % Predict scores for each class
+%     [~, scores] = predict(models{i}, X_test);
+
+%     % Assign only the positive class score
+%     binary_predictions(:, i) = scores(:, 2);
+% end
+
+% % Assign the class with the highest score as the prediction
+% [~, predicted_labels] = max(binary_predictions, [], 2);
+
+
+% %% Evaluate Performance
+% test_accuracy = sum(predicted_labels == Y(testIdx)) / length(Y(testIdx)) * 100;
+
+% fprintf('Test accuracy (One-vs-All): %.2f%%\n', test_accuracy);
 
 
 %% =====================================================================
