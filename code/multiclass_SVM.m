@@ -8,7 +8,7 @@ all_Y = [];
 arrhythmiaData = struct();
 
 % Iterate over each file
-for i = 1:length(fileList)
+for i = 1:46
     recordname = str2mat(fullfile(folder, fileList{i}(1:end-4))); % Remove file extension
     
     % Display file being processed
@@ -122,40 +122,53 @@ for i = 1:length(rhythms)
 end
 
 %% Prepare Features and Labels
+
 rhythmTypes = fieldnames(arrhythmiaData);
 featureNames = {'R_peak_vals', 'Q_peak_vals', 'S_peak_vals', 'T_peak_vals', 'RR_int', 'QS_int'};
 X = [];
 Y = [];
 
-    labelMapping = containers.Map(rhythmTypes, 1:length(rhythmTypes));
+labelMapping = containers.Map(rhythmTypes, 1:length(rhythmTypes));
 
-    for i = 1:length(rhythmTypes)
-        rhythmType = rhythmTypes{i};
-        label = labelMapping(rhythmType);
-
-        % Extract features
-        rhythmData = arrhythmiaData.(rhythmType);
-        numObservations = length(rhythmData.R_peak_ind);
-
-        % Initialize temporary feature matrix
-        tempX = zeros(numObservations, length(featureNames));
-
-        for j = 1:length(featureNames)
-            feature = rhythmData.(featureNames{j});
-            if ~isempty(feature)
-                tempX(:, j) = feature(:);
-            end
+for i = 1:length(rhythmTypes)
+    rhythmType = rhythmTypes{i};
+    label = labelMapping(rhythmType);
+    
+    % Extract features
+    rhythmData = arrhythmiaData.(rhythmType);
+    numObservations = length(rhythmData.R_peak_ind);
+    % Initialize temporary feature matrix
+    tempX = zeros(numObservations, length(featureNames));
+    
+    for j = 1:length(featureNames)
+        feature = rhythmData.(featureNames{j});
+        if ~isempty(feature)
+            tempX(:, j) = feature(:);
         end
-
-        % Append the features and labels
-        X = [X; tempX]; % Append features
-        Y = [Y; label * ones(numObservations, 1)]; % Append labels
     end
-
-    %% Collect all features and labels from all files
-    all_X = [all_X; X]; 
-    all_Y = [all_Y; Y]; 
+    
+    % Append the features and labels
+    X = [X; tempX]; % Append features
+    Y = [Y; label * ones(numObservations, 1)]; % Append labels
 end
+
+%% Collect all features and labels from all files
+all_X = [all_X; X]; 
+all_Y = [all_Y; Y]; 
+end
+
+maxObservationsN = 700000; % Adjust this value as needed
+% Apply limit to the number of observations for rhythm type "N"
+N_indices = find(all_Y == labelMapping('N'));
+if length(N_indices) > maxObservationsN
+    % Randomly select indices to discard
+    discard_N_indices = randsample(N_indices, length(N_indices) - maxObservationsN);
+    % Keep only the selected indices
+    keep_indices = setdiff(1:length(all_Y), discard_N_indices);
+    all_X = all_X(keep_indices, :);
+    all_Y = all_Y(keep_indices);
+end
+
 
 
 %% Split Data into Training and Testing Sets
@@ -168,8 +181,8 @@ Y = all_Y;
 trainIdx = 1:round(0.8 * length(Y));
 testIdx = round(0.8 * length(Y)) + 1:length(Y);
 
-X_train = X(trainIdx, :);
-y_train = Y(trainIdx);
+X_train = X;
+y_train = Y;
 
 X_test = X(testIdx, :);
 y_test = Y(testIdx);
@@ -186,7 +199,7 @@ binary_predictions = zeros(length(Y), num_classes);
 
 % Transfer data to GPU (optional, but not used by fitcsvm)
 X_train_gpu = gpuArray(X_train);
-Y_gpu = gpuArray(Y);
+Y_gpu = gpuArray(y_train);
 
 % Create a DataQueue to handle progress updates
 q = parallel.pool.DataQueue;
@@ -205,11 +218,11 @@ parfor i = 1:num_classes
     fprintf('Training binary SVM for class %d vs all...\n', unique_classes(i));
     
     % Create binary labels: 1 for current class, -1 for all others
-    binary_labels = -ones(size(Y));
-    binary_labels(Y == unique_classes(i)) = 1;
-    
+    binary_labels = -ones(size(Y_gpu));
+    binary_labels(Y_gpu == unique_classes(i)) = 1;
+
     % Train SVM for the current class
-    models{i} = fitcsvm(X_train_gpu, binary_labels(trainIdx), ...
+    models{i} = fitcsvm(X_train_gpu, binary_labels, ...
         'KernelFunction', 'linear', ...
         'ClassNames', [-1, 1], ...
         'BoxConstraint', 1, ...
