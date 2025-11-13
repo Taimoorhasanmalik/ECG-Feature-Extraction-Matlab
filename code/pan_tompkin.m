@@ -1,4 +1,4 @@
-function [qrs_amp_raw,qrs_i_raw,Q_peaks,Q_peaks_val,S_peaks,S_peaks_val,T_peaks,T_peaks_val,  delay]=pan_tompkin(ecg,fs,gr)
+function [qrs_amp_raw,qrs_i_raw,Q_peaks,Q_peaks_val,S_peaks,S_peaks_val,T_peaks,T_peaks_val,delay,window_features,detector_state,P_peaks,P_peaks_val]=pan_tompkin(ecg,fs,gr)
 
 %% function [qrs_amp_raw,qrs_i_raw,delay]=pan_tompkin(ecg,fs)
 % Complete implementation of Pan-Tompkins algorithm
@@ -13,6 +13,9 @@ function [qrs_amp_raw,qrs_i_raw,Q_peaks,Q_peaks_val,S_peaks,S_peaks_val,T_peaks,
 % qrs_i_raw : index of R waves
 % delay : number of samples which the signal is delayed due to the
 % filtering
+% window_features : struct of 2 s window stats (start/end index, mean, var)
+% detector_state : optional struct capturing threshold trajectory per candidate
+% P_peaks / P_peaks_val : optional P-wave fiducials detected before Q
 %% Method
 % See Ref and supporting documents on researchgate.
 % https://www.researchgate.net/publication/313673153_Matlab_Implementation_of_Pan_Tompkins_ECG_QRS_detector
@@ -58,6 +61,8 @@ m_selected_RR = 0;
 mean_RR = 0;
 ser_back = 0; 
 ax = zeros(1,6);
+track_detector = nargout > 10;
+detector_state = struct();
 
 %% ============ Noise cancelation(Filtering)( 5-15 Hz) =============== %%
 if fs == 200
@@ -128,32 +133,25 @@ end
   axis tight;
   title('Filtered with the derivative filter');
  end
-%% ========== Squaring nonlinearly enhance the dominant peaks ========== %%
- ecg_s = ecg_d.^2;
+%% ====== Lightweight envelope (abs+short moving average) ============= %%
+% rather than squaring + 150 ms integrator, use |derivative| smoothed over
+% 50 ms to expose QRS energy with low FPGA cost
+win_env = max(1,round(0.050*fs));
+ecg_env = movmean(abs(ecg_d),win_env);
+ecg_env = ecg_env./max(ecg_env);
+
  if gr
   ax(5)=subplot(325);
-  plot(ecg_s);
+  plot(ecg_env);
   axis tight;
-  title('Squared');
- end
-
-%% ============  Moving average ================== %%
-%-------Y(nt) = (1/N)[x(nT-(N - 1)T)+ x(nT - (N - 2)T)+...+x(nT)]---------%
-ecg_m = conv(ecg_s ,ones(1 ,round(0.150*fs))/round(0.150*fs));
-delay = delay + round(0.150*fs)/2;
-
- if gr
-  ax(6)=subplot(326);plot(ecg_m);
-  axis tight;
-  title('Averaged with 30 samples length,Black noise,Green Adaptive Threshold,RED Sig Level,Red circles QRS adaptive threshold');
-  axis tight;
+  title('Abs-derivative envelope (50 ms mean)');
  end
 
 %% ===================== Fiducial Marks ============================== %% 
 % Note : a minimum distance of 40 samples is considered between each R wave
 % since in physiological point of view no RR wave can occur in less than
 % 200 msec distance
-[pks,locs] = findpeaks(ecg_m,'MINPEAKDISTANCE',round(0.2*fs));
+[pks,locs] = findpeaks(ecg_env,'MINPEAKDISTANCE',round(0.2*fs));
 %% =================== Initialize Some Other Parameters =============== %%
 LLp = length(pks);
 % ---------------- Stores QRS wrt Sig and Filtered Sig ------------------%
@@ -174,17 +172,29 @@ THRS_buf = zeros(1,LLp);
 
 
 %% initialize the training phase (2 seconds of the signal) to determine the THR_SIG and THR_NOISE
-THR_SIG = max(ecg_m(1:2*fs))*1/3;                                          % 0.25 of the max amplitude 
-THR_NOISE = mean(ecg_m(1:2*fs))*1/2;                                       % 0.5 of the mean signal is considered to be noise
+init_seg = 1:min(length(ecg_env),2*fs);
+THR_SIG = max(ecg_env(init_seg))*1/3;                                      % 0.33 of max amplitude
+THR_NOISE = mean(ecg_env(init_seg))*1/2;                                   % 0.5 of the mean signal is considered to be noise
 SIG_LEV= THR_SIG;
 NOISE_LEV = THR_NOISE;
 
 
 %% Initialize bandpath filter threshold(2 seconds of the bandpass signal)
-THR_SIG1 = max(ecg_h(1:2*fs))*1/3;                                          % 0.25 of the max amplitude 
-THR_NOISE1 = mean(ecg_h(1:2*fs))*1/2; 
+init_seg_bp = 1:min(length(ecg_h),2*fs);
+THR_SIG1 = max(ecg_h(init_seg_bp))*1/3;                                     % 0.33 of the max amplitude 
+THR_NOISE1 = mean(ecg_h(init_seg_bp))*1/2; 
 SIG_LEV1 = THR_SIG1;                                                        % Signal level in Bandpassed filter
 NOISE_LEV1 = THR_NOISE1;                                                    % Noise level in Bandpassed filter
+relax_offset_env = 0;                                                       % fraction that lowers THR_SIG
+relax_offset_bp = 0;                                                        % fraction that lowers THR_SIG1
+relax_inc = 0.15;                                                           % how aggressively to drop thresholds
+relax_recover = 0.05;                                                       % how fast to recover once beats return
+relax_max = 0.6;                                                            % never drop more than 60%
+if track_detector
+    detector_state.env_locs = locs;
+    detector_state.thr_sig = zeros(1,LLp);
+    detector_state.thr_sig_band = zeros(1,LLp);
+end
 %% ============ Thresholding and desicion rule ============= %%
 Beat_C = 0;                                                                 % Raw Beats
 Beat_C1 = 0;                                                                % Filtered Beats
@@ -226,35 +236,18 @@ for i = 1 : LLp
            test_m = 0;
        end
         
-    if test_m
-          if (locs(i) - qrs_i(Beat_C)) >= round(1.66*test_m)                  % it shows a QRS is missed 
-              [pks_temp,locs_temp] = max(ecg_m(qrs_i(Beat_C)+ round(0.200*fs):locs(i)-round(0.200*fs))); % search back and locate the max in this interval
-              locs_temp = qrs_i(Beat_C)+ round(0.200*fs) + locs_temp -1;      % location 
-             
-              if pks_temp > THR_NOISE
-               Beat_C = Beat_C + 1;
-               qrs_c(Beat_C) = pks_temp;
-               qrs_i(Beat_C) = locs_temp;      
-              % ------------- Locate in Filtered Sig ------------- %
-               if locs_temp <= length(ecg_h)
-                  [y_i_t,x_i_t] = max(ecg_h(locs_temp-round(0.150*fs):locs_temp));
-               else
-                  [y_i_t,x_i_t] = max(ecg_h(locs_temp-round(0.150*fs):end));
-               end
-              % ----------- Band pass Sig Threshold ------------------%
-               if y_i_t > THR_NOISE1 
-                  Beat_C1 = Beat_C1 + 1;
-                  qrs_i_raw(Beat_C1) = locs_temp-round(0.150*fs)+ (x_i_t - 1);% save index of bandpass 
-                  qrs_amp_raw(Beat_C1) = y_i_t;                               % save amplitude of bandpass 
-                  SIG_LEV1 = 0.25*y_i_t + 0.75*SIG_LEV1;                      % when found with the second thres 
-               end
-               
-               not_nois = 1;
-               SIG_LEV = 0.25*pks_temp + 0.75*SIG_LEV ;                       % when found with the second threshold             
-             end             
-          else
-              not_nois = 0;         
+    if test_m && Beat_C >= 1
+          gap_len = locs(i) - qrs_i(Beat_C);
+          if gap_len >= round(1.66*test_m)                                 % indicates we likely missed a beat
+              relax_offset_env = min(relax_max, relax_offset_env + relax_inc);
+              relax_offset_bp = min(relax_max, relax_offset_bp + relax_inc);
+              THR_SIG = max(THR_SIG * (1 - relax_inc), eps);
+              THR_SIG1 = max(THR_SIG1 * (1 - relax_inc), eps);
           end
+    end
+    if track_detector
+        detector_state.thr_sig(i) = THR_SIG;
+        detector_state.thr_sig_band(i) = THR_SIG1;
     end
   
     %% ===================  find noise and QRS peaks ================== %%
@@ -262,8 +255,8 @@ for i = 1 : LLp
       % ------ if No QRS in 360ms of the previous QRS See if T wave ------%
        if Beat_C >= 3
           if (locs(i)-qrs_i(Beat_C)) <= round(0.3600*fs)
-              Slope1 = mean(diff(ecg_m(locs(i)-round(0.075*fs):locs(i))));       % mean slope of the waveform at that position
-              Slope2 = mean(diff(ecg_m(qrs_i(Beat_C)-round(0.075*fs):qrs_i(Beat_C)))); % mean slope of previous R wave
+              Slope1 = mean(diff(ecg_env(locs(i)-round(0.075*fs):locs(i))));       % mean slope of the waveform at that position
+              Slope2 = mean(diff(ecg_env(qrs_i(Beat_C)-round(0.075*fs):qrs_i(Beat_C)))); % mean slope of previous R wave
               if abs(Slope1) <= abs(0.5*(Slope2))                              % slope less then 0.5 of previous R
                  Noise_Count = Noise_Count + 1;
                  nois_c(Noise_Count) = pks(i);
@@ -283,6 +276,8 @@ for i = 1 : LLp
           Beat_C = Beat_C + 1;
           qrs_c(Beat_C) = pks(i);
           qrs_i(Beat_C) = locs(i);
+          relax_offset_env = max(0, relax_offset_env - relax_recover);
+          relax_offset_bp = max(0, relax_offset_bp - relax_recover);
         
         %--------------- bandpass filter check threshold --------------- %
           if y_i >= THR_SIG1  
@@ -311,13 +306,15 @@ for i = 1 : LLp
                
     %% ================== adjust the threshold with SNR ============= %%
     if NOISE_LEV ~= 0 || SIG_LEV ~= 0
-        THR_SIG = NOISE_LEV + 0.25*(abs(SIG_LEV - NOISE_LEV));
+        base_thr = NOISE_LEV + 0.25*(abs(SIG_LEV - NOISE_LEV));
+        THR_SIG = max(base_thr * (1 - relax_offset_env), eps);
         THR_NOISE = 0.5*(THR_SIG);
     end
     
     %------ adjust the threshold with SNR for bandpassed signal -------- %
     if NOISE_LEV1 ~= 0 || SIG_LEV1 ~= 0
-        THR_SIG1 = NOISE_LEV1 + 0.25*(abs(SIG_LEV1 - NOISE_LEV1));
+        base_thr1 = NOISE_LEV1 + 0.25*(abs(SIG_LEV1 - NOISE_LEV1));
+        THR_SIG1 = max(base_thr1 * (1 - relax_offset_bp), eps);
         THR_NOISE1 = 0.5*(THR_SIG1);
     end
     
@@ -333,7 +330,6 @@ NOISL_buf1(i) = NOISE_LEV1;
 THRS_buf1(i) = THR_SIG1;
 % ----------------------- reset parameters -------------------------- % 
 skip = 0;                                                   
-not_nois = 0; 
 ser_back = 0;    
 end
 %% ======================= Adjust Lengths ============================ %%
@@ -365,29 +361,101 @@ qrs_i = qrs_i(1:Beat_C);
 Q_peaks = [];
 S_peaks = [];
 T_peaks = [];
-mid_points = [];
+P_peaks = [];
 num_beats = length(qrs_i_raw);
-
-for k = 1:num_beats-1
-    R1 = qrs_i_raw(k);
-    R2 = qrs_i_raw(k+1);
-    mid = round((R1 + R2)/2);
-    mid_points = [mid_points, mid];
-    % S peak: minimum in first half (R1 to mid)
-    [~, s_rel] = min(ecg_h(R1:mid));
-    S_peaks = [S_peaks, R1 + s_rel - 1];
-    % Q peak: minimum in second half (mid to R2)
-    [~, q_rel] = min(ecg_h(mid:R2));
-    Q_peaks = [Q_peaks, mid + q_rel - 1];
-    % T peak: maximum in second half (mid to R2)
-    [~, t_rel] = max(ecg_h(S_peaks(k):mid));
-    T_peaks = [T_peaks, S_peaks(k) + t_rel - 1];
+if num_beats > 1
+    mid_points = zeros(1,num_beats-1);
+else
+    mid_points = [];
 end
-% Optionally handle last beat (skip or extrapolate)
 
+if num_beats > 1
+    Q_peaks = zeros(1,num_beats-1);
+    S_peaks = zeros(1,num_beats-1);
+    T_peaks = zeros(1,num_beats-1);
+    P_peaks = zeros(1,num_beats-1);
+    lookback_q = max(1, round(0.12*fs));                                   % search ~120 ms before R for Q
+    lookback_p = max(1, round(0.25*fs));                                   % search ~250 ms before Q for P
+    for k = 1:num_beats-1
+        R1 = qrs_i_raw(k);
+        R2 = qrs_i_raw(k+1);
+        if k == 1
+            left_bound = max(1, R1 - round(0.2*fs));
+        else
+            left_bound = round((qrs_i_raw(k-1) + R1)/2);
+        end
+        right_bound = round((R1 + R2)/2);
+        right_bound = min(length(ecg_h), max(right_bound, R1 + 1));
+        mid_points(k) = right_bound;
+        % Q peak: minimum between left bound and R1
+        q_start = max(1, min(left_bound, R1 - lookback_q));
+        if q_start >= R1
+            q_start = max(1, R1 - 1);
+        end
+        [~, q_rel] = min(ecg_h(q_start:R1));
+        Q_idx = q_start + q_rel - 1;
+        Q_peaks(k) = Q_idx;
+        % S peak: minimum between R1 and right bound
+        s_start = R1;
+        s_end = max(s_start+1, right_bound);
+        s_end = min(length(ecg_h), s_end);
+        [~, s_rel] = min(ecg_h(s_start:s_end));
+        S_idx = s_start + s_rel - 1;
+        S_peaks(k) = S_idx;
+        % T peak: maximum between S and right bound
+        t_start = S_idx;
+        t_end = max(t_start+1, right_bound);
+        t_end = min(length(ecg_h), t_end);
+        [~, t_rel] = max(ecg_h(t_start:t_end));
+        T_peaks(k) = t_start + t_rel - 1;
+        % P peak: maximum in window strictly before Q
+        if Q_idx <= 2
+            P_peaks(k) = 1;
+        else
+            p_end = min(Q_idx - 1, length(ecg_h));
+            p_start = max(1, p_end - lookback_p);
+            if p_start == p_end
+                p_start = max(1, p_start - 1);
+            end
+            [~, p_rel] = max(ecg_h(p_start:p_end));
+            P_peaks(k) = p_start + p_rel - 1;
+        end
+    end
+else
+    Q_peaks = [];
+    S_peaks = [];
+    T_peaks = [];
+    P_peaks = [];
+end
 Q_peaks_val = ecg_h(Q_peaks);
 S_peaks_val = ecg_h(S_peaks);
 T_peaks_val = ecg_h(T_peaks);
+P_peaks_val = ecg_h(P_peaks);
+
+%% ==================== Sliding-window bandpass stats ================= %%
+signal_len = length(ecg_h);
+win_len = max(1,round(2*fs));                                              % 2 second window
+hop_len = max(1,round(1*fs));                                              % 1 second hop => 50% overlap
+win_start = 1;
+seg_id = 1;
+win_starts = [];
+win_ends = [];
+win_means = [];
+win_vars = [];
+win_mads = [];
+while win_start <= signal_len
+    win_end = min(win_start + win_len - 1, signal_len);
+    segment = ecg_h(win_start:win_end);
+    seg_mean = mean(segment);
+    win_starts(seg_id) = win_start;
+    win_ends(seg_id) = win_end;
+    win_means(seg_id) = seg_mean;
+    win_vars(seg_id) = var(segment,1);                                      % population variance for stability
+    win_mads(seg_id) = mean(abs(segment - seg_mean));                       % mean absolute deviation for robustness
+    win_start = win_start + hop_len;
+    seg_id = seg_id + 1;
+end
+window_features = struct('start_idx',win_starts,'end_idx',win_ends,'mean',win_means,'variance',win_vars,'mad',win_mads);
 
 % %% ======================= Plottings ================================= %%
 % if gr
@@ -412,20 +480,14 @@ T_peaks_val = ecg_h(T_peaks);
    hold on,scatter(Q_peaks,ecg_h(Q_peaks),'b');
    hold on,scatter(S_peaks,ecg_h(S_peaks),'k');
    hold on,scatter(T_peaks,ecg_h(T_peaks),'g');
+   if ~isempty(P_peaks)
+       hold on,scatter(P_peaks,ecg_h(P_peaks),20,[1 0.5 0],'filled');
+   end
    hold on,scatter(mid_points,ecg_h(mid_points),'c','filled');
    hold on,plot(locs,NOISL_buf1,'LineWidth',2,'Linestyle','--','color','k');
    hold on,plot(locs,SIGL_buf1,'LineWidth',2,'Linestyle','-.','color','r');
    hold on,plot(locs,THRS_buf1,'LineWidth',2,'Linestyle','-.','color','g');
-   legend({'Filtered ECG','R peaks','Q peaks','S peaks','T peaks','Mid points'});
+   legend({'Filtered ECG','R peaks','Q peaks','S peaks','T peaks','P peaks','Mid points'});
    zoom on;
  end
 end
-
-
-
-
-
-
-
-
-

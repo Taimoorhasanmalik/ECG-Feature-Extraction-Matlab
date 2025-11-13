@@ -1,5 +1,5 @@
 %% Loop through each file and run the trained VT model, plot peaks, and report misclassifications
-load('models/vt_model.mat');
+load('vf_model.mat');
 
 folder = "databases/";
 fileList = dir(fullfile(folder, '*.hea'));
@@ -172,7 +172,7 @@ for i = 1:length(fileList)
     end
     obs = size(X,1);
     % Predict using trained model
-    [y_pred, scores] = predict(vt_svm_model, X);
+    [y_pred, scores] = predict(vf_svm_model, X);
     % Find misclassifications
     mis_idx = find(y_pred ~= true_labels);
     % Find correctly classified indices

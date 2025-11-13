@@ -4,7 +4,7 @@ fileList = {fileList.name};
 
 % Initialize variables to collect all data
 all_X = [];
-all_Y = [];
+all_Y = []; 
 arrhythmiaData = struct();
 total_len=0;
 % Iterate over each file
