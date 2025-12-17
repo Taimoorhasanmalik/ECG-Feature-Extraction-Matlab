@@ -23,7 +23,7 @@ for k = 1:numel(fileList)
     [ann, type, ~, ~, ~, comments] = rdann(recordname, 'atr', 1);
 
     % Peak detection (Pan–Tompkins)
-    [R_vals, R_idx, Q_idx, Q_vals, S_idx, S_vals, T_idx, T_vals, ~] = pan_tompkin(ecg, Fs, 0);
+    [R_vals, R_idx, Q_idx, Q_vals, S_idx, S_vals, T_idx, T_vals, ~] = pan_tompkin_og(ecg, Fs, 0);
 
     % Build rhythm labels along timeline
     [~, filename] = fileparts(recordname);
