@@ -36,7 +36,7 @@ for i = 1:length(fileList)
     % Rhythm Identification
     rhythm = comments(1);
     count = 1;
-    my_classes = {'N', 'VT'};
+    my_classes = {'VT', 'VF'};
     
     % Check if file starts with 'cu'
     [~, filename, ~] = fileparts(recordname);
@@ -63,7 +63,7 @@ for i = 1:length(fileList)
         
         % Mark all segments as Normal by default
         for i = 1:length(ann)
-            comments{i} = '(N';
+            comments{i} = '(VT';
         end
         
         % Mark VT segments
@@ -72,13 +72,13 @@ for i = 1:length(fileList)
             end_idx = find(ann <= vt_end(i), 1, 'last');
             if ~isempty(start_idx) && ~isempty(end_idx)
                 for j = start_idx:end_idx
-                    comments{j} = '(VT';
+                    comments{j} = '(VF';
                 end
             end
         end
     else
         % Use original method with comments and types
-        while count < length(ann)
+        while count <= length(ann)
             if (type(count) == '+')
                 rhythm = comments(count);
             end
@@ -88,22 +88,11 @@ for i = 1:length(fileList)
     end
 
     %% Feature Extraction and Labeling
+    vfTailAlreadyIncluded = false;
     count = 1;
     while count <= length(comments)
-        rhythm = cell2mat(comments(count));
-        
-        % Assign rhythm type
-        if  length(rhythm) == 4 && all(rhythm == '(VFL')
-            rhythmType = 'VFL';
-        elseif length(rhythm) == 2 && all(rhythm == '(N')
-            rhythmType = 'N';
-        elseif length(rhythm) == 3 && all(rhythm == '(VT') % VT class
-            rhythmType = 'VT';
-        elseif length(rhythm) == 5 && all(rhythm == '(AFIB')
-            rhythmType = 'AFIB';
-        elseif length(rhythm) == 4 && all(rhythm == '(BII')
-            rhythmType = 'BII';
-        else
+        rhythmType = local_parse_rhythm_type(comments{count});
+        if isempty(rhythmType)
             count = count + 1; % Skip unrecognized rhythms
             continue;
         end
@@ -121,9 +110,8 @@ for i = 1:length(fileList)
     
     % Find start and end of the rhythm section
     start_count = ann(count);
-    while (count <= length(comments)) && ...
-          (length(cell2mat(comments(count))) == length(rhythm)) && ...
-          all(cell2mat(comments(count)) == rhythm)
+    currentRhythmType = rhythmType;
+    while (count <= length(comments)) && strcmp(local_parse_rhythm_type(comments{count}), currentRhythmType)
         count = count + 1;
     end
     % Handle the case where we've reached the end of annotations
@@ -131,6 +119,10 @@ for i = 1:length(fileList)
         end_count = ann(count);
     else
         end_count = length(ecg);  % Use the end of ECG signal if we've reached the end of annotations
+    end
+
+    if strcmp(currentRhythmType, 'VF') && (end_count == length(ecg))
+        vfTailAlreadyIncluded = true;
     end
     
     % Update peak indices for the current rhythm
@@ -156,6 +148,40 @@ for i = 1:length(fileList)
         S_peaks_ind((S_peaks_ind > start_count) & (S_peaks_ind < end_count))];
 end
 
+    % If VF is the last labeled rhythm but annotations stop before signal end,
+    % treat all detected peaks after the final annotation as VF.
+    lastRhythmType = local_parse_rhythm_type(comments{end});
+    if strcmp(lastRhythmType, 'VF') && ~vfTailAlreadyIncluded
+        tail_start = ann(end);
+        if tail_start < length(ecg)
+            if ~isfield(arrhythmiaData, 'VF')
+                arrhythmiaData.VF.R_peak_vals = [];
+                arrhythmiaData.VF.R_peak_ind = [];
+                arrhythmiaData.VF.Q_peak_vals = [];
+                arrhythmiaData.VF.Q_peak_ind = [];
+                arrhythmiaData.VF.T_peak_vals = [];
+                arrhythmiaData.VF.S_peak_vals = [];
+                arrhythmiaData.VF.S_peak_ind = [];
+            end
+
+            tail_R = R_peaks_ind(R_peaks_ind > tail_start);
+            tail_Q = Q_peaks_ind(Q_peaks_ind > tail_start);
+            tail_S = S_peaks_ind(S_peaks_ind > tail_start);
+            tail_T = T_peaks_ind(T_peaks_ind > tail_start);
+
+            arrhythmiaData.VF.R_peak_vals = [arrhythmiaData.VF.R_peak_vals, ecg(tail_R)'];
+            arrhythmiaData.VF.R_peak_ind = [arrhythmiaData.VF.R_peak_ind, tail_R];
+
+            arrhythmiaData.VF.Q_peak_vals = [arrhythmiaData.VF.Q_peak_vals, ecg(tail_Q)'];
+            arrhythmiaData.VF.Q_peak_ind = [arrhythmiaData.VF.Q_peak_ind, tail_Q];
+
+            arrhythmiaData.VF.S_peak_vals = [arrhythmiaData.VF.S_peak_vals, ecg(tail_S)'];
+            arrhythmiaData.VF.S_peak_ind = [arrhythmiaData.VF.S_peak_ind, tail_S];
+
+            arrhythmiaData.VF.T_peak_vals = [arrhythmiaData.VF.T_peak_vals, ecg(tail_T)'];
+        end
+    end
+
 % Calculate RR and QS intervals for each rhythm
 rhythms = fieldnames(arrhythmiaData);
 for i = 1:length(rhythms)
@@ -180,7 +206,7 @@ X = [];
 Y = [];
 
 % Only keep VT and NORMAL classes
-validRhythms = {'VT', 'N'};
+validRhythms = {'VT', 'VF'};
 X = [];
 Y = [];
 
@@ -204,7 +230,7 @@ for i = 1:length(validRhythms)
                 tempX(:, j) = feature(:);
             end
         end
-        if strcmp(rhythmType, 'VT')
+        if strcmp(rhythmType, 'VF')
             VT_X = [VT_X; tempX];
             VT_Y = [VT_Y; ones(numObservations, 1)];
             num_VT = num_VT + numObservations;
@@ -415,3 +441,25 @@ grid on;
 fprintf('\nSaving model and essential variables...\n');
 save('vt_model.mat', 'vt_svm_model', 'featureNames', 'Fs', 'class_weights');
 fprintf('Model saved successfully as vt_model.mat\n');
+
+function rhythmType = local_parse_rhythm_type(commentCell)
+    % Parse WFDB-style rhythm comments into a canonical label.
+    % Returns '' when not recognized.
+    comment = strtrim(char(commentCell));
+
+    if contains(comment, '(VFL')
+        rhythmType = 'VFL';
+    elseif contains(comment, '(VF') || endsWith(comment, 'VF')
+        rhythmType = 'VF';
+    elseif contains(comment, '(VT')
+        rhythmType = 'VT';
+    elseif contains(comment, '(N')
+        rhythmType = 'VT';
+    elseif contains(comment, '(AFIB')
+        rhythmType = 'AFIB';
+    elseif contains(comment, '(BII')
+        rhythmType = 'BII';
+    else
+        rhythmType = '';
+    end
+end

@@ -1,5 +1,5 @@
-%% Loop through each file and run the trained VF-vs-VT model, plot peaks, and report misclassifications
-load('models/vt_vs_vf_model.mat');
+%% Loop through each file and run the trained VT model, plot peaks, and report misclassifications
+load('models/vt_model.mat');
 
 folder = "databases/";
 fileList = dir(fullfile(folder, '*.hea'));
@@ -46,14 +46,14 @@ for i = 1:length(fileList)
             vt_end = [vt_end, repmat(length(ecg), 1, remaining_vt)];
         end
         for idx = 1:length(ann)
-            comments{idx} = '(VT';
+            comments{idx} = '(N';
         end
         for idx = 1:length(vt_start)
             start_idx = find(ann >= vt_start(idx), 1, 'first');
             end_idx = find(ann <= vt_end(idx), 1, 'last');
             if ~isempty(start_idx) && ~isempty(end_idx)
                 for j = start_idx:end_idx
-                    comments{j} = '(VF';
+                    comments{j} = '(VT';
                 end
             end
         end
@@ -72,14 +72,24 @@ for i = 1:length(fileList)
     arrhythmiaData = struct();
     count = 1;
     found_any = false;
-    vfTailAlreadyIncluded = false;
     while count <= length(comments)
-        rhythmType = local_parse_rhythm_type(comments{count});
-        if isempty(rhythmType)
+        rhythm = cell2mat(comments(count));
+        if  length(rhythm) == 4 && all(rhythm == '(VFL')
+            rhythmType = 'VFL';
+        elseif length(rhythm) == 2 && all(rhythm == '(N')
+            rhythmType = 'VT';
+        elseif length(rhythm) == 3 && all(rhythm == '(VF')
+            rhythmType = 'VF';
+        elseif length(rhythm) == 5 && all(rhythm == '(AFIB')
+            rhythmType = 'AFIB';
+        elseif length(rhythm) == 4 && all(rhythm == '(BII')
+            rhythmType = 'BII';
+        else
             count = count + 1;
             continue;
         end
-        if any(strcmp(rhythmType, {'VF', 'VT'}))
+        % Only VT and N are valid for this script
+        if strcmp(rhythmType, 'VF') || strcmp(rhythmType, 'VT')
             found_any = true;
         end
         if ~isfield(arrhythmiaData, rhythmType)
@@ -92,17 +102,15 @@ for i = 1:length(fileList)
             arrhythmiaData.(rhythmType).S_peak_ind = [];
         end
         start_count = ann(count);
-        currentRhythmType = rhythmType;
-        while (count <= length(comments)) && strcmp(local_parse_rhythm_type(comments{count}), currentRhythmType)
+        while (count <= length(comments)) && ...
+              (length(cell2mat(comments(count))) == length(rhythm)) && ...
+              all(cell2mat(comments(count)) == rhythm)
             count = count + 1;
         end
         if count <= length(ann)
             end_count = ann(count);
         else
             end_count = length(ecg);
-        end
-        if strcmp(currentRhythmType, 'VF') && (end_count == length(ecg))
-            vfTailAlreadyIncluded = true;
         end
         arrhythmiaData.(rhythmType).R_peak_vals = [arrhythmiaData.(rhythmType).R_peak_vals, ...
             ecg(R_peaks_ind((R_peaks_ind > start_count) & (R_peaks_ind < end_count)))'];
@@ -119,38 +127,9 @@ for i = 1:length(fileList)
         arrhythmiaData.(rhythmType).S_peak_ind = [arrhythmiaData.(rhythmType).S_peak_ind, ...
             S_peaks_ind((S_peaks_ind > start_count) & (S_peaks_ind < end_count))];
     end
-    % If VF is the final labeled rhythm but annotations stop early, extend VF to signal end
-    if ~isempty(comments)
-        lastRhythmType = local_parse_rhythm_type(comments{end});
-        if strcmp(lastRhythmType, 'VF') && ~vfTailAlreadyIncluded
-            tail_start = ann(end);
-            if tail_start < length(ecg)
-                if ~isfield(arrhythmiaData, 'VF')
-                    arrhythmiaData.VF.R_peak_vals = [];
-                    arrhythmiaData.VF.R_peak_ind = [];
-                    arrhythmiaData.VF.Q_peak_vals = [];
-                    arrhythmiaData.VF.Q_peak_ind = [];
-                    arrhythmiaData.VF.T_peak_vals = [];
-                    arrhythmiaData.VF.S_peak_vals = [];
-                    arrhythmiaData.VF.S_peak_ind = [];
-                end
-                tail_R = R_peaks_ind(R_peaks_ind > tail_start);
-                tail_Q = Q_peaks_ind(Q_peaks_ind > tail_start);
-                tail_S = S_peaks_ind(S_peaks_ind > tail_start);
-                tail_T = T_peaks_ind(T_peaks_ind > tail_start);
-                arrhythmiaData.VF.R_peak_vals = [arrhythmiaData.VF.R_peak_vals, ecg(tail_R)'];
-                arrhythmiaData.VF.R_peak_ind = [arrhythmiaData.VF.R_peak_ind, tail_R];
-                arrhythmiaData.VF.Q_peak_vals = [arrhythmiaData.VF.Q_peak_vals, ecg(tail_Q)'];
-                arrhythmiaData.VF.Q_peak_ind = [arrhythmiaData.VF.Q_peak_ind, tail_Q];
-                arrhythmiaData.VF.S_peak_vals = [arrhythmiaData.VF.S_peak_vals, ecg(tail_S)'];
-                arrhythmiaData.VF.S_peak_ind = [arrhythmiaData.VF.S_peak_ind, tail_S];
-                arrhythmiaData.VF.T_peak_vals = [arrhythmiaData.VF.T_peak_vals, ecg(tail_T)'];
-            end
-        end
-    end
-    % Skip file if no VT or VF segments found
+    % Skip file if no (VT) or (N) segments found
     if ~found_any
-        fprintf('No VT or VF segments found in file: %s\n', fileList{i});
+        fprintf('No (VT) or (N) segments found in file: %s\n', fileList{i});
         continue;
     end
     rhythms = fieldnames(arrhythmiaData);
@@ -170,7 +149,7 @@ for i = 1:length(fileList)
     featureNames = {'R_peak_vals', 'Q_peak_vals', 'S_peak_vals', 'T_peak_vals', 'RR_int', 'QS_int'};
     X = [];
     true_labels = [];
-    validRhythms = {'VT', 'VF'};
+    validRhythms = {'VT', 'N'};
     for idx = 1:length(validRhythms)
         rhythmType = validRhythms{idx};
         if isfield(arrhythmiaData, rhythmType)
@@ -184,16 +163,12 @@ for i = 1:length(fileList)
                 end
             end
             X = [X; tempX];
-            if strcmp(rhythmType, 'VF')
+            if strcmp(rhythmType, 'VT')
                 true_labels = [true_labels; ones(numObservations, 1)];
             else
                 true_labels = [true_labels; zeros(numObservations, 1)];
             end
         end
-    end
-    if isempty(X)
-        fprintf('No usable VT/VF observations in file: %s\n', fileList{i});
-        continue;
     end
     obs = size(X,1);
     % Predict using trained model
@@ -270,17 +245,17 @@ for i = 1:length(fileList)
     % title(sprintf('ECG and Peaks for %s (Misclassifications: %d)', fileList{i}, length(mis_idx)));
     % xlabel('Sample Index'); ylabel('ECG Amplitude');
     % legend('show'); grid on; hold off;
-    % % % % % Print misclassification summary and metrics
-    fprintf('File: %s | Total beats: %d | Misclassified: %d\n', fileList{i}, obs, length(mis_idx));
+   % % % % % Print misclassification summary and metrics
+     fprintf('File: %s | Total beats: %d | Misclassified: %d\n', fileList{i}, obs, length(mis_idx));
     fprintf('Accuracy: %.4f | Precision: %.4f | Recall: %.4f | F1: %.4f | AUC: %.4f\n', accuracy, precision, recall, f1_score, AUC);
-    num_true_vf = sum(true_labels == 1);
-    fprintf('Number of true VF beats: %d\n', num_true_vf);
-    % Store stats
-    all_accuracy = [all_accuracy; accuracy];
+    num_true_vt = sum(true_labels == 1);
+    fprintf('Number of true VT beats: %d\n', num_true_vt);
+     % Store stats
+     % all_accuracy = [all_accuracy; accuracy];
     all_precision = [all_precision; precision];
-    all_recall = [all_recall; recall];
+     all_recall = [all_recall; recall];
     all_f1 = [all_f1; f1_score];
-    all_auc = [all_auc; AUC];
+     all_auc = [all_auc; AUC];
 end
 
 % Print mean stats at the end
@@ -296,25 +271,3 @@ fprintf('\nStd Precision: %.4f', std(all_precision, 'omitnan'));
 fprintf('\nStd Recall: %.4f', std(all_recall, 'omitnan'));
 fprintf('\nStd F1 Score: %.4f', std(all_f1, 'omitnan'));
 fprintf('\nStd AUC: %.4f\n', std(all_auc, 'omitnan'));
-
-function rhythmType = local_parse_rhythm_type(commentCell)
-    % Parse WFDB-style rhythm comments into a canonical label.
-    % Returns '' when not recognized.
-    comment = strtrim(char(commentCell));
-
-    if contains(comment, '(VFL')
-        rhythmType = 'VFL';
-    elseif contains(comment, '(VF') || endsWith(comment, 'VF')
-        rhythmType = 'VF';
-    elseif contains(comment, '(VT')
-        rhythmType = 'VT';
-    elseif contains(comment, '(N')
-        rhythmType = 'VT';
-    elseif contains(comment, '(AFIB')
-        rhythmType = 'AFIB';
-    elseif contains(comment, '(BII')
-        rhythmType = 'BII';
-    else
-        rhythmType = '';
-    end
-end
