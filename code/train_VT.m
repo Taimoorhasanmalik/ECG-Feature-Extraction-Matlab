@@ -1,4 +1,4 @@
-folder = "databases/cudb";
+folder = "database/cudb";
 fileList = dir(fullfile(folder, '*.hea'));
 fileList = {fileList.name};
 
@@ -262,6 +262,18 @@ end
 %%
 X = all_X;
 Y = all_Y;
+
+if ~isempty(X) %#agent_added
+    vf_mask = (Y == 1); %#agent_added
+    if any(vf_mask) %#agent_added
+        vf_outliers = false(size(Y)); %#agent_added
+        vf_outliers(vf_mask) = any(isoutlier(X(vf_mask, :), 'median'), 2); %#agent_added
+        if any(vf_outliers) %#agent_added
+            X = X(~vf_outliers, :); %#agent_added
+            Y = Y(~vf_outliers, :); %#agent_added
+        end %#agent_added
+    end %#agent_added
+end %#agent_added
 
 % Print dataset statistics
 fprintf('\nDataset Statistics:\n');
