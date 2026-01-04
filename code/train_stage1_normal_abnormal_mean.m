@@ -33,8 +33,8 @@ end
 
 fprintf('Stage-1 (window features): found %d records across %d folders.\n', numel(records), numel(recordDirs));
 
-windowSec = 2;
-overlapSec = 1;
+windowSec = 4;
+overlapSec = 2;
 hopSec = windowSec - overlapSec;
 
 % Window label smoothing (improves separability for window features)
