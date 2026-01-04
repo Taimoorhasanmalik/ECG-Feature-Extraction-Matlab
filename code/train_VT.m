@@ -1,4 +1,4 @@
-folder = "databases/";
+folder = "databases/cudb";
 fileList = dir(fullfile(folder, '*.hea'));
 fileList = {fileList.name};
 

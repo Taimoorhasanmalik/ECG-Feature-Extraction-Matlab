@@ -1,4 +1,4 @@
-folder = "databases/";
+folder = "databases/mitdb";
 fileList = dir(fullfile(folder, '*.hea'));
 fileList = {fileList.name};
 
