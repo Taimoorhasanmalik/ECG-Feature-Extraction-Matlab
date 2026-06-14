@@ -74,9 +74,31 @@ minRecallForAccuracy = 0.90;
 classWeightMode = 'balanced';
 classWeightModeCandidates = {'balanced', 'none'};
 
-featureNames = {'mean_abs', 'zero_crossings', 'line_length', 'threshold_crossing_count', ...
+allFeatureNames = {'mean_abs', 'zero_crossings', 'line_length', 'threshold_crossing_count', ...
     'rms_amplitude', 'robust_range'};
+excludedFeatureNames = strings(0, 1);
+excludedFeatureSelection = strtrim(string(getenv('ECG_EXCLUDE_FEATURES')));
+if strlength(excludedFeatureSelection) > 0
+    excludedFeatureNames = strtrim(split(excludedFeatureSelection, ','));
+    excludedFeatureNames = excludedFeatureNames(strlength(excludedFeatureNames) > 0);
+end
+selectedFeatureMask = ~ismember(string(allFeatureNames), excludedFeatureNames);
+unknownExcludedFeatures = setdiff(excludedFeatureNames, string(allFeatureNames));
+if ~isempty(unknownExcludedFeatures)
+    error('Unknown ECG_EXCLUDE_FEATURES value(s): %s', strjoin(unknownExcludedFeatures, ', '));
+end
+if ~any(selectedFeatureMask)
+    error('At least one feature must remain after ECG_EXCLUDE_FEATURES filtering.');
+end
+featureNames = allFeatureNames(selectedFeatureMask);
 labelNames = {'Normal', 'Abnormal'};
+
+if ~isempty(excludedFeatureNames)
+    excludedFeatureSuffix = "_without_" + strjoin(excludedFeatureNames, "_");
+    excludedFeatureSuffix = regexprep(lower(excludedFeatureSuffix), '[^a-z0-9_]+', '_');
+    [modelFolderPart, modelBaseName, modelExt] = fileparts(modelFile);
+    modelFile = fullfile(modelFolderPart, modelBaseName + excludedFeatureSuffix + modelExt);
+end
 
 % Exclude records identified by the per-record validation run as likely
 % label/noise/domain outliers: accuracy < 50% or abnormal recall < 60%.
@@ -125,6 +147,11 @@ fprintf('Tuning ratios: %s | BoxConstraints: %s\n', ...
 fprintf('Threshold objective: %s | Minimum recall guard: %.2f\n', ...
     thresholdObjective, minRecallForAccuracy);
 fprintf('Class weight modes: %s\n', strjoin(string(classWeightModeCandidates), ', '));
+fprintf('Selected features (%d): %s\n', numel(featureNames), strjoin(string(featureNames), ', '));
+if ~isempty(excludedFeatureNames)
+    fprintf('Excluded features: %s\n', strjoin(excludedFeatureNames, ', '));
+    fprintf('Feature-variant model output: %s\n', modelFile);
+end
 if cleanTrainingEnabled
     fprintf('Clean training enabled: excluding defibrillation/shock records and %d problematic records.\n', ...
         numel(problematicRecordKeys));
@@ -207,6 +234,7 @@ end
 X = all_X;
 Y = all_Y;
 record_ids = all_record_ids;
+X = X(:, selectedFeatureMask);
 
 validRows = all(isfinite(X), 2) & isfinite(Y);
 X = X(validRows, :);
@@ -358,7 +386,10 @@ end
 
 save(modelFile, ...
     'normal_abnormal_svm_model', ...
+    'allFeatureNames', ...
     'featureNames', ...
+    'excludedFeatureNames', ...
+    'selectedFeatureMask', ...
     'labelNames', ...
     'targetSampleRateHz', ...
     'windowSeconds', ...
