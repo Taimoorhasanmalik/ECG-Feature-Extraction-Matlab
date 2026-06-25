@@ -1,13 +1,10 @@
-%% Train Normal vs Abnormal using Q3.8-quantized moving-window features, recall-focused
+%% Train sequence/window Normal vs Abnormal gate from Q3.8 window features and SVM votes
 % Abnormal = VT or VF rhythm. All other rhythms are treated as Normal.
-% This lightweight variant resamples the ECG, quantizes the converted signal
-% to signed Q3.8, then extracts the same moving-window features.
+% This lightweight second-stage gate keeps the endpoint window features,
+% then adds the abnormal vote count over consecutive base-window scores.
 % Features:
-%   1. mean_abs: mean absolute ECG amplitude inside the window
-%   2. zero_crossings: zero-crossing rate of the first-difference waveform
-%   3. line_length: normalized signal path length inside the window
-%   4. threshold_crossing_count: adaptive threshold crossing count
-%   5. robust_range: 95th minus 5th percentile amplitude range
+%   1. selected Stage 1 window features at the sequence endpoint
+%   2. abnormal_vote_count: count of abnormal base-window decisions
 
 clear;
 clc;
@@ -59,27 +56,37 @@ sampleRateSuffix = "";
 if ~isempty(targetSampleRateHz)
     sampleRateSuffix = sprintf("_%ghz", targetSampleRateHz);
 end
-cleanTrainingEnabled = false;
-modelStem = "stage1_normal_vs_abnormal_window_quantized_q3_8_recall90_guard98_robust_lsvm";
-if cleanTrainingEnabled
-    modelStem = "stage1_normal_vs_abnormal_window_quantized_q3_8_recall90_guard98_clean_lsvm";
+sequenceLength = 3;
+sequenceLengthSelection = strtrim(string(getenv('ECG_SEQUENCE_LENGTH')));
+if strlength(sequenceLengthSelection) > 0
+    sequenceLength = str2double(sequenceLengthSelection);
+    if ~isfinite(sequenceLength) || sequenceLength < 2 || floor(sequenceLength) ~= sequenceLength
+        error('ECG_SEQUENCE_LENGTH must be an integer sequence length of at least 2.');
+    end
 end
+cleanTrainingEnabled = false;
+modelStem = sprintf("stage1_q38_sequence%d_window_lsvm", sequenceLength);
 modelStem = modelStem + sampleRateSuffix;
+sequenceModelStem = modelStem;
 if isequal(sort(databaseNames), sort(["mitdb", "vfdb", "cudb"]))
     modelFile = fullfile(modelFolder, modelStem + ".mat");
 else
+    sequenceModelStem = sprintf("%s_%s", modelStem, strjoin(databaseNames, "_"));
     modelFile = fullfile(modelFolder, sprintf("%s_%s.mat", modelStem, ...
         strjoin(databaseNames, "_")));
 end
 
 windowSeconds = 2.0;
 stepSeconds = 1.0;
+sequenceLabelMinAbnormalWindows = 1;
+mitdbNormalKeepFraction = 0.25;
+mitdbNormalKeepSeed = 31;
 minWindowClassFraction = 0.80;
 normalToAbnormalRatio = 1.0;
-normalToAbnormalRatioCandidates = [1, 2];
+normalToAbnormalRatioCandidates = [1, 2, 3, 4];
 numFolds = 5;
 boxConstraint = 1;
-boxConstraintCandidates = [0.3, 1, 3];
+boxConstraintCandidates = [0.1, 0.3, 1, 3, 10];
 thresholdFraction = 0.20;
 artifactPadSeconds = 1.5;
 artifactMaxWindowFraction = 0.01;
@@ -89,7 +96,7 @@ kernelScale = 'auto';
 useGPURequested = true;
 thresholdObjective = 'accuracy_recall_floor';
 thresholdObjectiveCandidates = {'accuracy_recall_floor'};
-minRecallForAccuracy = 0.98;
+minRecallForAccuracy = 0.90;
 classWeightMode = 'balanced';
 classWeightModeCandidates = {'balanced', 'none'};
 abnormalAugmentationFactor = 1.0;
@@ -131,6 +138,14 @@ quantizationScale = 2 ^ quantizationFractionBits;
 quantizationMin = -2 ^ quantizationIntegerBits;
 quantizationMax = 2 ^ quantizationIntegerBits - 1 / quantizationScale;
 
+baseModelFile = fullfile(modelFolder, ...
+    "stage1_normal_vs_abnormal_window_quantized_q3_8_recall90_guard98_robust_lsvm" + ...
+    sampleRateSuffix + "_without_rms_amplitude.mat");
+baseModelSelection = strtrim(string(getenv('ECG_BASE_WINDOW_MODEL_FILE')));
+if strlength(baseModelSelection) > 0
+    baseModelFile = baseModelSelection;
+end
+
 allFeatureNames = {'mean_abs', 'zero_crossings', 'line_length', 'threshold_crossing_count', ...
     'rms_amplitude', 'robust_range'};
 excludedFeatureNames = "rms_amplitude";
@@ -148,6 +163,10 @@ if ~any(selectedFeatureMask)
     error('At least one feature must remain after ECG_EXCLUDE_FEATURES filtering.');
 end
 featureNames = allFeatureNames(selectedFeatureMask);
+sequenceAllFeatureNames = [featureNames, {'abnormal_vote_count'}];
+sequenceFeatureVariants = struct( ...
+    'stem', {'count'}, ...
+    'featureMask', {true(1, numel(sequenceAllFeatureNames))});
 labelNames = {'Normal', 'Abnormal'};
 
 if ~isempty(excludedFeatureNames)
@@ -180,8 +199,10 @@ end
 all_X = [];
 all_Y = [];
 all_record_ids = [];
+all_window_numbers = [];
+all_database_aliases = strings(0, 1);
 
-fprintf('\nNormal vs Abnormal Q3.8 quantized window trainer\n');
+fprintf('\nNormal vs Abnormal Q3.8 quantized sequence-gate trainer\n');
 fprintf('Folders:\n');
 for folderIdx = 1:length(dataFolders)
     fprintf('  %s\n', dataFolders(folderIdx));
@@ -193,8 +214,13 @@ else
 end
 fprintf('Window: %.2f sec | Step: %.2f sec | Clean-label fraction: %.2f\n', ...
     windowSeconds, stepSeconds, minWindowClassFraction);
+fprintf('Sequence length: %d consecutive windows | abnormal label needs >= %d abnormal window(s)\n', ...
+    sequenceLength, sequenceLabelMinAbnormalWindows);
+fprintf('MIT-BIH arrhythmia normal-window keep fraction before sequence training: %.2f\n', ...
+    mitdbNormalKeepFraction);
 fprintf('Quantization: %s | range [%.6g, %.6g] | step %.6g\n', ...
     quantizationFormat, quantizationMin, quantizationMax, 1 / quantizationScale);
+fprintf('Base window model: %s\n', baseModelFile);
 fprintf('Record-level holdout test fraction: %.2f | split seed: %g\n', ...
     testFraction, trainTestSplitSeed);
 fprintf('Artifact padding: %.2f sec | Max artifact window fraction: %.3f | Feature outlier z-limit: %.2f\n', ...
@@ -219,6 +245,9 @@ if cleanTrainingEnabled
     fprintf('Clean training enabled: excluding defibrillation/shock records and %d problematic records.\n', ...
         numel(problematicRecordKeys));
     fprintf('Clean model output: %s\n', modelFile);
+end
+if exist(baseModelFile, 'file') ~= 2
+    error('Base window model was not found: %s', baseModelFile);
 end
 if exist('fitcsvm', 'file') == 2
     svmImplementation = "fitcsvm";
@@ -250,6 +279,7 @@ for fileIdx = 1:length(recordFiles)
     recordBase = recordFiles(fileIdx).name(1:end-4);
     recordname = char(fullfile(recordFiles(fileIdx).folder, recordBase));
     [~, databaseName] = fileparts(recordFiles(fileIdx).folder);
+    databaseAlias = database_alias_from_folder(databaseName);
     recordKey = string(databaseName) + "/" + string(recordBase);
 
     if cleanTrainingEnabled && any(problematicRecordKeys == recordKey)
@@ -293,7 +323,7 @@ for fileIdx = 1:length(recordFiles)
     end
     ecg = quantize_signed_q_format(ecg, quantizationIntegerBits, quantizationFractionBits);
 
-    [X_file, Y_file] = extract_window_features(ecg, sampleLabels, Fs, ...
+    [X_file, Y_file, W_file] = extract_window_features(ecg, sampleLabels, Fs, ...
         windowSeconds, stepSeconds, minWindowClassFraction, thresholdFraction, ...
         artifactMask, artifactMaxWindowFraction);
 
@@ -302,9 +332,28 @@ for fileIdx = 1:length(recordFiles)
         continue;
     end
 
+    if databaseAlias == "mitdb" && mitdbNormalKeepFraction < 1
+        rng(mitdbNormalKeepSeed + fileIdx);
+        normalIdx = find(Y_file == 0);
+        abnormalIdx = find(Y_file == 1);
+        originalNormalCount = numel(normalIdx);
+        keepNormalCount = max(0, round(mitdbNormalKeepFraction * numel(normalIdx)));
+        if keepNormalCount < numel(normalIdx)
+            normalIdx = normalIdx(randperm(numel(normalIdx), keepNormalCount));
+        end
+        keepIdx = sort([abnormalIdx; normalIdx]);
+        X_file = X_file(keepIdx, :);
+        Y_file = Y_file(keepIdx);
+        W_file = W_file(keepIdx);
+        fprintf('MIT-BIH normal-window reduction kept %d/%d normal windows.\n', ...
+            sum(Y_file == 0), originalNormalCount);
+    end
+
     all_X = [all_X; X_file];
     all_Y = [all_Y; Y_file];
     all_record_ids = [all_record_ids; repmat(fileIdx, length(Y_file), 1)];
+    all_window_numbers = [all_window_numbers; W_file];
+    all_database_aliases = [all_database_aliases; repmat(databaseAlias, length(Y_file), 1)];
 
     fprintf('Windows: %d | Abnormal: %d | Normal: %d\n', ...
         length(Y_file), sum(Y_file == 1), sum(Y_file == 0));
@@ -317,15 +366,21 @@ end
 X = all_X;
 Y = all_Y;
 record_ids = all_record_ids;
+window_numbers = all_window_numbers;
+database_aliases = all_database_aliases;
 X = X(:, selectedFeatureMask);
 
 validRows = all(isfinite(X), 2) & isfinite(Y);
 X = X(validRows, :);
 Y = Y(validRows);
 record_ids = record_ids(validRows);
+window_numbers = window_numbers(validRows);
+database_aliases = database_aliases(validRows);
 
 numRowsBeforeOutlierRemoval = length(Y);
 [X, Y, record_ids, outlierKeep] = remove_feature_outliers(X, Y, record_ids, featureOutlierZLimit);
+window_numbers = window_numbers(outlierKeep);
+database_aliases = database_aliases(outlierKeep);
 fprintf('\nFeature outlier removal skipped %d/%d windows.\n', ...
     numRowsBeforeOutlierRemoval - sum(outlierKeep), numRowsBeforeOutlierRemoval);
 
@@ -344,6 +399,8 @@ end
 raw_X = X;
 raw_Y = Y;
 raw_record_ids = record_ids;
+raw_window_numbers = window_numbers;
+raw_database_aliases = database_aliases;
 
 [trainRows, testRows, trainRecordIds, testRecordIds] = split_records_for_holdout( ...
     raw_Y, raw_record_ids, testFraction, trainTestSplitSeed);
@@ -351,9 +408,13 @@ raw_record_ids = record_ids;
 train_X_raw = raw_X(trainRows, :);
 train_Y_raw = raw_Y(trainRows);
 train_record_ids_raw = raw_record_ids(trainRows);
+train_window_numbers_raw = raw_window_numbers(trainRows);
+train_database_aliases_raw = raw_database_aliases(trainRows);
 test_X = raw_X(testRows, :);
 test_Y = raw_Y(testRows);
 test_record_ids = raw_record_ids(testRows);
+test_window_numbers = raw_window_numbers(testRows);
+test_database_aliases = raw_database_aliases(testRows);
 
 fprintf('\nRecord-level train/test split:\n');
 fprintf('Train records: %d | Test records: %d\n', numel(trainRecordIds), numel(testRecordIds));
@@ -369,206 +430,407 @@ if numel(unique(test_Y)) < 2
     warning('Holdout test split does not contain both classes; metrics may be incomplete.');
 end
 
-[train_X_raw, train_Y_raw, train_record_ids_raw, abnormalAugmentationStats] = ...
-    augment_abnormal_windows_smote(train_X_raw, train_Y_raw, train_record_ids_raw, ...
-    abnormalAugmentationFactor, abnormalAugmentationSeed);
+baseModelData = load(baseModelFile);
+baseWindowModel = baseModelData.normal_abnormal_svm_model;
+baseDecisionThreshold = baseModelData.decisionThreshold;
 
-fprintf('\nAugmented training-window dataset:\n');
-print_dataset_stats(train_Y_raw);
-fprintf('Synthetic abnormal windows added: %d\n', abnormalAugmentationStats.numSynthetic);
+fprintf('\nScoring windows with base model...\n');
+baseTrainScores = predict_scores_optional_gpu(baseWindowModel, train_X_raw, useGPUTraining);
+baseTestScores = predict_scores_optional_gpu(baseWindowModel, test_X, useGPUTraining);
 
-[tuningResults, bestTuningConfig] = tune_linear_svm_hyperparameters( ...
-    train_X_raw, train_Y_raw, train_record_ids_raw, normalToAbnormalRatioCandidates, ...
-    boxConstraintCandidates, numFolds, svmKernel, kernelScale, useGPUTraining, ...
-    thresholdObjectiveCandidates, minRecallForAccuracy, classWeightModeCandidates);
+[trainSequenceAll_X, trainSequence_Y, trainSequence_record_ids] = make_sequence_gate_features( ...
+    baseTrainScores(:, 2), train_Y_raw, train_X_raw, train_record_ids_raw, train_window_numbers_raw, ...
+    sequenceLength, sequenceLabelMinAbnormalWindows, baseDecisionThreshold);
+[testSequenceAll_X, testSequence_Y, testSequence_record_ids] = make_sequence_gate_features( ...
+    baseTestScores(:, 2), test_Y, test_X, test_record_ids, test_window_numbers, ...
+    sequenceLength, sequenceLabelMinAbnormalWindows, baseDecisionThreshold);
 
-normalToAbnormalRatio = bestTuningConfig.normalToAbnormalRatio;
-boxConstraint = bestTuningConfig.boxConstraint;
-thresholdObjective = bestTuningConfig.thresholdObjective;
-classWeightMode = bestTuningConfig.classWeightMode;
-rng(bestTuningConfig.balanceSeed);
-X = train_X_raw;
-Y = train_Y_raw;
-record_ids = train_record_ids_raw;
+fprintf('\nRaw training-sequence dataset:\n');
+print_dataset_stats(trainSequence_Y);
+fprintf('\nUntouched holdout test-sequence dataset:\n');
+print_dataset_stats(testSequence_Y);
 
-[X, Y, record_ids, skipped_training_X, skipped_training_Y, skipped_training_record_ids] = ...
-    balance_binary_windows(X, Y, record_ids, normalToAbnormalRatio);
-
-fprintf('\nBalanced training-window dataset:\n');
-print_dataset_stats(Y);
-fprintf('Training windows skipped by class balancing:\n');
-print_dataset_stats(skipped_training_Y);
-
-if numel(unique(Y)) < 2
-    error('Training requires both Normal and Abnormal windows.');
+if numel(unique(trainSequence_Y)) < 2
+    error('Training split requires both Normal and Abnormal sequences.');
 end
-
-minClassCount = min(sum(Y == 0), sum(Y == 1));
-numFolds = min(numFolds, minClassCount);
-if numFolds < 2
-    error('Not enough samples per class for cross-validation.');
+if numel(unique(testSequence_Y)) < 2
+    warning('Holdout test split does not contain both sequence classes; metrics may be incomplete.');
 end
-
-fprintf('\nFeature Correlations:\n');
-correlation_matrix = corrcoef(X);
-for i = 1:length(featureNames)
-    for j = i+1:length(featureNames)
-        fprintf('Correlation between %s and %s: %.4f\n', ...
-            featureNames{i}, featureNames{j}, correlation_matrix(i, j));
-    end
-end
-
-fold_accuracies = zeros(numFolds, 1);
-fold_precisions = zeros(numFolds, 1);
-fold_recalls = zeros(numFolds, 1);
-fold_f1_scores = zeros(numFolds, 1);
-fold_aucs = zeros(numFolds, 1);
-fold_thresholds = zeros(numFolds, 1);
-fold_confusion = zeros(2, 2, numFolds);
-
-fprintf('\nStarting %d-fold cross-validation with %s SVM...\n', numFolds, svmKernel);
-
-cvResults = cross_validate_linear_svm(X, Y, numFolds, boxConstraint, svmKernel, ...
-    kernelScale, useGPUTraining, thresholdObjective, minRecallForAccuracy, ...
-    classWeightMode, true);
-
-fold_accuracies = cvResults.fold_accuracies;
-fold_precisions = cvResults.fold_precisions;
-fold_recalls = cvResults.fold_recalls;
-fold_f1_scores = cvResults.fold_f1_scores;
-fold_aucs = cvResults.fold_aucs;
-fold_thresholds = cvResults.fold_thresholds;
-fold_confusion = cvResults.fold_confusion;
-
-fprintf('\nOverall Cross-Validation Results:\n');
-fprintf('Mean Accuracy: %.2f%% +/- %.2f%%\n', mean(fold_accuracies) * 100, std(fold_accuracies) * 100);
-fprintf('Mean Precision: %.4f +/- %.4f\n', mean(fold_precisions), std(fold_precisions));
-fprintf('Mean Recall: %.4f +/- %.4f\n', mean(fold_recalls), std(fold_recalls));
-fprintf('Mean F1 Score: %.4f +/- %.4f\n', mean(fold_f1_scores), std(fold_f1_scores));
-fprintf('Mean AUC: %.4f +/- %.4f\n', mean(fold_aucs, 'omitnan'), std(fold_aucs, 'omitnan'));
-fprintf('Mean Threshold: %.4f +/- %.4f\n', mean(fold_thresholds), std(fold_thresholds));
-
-overallConfusion = sum(fold_confusion, 3);
-fprintf('\nAggregate Confusion Matrix [TN FP; FN TP]:\n');
-disp(overallConfusion);
-
-final_weights = make_class_weights(Y, classWeightMode);
-[normal_abnormal_svm_model, finalUsedGPU, gpuFailureMessage] = ...
-    fit_svm_optional_gpu(X, Y, final_weights, boxConstraint, ...
-    svmKernel, kernelScale, useGPUTraining);
-
-full_scores = predict_scores_optional_gpu(normal_abnormal_svm_model, X, finalUsedGPU);
-decisionThreshold = choose_decision_threshold(full_scores(:, 2), Y, ...
-    thresholdObjective, minRecallForAccuracy);
-full_pred = double(full_scores(:, 2) >= decisionThreshold);
-trainingMetrics = binary_metrics(Y, full_pred, full_scores(:, 2));
-
-fprintf('\nFinal balanced-training metrics using selected threshold:\n');
-fprintf('Threshold: %.4f\n', decisionThreshold);
-fprintf('Accuracy: %.2f%% | Precision: %.4f | Recall: %.4f | F1: %.4f | AUC: %.4f\n', ...
-    trainingMetrics.accuracy * 100, trainingMetrics.precision, ...
-    trainingMetrics.recall, trainingMetrics.f1_score, trainingMetrics.auc);
-
-trainingBalanceSkippedMetrics = struct();
-if ~isempty(skipped_training_Y)
-    skipped_training_scores = predict_scores_optional_gpu(normal_abnormal_svm_model, skipped_training_X, finalUsedGPU);
-    skipped_training_pred = double(skipped_training_scores(:, 2) >= decisionThreshold);
-    trainingBalanceSkippedMetrics = binary_metrics( ...
-        skipped_training_Y, skipped_training_pred, skipped_training_scores(:, 2));
-
-    fprintf('\nTraining-balance skipped-window metrics using selected threshold:\n');
-    fprintf('Windows: %d | Abnormal: %d | Normal: %d\n', ...
-        length(skipped_training_Y), sum(skipped_training_Y == 1), sum(skipped_training_Y == 0));
-    fprintf('Accuracy: %.2f%% | Precision: %.4f | Recall: %.4f | F1: %.4f | AUC: %.4f\n', ...
-        trainingBalanceSkippedMetrics.accuracy * 100, trainingBalanceSkippedMetrics.precision, ...
-        trainingBalanceSkippedMetrics.recall, trainingBalanceSkippedMetrics.f1_score, ...
-        trainingBalanceSkippedMetrics.auc);
-    fprintf('Confusion Matrix [TN FP; FN TP]:\n');
-    disp([trainingBalanceSkippedMetrics.TN trainingBalanceSkippedMetrics.FP; ...
-        trainingBalanceSkippedMetrics.FN trainingBalanceSkippedMetrics.TP]);
-else
-    fprintf('\nNo training windows were skipped by class balancing.\n');
-end
-
-test_scores = predict_scores_optional_gpu(normal_abnormal_svm_model, test_X, finalUsedGPU);
-test_pred = double(test_scores(:, 2) >= decisionThreshold);
-holdoutTestMetrics = binary_metrics(test_Y, test_pred, test_scores(:, 2));
-
-fprintf('\nUntouched holdout test metrics using training-selected threshold:\n');
-fprintf('Windows: %d | Abnormal: %d | Normal: %d\n', ...
-    length(test_Y), sum(test_Y == 1), sum(test_Y == 0));
-fprintf('Accuracy: %.2f%% | Precision: %.4f | Recall: %.4f | F1: %.4f | AUC: %.4f\n', ...
-    holdoutTestMetrics.accuracy * 100, holdoutTestMetrics.precision, ...
-    holdoutTestMetrics.recall, holdoutTestMetrics.f1_score, holdoutTestMetrics.auc);
-fprintf('Confusion Matrix [TN FP; FN TP]:\n');
-disp([holdoutTestMetrics.TN holdoutTestMetrics.FP; holdoutTestMetrics.FN holdoutTestMetrics.TP]);
 
 if ~exist(modelFolder, 'dir')
     mkdir(modelFolder);
 end
 
-save(modelFile, ...
-    'normal_abnormal_svm_model', ...
-    'allFeatureNames', ...
-    'featureNames', ...
-    'excludedFeatureNames', ...
-    'selectedFeatureMask', ...
-    'labelNames', ...
-    'targetSampleRateHz', ...
-    'quantizationFormat', ...
-    'quantizationIntegerBits', ...
-    'quantizationFractionBits', ...
-    'quantizationScale', ...
-    'quantizationMin', ...
-    'quantizationMax', ...
-    'windowSeconds', ...
-    'stepSeconds', ...
-    'minWindowClassFraction', ...
-    'abnormalAugmentationFactor', ...
-    'abnormalAugmentationSeed', ...
-    'abnormalAugmentationStats', ...
-    'testFraction', ...
-    'trainTestSplitSeed', ...
-    'trainRecordIds', ...
-    'testRecordIds', ...
-    'test_record_ids', ...
-    'normalToAbnormalRatio', ...
-    'normalToAbnormalRatioCandidates', ...
-    'boxConstraint', ...
-    'boxConstraintCandidates', ...
-    'thresholdFraction', ...
-    'thresholdObjective', ...
-    'thresholdObjectiveCandidates', ...
-    'minRecallForAccuracy', ...
-    'classWeightMode', ...
-    'classWeightModeCandidates', ...
-    'cleanTrainingEnabled', ...
-    'problematicRecordKeys', ...
-    'excludedRecords', ...
-    'artifactPadSeconds', ...
-    'artifactMaxWindowFraction', ...
-    'featureOutlierZLimit', ...
-    'svmKernel', ...
-    'kernelScale', ...
-    'svmImplementation', ...
-    'useGPURequested', ...
-    'finalUsedGPU', ...
-    'decisionThreshold', ...
-    'fold_accuracies', ...
-    'fold_precisions', ...
-    'fold_recalls', ...
-    'fold_f1_scores', ...
-    'fold_aucs', ...
-    'fold_thresholds', ...
-    'overallConfusion', ...
-    'tuningResults', ...
-    'bestTuningConfig', ...
-    'skipped_training_record_ids', ...
-    'trainingBalanceSkippedMetrics', ...
-    'holdoutTestMetrics', ...
-    'trainingMetrics');
+sequenceSummary = struct('variant', {}, 'modelFile', {}, 'featureNames', {}, ...
+    'accuracy', {}, 'precision', {}, 'recall', {}, 'f1_score', {}, 'auc', {}, ...
+    'TN', {}, 'FP', {}, 'FN', {}, 'TP', {});
 
-fprintf('\nModel saved successfully as %s\n', modelFile);
+for variantIdx = 1:numel(sequenceFeatureVariants)
+    variantStem = string(sequenceFeatureVariants(variantIdx).stem);
+    sequenceFeatureMask = sequenceFeatureVariants(variantIdx).featureMask;
+    sequenceFeatureNames = sequenceAllFeatureNames(sequenceFeatureMask);
+    sequenceModelFile = fullfile(modelFolder, sequenceModelStem + "_" + variantStem + ...
+        "_from_guard98" + ".mat");
+
+    fprintf('\n============================================================\n');
+    fprintf('Training sequence feature variant: %s\n', variantStem);
+    fprintf('Selected sequence features (%d): %s\n', ...
+        numel(sequenceFeatureNames), strjoin(string(sequenceFeatureNames), ', '));
+
+    if exist(sequenceModelFile, 'file') == 2
+        existingData = load(sequenceModelFile, 'holdoutTestMetrics', ...
+            'sequenceFeatureNames', 'trainRecordIds', 'testRecordIds');
+        if ~artifact_matches_current_split(existingData, trainRecordIds, testRecordIds)
+            originalSequenceModelFile = sequenceModelFile;
+            [artifactFolder, artifactBaseName, artifactExt] = fileparts(sequenceModelFile);
+            sequenceModelFile = fullfile(artifactFolder, sprintf('%s_records%d_%d%s', ...
+                artifactBaseName, numel(trainRecordIds), numel(testRecordIds), artifactExt));
+            fprintf('Existing artifact split differs from current full-database split; leaving it untouched:\n  %s\n', ...
+                originalSequenceModelFile);
+            fprintf('Current split will be saved as:\n  %s\n', sequenceModelFile);
+            if exist(sequenceModelFile, 'file') == 2
+                existingData = load(sequenceModelFile, 'holdoutTestMetrics', ...
+                    'sequenceFeatureNames', 'trainRecordIds', 'testRecordIds');
+            else
+                existingData = struct();
+            end
+        end
+    else
+        existingData = struct();
+    end
+
+    if isfield(existingData, 'holdoutTestMetrics') && ...
+            artifact_matches_current_split(existingData, trainRecordIds, testRecordIds)
+        fprintf('Existing artifact found for current split; loading metrics and skipping retrain to avoid overwrite:\n  %s\n', ...
+            sequenceModelFile);
+        if ~isfield(existingData, 'holdoutTestMetrics')
+            warning('Existing artifact does not contain holdoutTestMetrics; leaving it untouched and omitting it from summary.');
+            continue;
+        end
+
+        summaryIdx = numel(sequenceSummary) + 1;
+        sequenceSummary(summaryIdx).variant = variantStem;
+        sequenceSummary(summaryIdx).modelFile = sequenceModelFile;
+        if isfield(existingData, 'sequenceFeatureNames')
+            sequenceSummary(summaryIdx).featureNames = string(existingData.sequenceFeatureNames);
+        else
+            sequenceSummary(summaryIdx).featureNames = string(sequenceFeatureNames);
+        end
+        sequenceSummary(summaryIdx).accuracy = existingData.holdoutTestMetrics.accuracy;
+        sequenceSummary(summaryIdx).precision = existingData.holdoutTestMetrics.precision;
+        sequenceSummary(summaryIdx).recall = existingData.holdoutTestMetrics.recall;
+        sequenceSummary(summaryIdx).f1_score = existingData.holdoutTestMetrics.f1_score;
+        sequenceSummary(summaryIdx).auc = existingData.holdoutTestMetrics.auc;
+        sequenceSummary(summaryIdx).TN = existingData.holdoutTestMetrics.TN;
+        sequenceSummary(summaryIdx).FP = existingData.holdoutTestMetrics.FP;
+        sequenceSummary(summaryIdx).FN = existingData.holdoutTestMetrics.FN;
+        sequenceSummary(summaryIdx).TP = existingData.holdoutTestMetrics.TP;
+        continue;
+    end
+
+    trainSequence_X_raw = trainSequenceAll_X(:, sequenceFeatureMask);
+    testSequence_X = testSequenceAll_X(:, sequenceFeatureMask);
+
+    [trainSequence_X_aug, trainSequence_Y_aug, trainSequence_record_ids_aug, ...
+        abnormalAugmentationStats] = augment_abnormal_windows_smote( ...
+        trainSequence_X_raw, trainSequence_Y, trainSequence_record_ids, ...
+        abnormalAugmentationFactor, abnormalAugmentationSeed + variantIdx);
+
+    fprintf('\nAugmented training-sequence dataset:\n');
+    print_dataset_stats(trainSequence_Y_aug);
+    fprintf('Synthetic abnormal sequences added: %d\n', abnormalAugmentationStats.numSynthetic);
+
+    [tuningResults, bestTuningConfig] = tune_linear_svm_hyperparameters( ...
+        trainSequence_X_aug, trainSequence_Y_aug, trainSequence_record_ids_aug, ...
+        normalToAbnormalRatioCandidates, boxConstraintCandidates, numFolds, ...
+        svmKernel, kernelScale, useGPUTraining, thresholdObjectiveCandidates, ...
+        minRecallForAccuracy, classWeightModeCandidates);
+
+    normalToAbnormalRatio = bestTuningConfig.normalToAbnormalRatio;
+    boxConstraint = bestTuningConfig.boxConstraint;
+    thresholdObjective = bestTuningConfig.thresholdObjective;
+    classWeightMode = bestTuningConfig.classWeightMode;
+    rng(bestTuningConfig.balanceSeed);
+
+    [X, Y, record_ids, skipped_training_X, skipped_training_Y, skipped_training_record_ids] = ...
+        balance_binary_windows(trainSequence_X_aug, trainSequence_Y_aug, ...
+        trainSequence_record_ids_aug, normalToAbnormalRatio);
+
+    fprintf('\nBalanced training-sequence dataset:\n');
+    print_dataset_stats(Y);
+    fprintf('Training sequences skipped by class balancing:\n');
+    print_dataset_stats(skipped_training_Y);
+
+    variantNumFolds = min(numFolds, min(sum(Y == 0), sum(Y == 1)));
+    if variantNumFolds < 2
+        error('Not enough samples per class for sequence cross-validation.');
+    end
+
+    if size(X, 2) > 1
+        fprintf('\nSequence Feature Correlations:\n');
+        correlation_matrix = corrcoef(X);
+        for i = 1:length(sequenceFeatureNames)
+            for j = i+1:length(sequenceFeatureNames)
+                fprintf('Correlation between %s and %s: %.4f\n', ...
+                    sequenceFeatureNames{i}, sequenceFeatureNames{j}, correlation_matrix(i, j));
+            end
+        end
+    end
+
+    fprintf('\nStarting %d-fold cross-validation with %s SVM...\n', variantNumFolds, svmKernel);
+    cvResults = cross_validate_linear_svm(X, Y, variantNumFolds, boxConstraint, svmKernel, ...
+        kernelScale, useGPUTraining, thresholdObjective, minRecallForAccuracy, ...
+        classWeightMode, true);
+
+    fold_accuracies = cvResults.fold_accuracies;
+    fold_precisions = cvResults.fold_precisions;
+    fold_recalls = cvResults.fold_recalls;
+    fold_f1_scores = cvResults.fold_f1_scores;
+    fold_aucs = cvResults.fold_aucs;
+    fold_thresholds = cvResults.fold_thresholds;
+    fold_confusion = cvResults.fold_confusion;
+
+    fprintf('\nOverall Cross-Validation Results:\n');
+    fprintf('Mean Accuracy: %.2f%% +/- %.2f%%\n', mean(fold_accuracies) * 100, std(fold_accuracies) * 100);
+    fprintf('Mean Precision: %.4f +/- %.4f\n', mean(fold_precisions), std(fold_precisions));
+    fprintf('Mean Recall: %.4f +/- %.4f\n', mean(fold_recalls), std(fold_recalls));
+    fprintf('Mean F1 Score: %.4f +/- %.4f\n', mean(fold_f1_scores), std(fold_f1_scores));
+    fprintf('Mean AUC: %.4f +/- %.4f\n', mean(fold_aucs, 'omitnan'), std(fold_aucs, 'omitnan'));
+    fprintf('Mean Threshold: %.4f +/- %.4f\n', mean(fold_thresholds), std(fold_thresholds));
+
+    overallConfusion = sum(fold_confusion, 3);
+    fprintf('\nAggregate Confusion Matrix [TN FP; FN TP]:\n');
+    disp(overallConfusion);
+
+    final_weights = make_class_weights(Y, classWeightMode);
+    [normal_abnormal_svm_model, finalUsedGPU, gpuFailureMessage] = ...
+        fit_svm_optional_gpu(X, Y, final_weights, boxConstraint, ...
+        svmKernel, kernelScale, useGPUTraining);
+
+    full_scores = predict_scores_optional_gpu(normal_abnormal_svm_model, X, finalUsedGPU);
+    decisionThreshold = choose_decision_threshold(full_scores(:, 2), Y, ...
+        thresholdObjective, minRecallForAccuracy);
+    full_pred = double(full_scores(:, 2) >= decisionThreshold);
+    trainingMetrics = binary_metrics(Y, full_pred, full_scores(:, 2));
+
+    fprintf('\nFinal balanced-training metrics using selected threshold:\n');
+    fprintf('Threshold: %.4f\n', decisionThreshold);
+    fprintf('Accuracy: %.2f%% | Precision: %.4f | Recall: %.4f | F1: %.4f | AUC: %.4f\n', ...
+        trainingMetrics.accuracy * 100, trainingMetrics.precision, ...
+        trainingMetrics.recall, trainingMetrics.f1_score, trainingMetrics.auc);
+
+    trainingBalanceSkippedMetrics = struct();
+    if ~isempty(skipped_training_Y)
+        skipped_training_scores = predict_scores_optional_gpu(normal_abnormal_svm_model, skipped_training_X, finalUsedGPU);
+        skipped_training_pred = double(skipped_training_scores(:, 2) >= decisionThreshold);
+        trainingBalanceSkippedMetrics = binary_metrics( ...
+            skipped_training_Y, skipped_training_pred, skipped_training_scores(:, 2));
+
+        fprintf('\nTraining-balance skipped-sequence metrics using selected threshold:\n');
+        fprintf('Sequences: %d | Abnormal: %d | Normal: %d\n', ...
+            length(skipped_training_Y), sum(skipped_training_Y == 1), sum(skipped_training_Y == 0));
+        fprintf('Accuracy: %.2f%% | Precision: %.4f | Recall: %.4f | F1: %.4f | AUC: %.4f\n', ...
+            trainingBalanceSkippedMetrics.accuracy * 100, trainingBalanceSkippedMetrics.precision, ...
+            trainingBalanceSkippedMetrics.recall, trainingBalanceSkippedMetrics.f1_score, ...
+            trainingBalanceSkippedMetrics.auc);
+        fprintf('Confusion Matrix [TN FP; FN TP]:\n');
+        disp([trainingBalanceSkippedMetrics.TN trainingBalanceSkippedMetrics.FP; ...
+            trainingBalanceSkippedMetrics.FN trainingBalanceSkippedMetrics.TP]);
+    else
+        fprintf('\nNo training sequences were skipped by class balancing.\n');
+    end
+
+    test_scores = predict_scores_optional_gpu(normal_abnormal_svm_model, testSequence_X, finalUsedGPU);
+    test_pred = double(test_scores(:, 2) >= decisionThreshold);
+    holdoutTestMetrics = binary_metrics(testSequence_Y, test_pred, test_scores(:, 2));
+
+    fprintf('\nUntouched holdout test sequence metrics using training-selected threshold:\n');
+    fprintf('Sequences: %d | Abnormal: %d | Normal: %d\n', ...
+        length(testSequence_Y), sum(testSequence_Y == 1), sum(testSequence_Y == 0));
+    fprintf('Accuracy: %.2f%% | Precision: %.4f | Recall: %.4f | F1: %.4f | AUC: %.4f\n', ...
+        holdoutTestMetrics.accuracy * 100, holdoutTestMetrics.precision, ...
+        holdoutTestMetrics.recall, holdoutTestMetrics.f1_score, holdoutTestMetrics.auc);
+    fprintf('Confusion Matrix [TN FP; FN TP]:\n');
+    disp([holdoutTestMetrics.TN holdoutTestMetrics.FP; holdoutTestMetrics.FN holdoutTestMetrics.TP]);
+
+    save(sequenceModelFile, ...
+        'normal_abnormal_svm_model', ...
+        'baseModelFile', ...
+        'baseDecisionThreshold', ...
+        'allFeatureNames', ...
+        'featureNames', ...
+        'sequenceAllFeatureNames', ...
+        'sequenceFeatureNames', ...
+        'sequenceFeatureMask', ...
+        'labelNames', ...
+        'targetSampleRateHz', ...
+        'quantizationFormat', ...
+        'quantizationIntegerBits', ...
+        'quantizationFractionBits', ...
+        'quantizationScale', ...
+        'quantizationMin', ...
+        'quantizationMax', ...
+        'windowSeconds', ...
+        'stepSeconds', ...
+        'sequenceLength', ...
+        'sequenceLabelMinAbnormalWindows', ...
+        'mitdbNormalKeepFraction', ...
+        'mitdbNormalKeepSeed', ...
+        'minWindowClassFraction', ...
+        'abnormalAugmentationFactor', ...
+        'abnormalAugmentationSeed', ...
+        'abnormalAugmentationStats', ...
+        'testFraction', ...
+        'trainTestSplitSeed', ...
+        'trainRecordIds', ...
+        'testRecordIds', ...
+        'testSequence_record_ids', ...
+        'normalToAbnormalRatio', ...
+        'normalToAbnormalRatioCandidates', ...
+        'boxConstraint', ...
+        'boxConstraintCandidates', ...
+        'thresholdFraction', ...
+        'thresholdObjective', ...
+        'thresholdObjectiveCandidates', ...
+        'minRecallForAccuracy', ...
+        'classWeightMode', ...
+        'classWeightModeCandidates', ...
+        'cleanTrainingEnabled', ...
+        'problematicRecordKeys', ...
+        'excludedRecords', ...
+        'artifactPadSeconds', ...
+        'artifactMaxWindowFraction', ...
+        'featureOutlierZLimit', ...
+        'svmKernel', ...
+        'kernelScale', ...
+        'svmImplementation', ...
+        'useGPURequested', ...
+        'finalUsedGPU', ...
+        'gpuFailureMessage', ...
+        'decisionThreshold', ...
+        'fold_accuracies', ...
+        'fold_precisions', ...
+        'fold_recalls', ...
+        'fold_f1_scores', ...
+        'fold_aucs', ...
+        'fold_thresholds', ...
+        'overallConfusion', ...
+        'tuningResults', ...
+        'bestTuningConfig', ...
+        'skipped_training_record_ids', ...
+        'trainingBalanceSkippedMetrics', ...
+        'holdoutTestMetrics', ...
+        'trainingMetrics');
+
+    fprintf('\nSequence model saved successfully as %s\n', sequenceModelFile);
+
+    summaryIdx = numel(sequenceSummary) + 1;
+    sequenceSummary(summaryIdx).variant = variantStem;
+    sequenceSummary(summaryIdx).modelFile = sequenceModelFile;
+    sequenceSummary(summaryIdx).featureNames = string(sequenceFeatureNames);
+    sequenceSummary(summaryIdx).accuracy = holdoutTestMetrics.accuracy;
+    sequenceSummary(summaryIdx).precision = holdoutTestMetrics.precision;
+    sequenceSummary(summaryIdx).recall = holdoutTestMetrics.recall;
+    sequenceSummary(summaryIdx).f1_score = holdoutTestMetrics.f1_score;
+    sequenceSummary(summaryIdx).auc = holdoutTestMetrics.auc;
+    sequenceSummary(summaryIdx).TN = holdoutTestMetrics.TN;
+    sequenceSummary(summaryIdx).FP = holdoutTestMetrics.FP;
+    sequenceSummary(summaryIdx).FN = holdoutTestMetrics.FN;
+    sequenceSummary(summaryIdx).TP = holdoutTestMetrics.TP;
+end
+
+fprintf('\nSequence-gate holdout summary:\n');
+for variantIdx = 1:numel(sequenceSummary)
+    fprintf('  %s | acc %.2f%% | precision %.4f | recall %.4f | F1 %.4f | AUC %.4f | [TN FP; FN TP] = [%d %d; %d %d]\n', ...
+        sequenceSummary(variantIdx).variant, sequenceSummary(variantIdx).accuracy * 100, ...
+        sequenceSummary(variantIdx).precision, sequenceSummary(variantIdx).recall, ...
+        sequenceSummary(variantIdx).f1_score, sequenceSummary(variantIdx).auc, ...
+        sequenceSummary(variantIdx).TN, sequenceSummary(variantIdx).FP, ...
+        sequenceSummary(variantIdx).FN, sequenceSummary(variantIdx).TP);
+end
+
+function alias = database_alias_from_folder(databaseName)
+databaseName = lower(string(databaseName));
+if contains(databaseName, "arrhythmia") || contains(databaseName, "mitdb")
+    alias = "mitdb";
+elseif contains(databaseName, "malignant") || contains(databaseName, "vfdb")
+    alias = "vfdb";
+elseif contains(databaseName, "tachyarrhythmia") || contains(databaseName, "cudb")
+    alias = "cudb";
+else
+    alias = databaseName;
+end
+end
+
+function folders = database_folders_from_names(databaseRoot, databaseNames)
+folderNames = strings(size(databaseNames));
+for idx = 1:numel(databaseNames)
+    switch lower(strtrim(string(databaseNames(idx))))
+        case "mitdb"
+            folderNames(idx) = "mit-bih-arrhythmia-database-1.0.0";
+        case "vfdb"
+            folderNames(idx) = "mit-bih-malignant-ventricular-ectopy-database-1.0.0";
+        case "cudb"
+            folderNames(idx) = "cu-ventricular-tachyarrhythmia-database-1.0.0";
+        otherwise
+            folderNames(idx) = string(databaseNames(idx));
+    end
+end
+
+folders = fullfile(databaseRoot, folderNames);
+folders = folders(arrayfun(@(p) exist(p, 'dir') == 7, folders));
+end
+
+function tf = artifact_matches_current_split(existingData, trainRecordIds, testRecordIds)
+tf = isfield(existingData, 'trainRecordIds') && isfield(existingData, 'testRecordIds') && ...
+    isequal(sort(double(existingData.trainRecordIds(:))), sort(double(trainRecordIds(:)))) && ...
+    isequal(sort(double(existingData.testRecordIds(:))), sort(double(testRecordIds(:))));
+end
+
+function [sequence_X, sequence_Y, sequence_record_ids] = make_sequence_gate_features( ...
+    windowScores, windowLabels, windowFeatures, record_ids, windowNumbers, sequenceLength, ...
+    sequenceLabelMinAbnormalWindows, baseDecisionThreshold)
+windowScores = double(windowScores(:));
+windowLabels = double(windowLabels(:));
+windowFeatures = double(windowFeatures);
+record_ids = double(record_ids(:));
+windowNumbers = double(windowNumbers(:));
+
+sequence_X = zeros(0, size(windowFeatures, 2) + 1);
+sequence_Y = zeros(0, 1);
+sequence_record_ids = zeros(0, 1);
+uniqueRecords = unique(record_ids(:))';
+
+for recordId = uniqueRecords
+    recordIdx = find(record_ids == recordId);
+    [~, sortOrder] = sort(windowNumbers(recordIdx));
+    recordIdx = recordIdx(sortOrder);
+    recordWindowNumbers = windowNumbers(recordIdx);
+
+    if numel(recordIdx) < sequenceLength
+        continue;
+    end
+
+    for idx = 1:(numel(recordIdx) - sequenceLength + 1)
+        candidateIdx = recordIdx(idx:(idx + sequenceLength - 1));
+        candidateWindowNumbers = recordWindowNumbers(idx:(idx + sequenceLength - 1));
+        if any(diff(candidateWindowNumbers) ~= 1)
+            continue;
+        end
+
+        scores = windowScores(candidateIdx);
+        labels = windowLabels(candidateIdx);
+        abnormalVotes = scores >= baseDecisionThreshold;
+
+        abnormalVoteCount = sum(abnormalVotes);
+        endpointWindowFeatures = windowFeatures(candidateIdx(end), :);
+
+        sequence_X(end + 1, :) = [endpointWindowFeatures, abnormalVoteCount]; %#ok<AGROW>
+        sequence_Y(end + 1, 1) = double(sum(labels == 1) >= sequenceLabelMinAbnormalWindows); %#ok<AGROW>
+        sequence_record_ids(end + 1, 1) = recordId; %#ok<AGROW>
+    end
+end
+end
 
 function [targetEcg, targetLabels, targetArtifactMask] = resample_signal_labels_and_mask(ecg, sampleLabels, artifactMask, sourceFs, targetFs)
 ecg = double(ecg(:));
@@ -750,11 +1012,18 @@ end
 
 if useGPU
     try
-        [~, scoresGpu] = predict(model, gpuArray(single(X)));
-        scores = gather(scoresGpu);
+        batchSize = 1024;
+        numRows = size(X, 1);
+        scores = zeros(numRows, 2);
+        for startIdx = 1:batchSize:numRows
+            endIdx = min(numRows, startIdx + batchSize - 1);
+            [~, scoresGpu] = predict(model, gpuArray(single(X(startIdx:endIdx, :))));
+            scores(startIdx:endIdx, :) = gather(scoresGpu);
+        end
         return;
-    catch
-        % Fall back to CPU prediction if the trained model does not accept gpuArray input.
+    catch ME
+        error('GPU prediction failed and CPU fallback is disabled because useGPURequested=true. Reason: %s', ...
+            ME.message);
     end
 end
 
@@ -1207,7 +1476,7 @@ if ~isfinite(scaleValue)
 end
 end
 
-function [X_file, Y_file] = extract_window_features(ecg, sampleLabels, Fs, windowSeconds, stepSeconds, minClassFraction, thresholdFraction, artifactMask, artifactMaxWindowFraction)
+function [X_file, Y_file, W_file] = extract_window_features(ecg, sampleLabels, Fs, windowSeconds, stepSeconds, minClassFraction, thresholdFraction, artifactMask, artifactMaxWindowFraction)
 ecg = ecg(:);
 sampleLabels = sampleLabels(:);
 artifactMask = logical(artifactMask(:));
@@ -1220,12 +1489,14 @@ stepLength = max(1, round(stepSeconds * Fs));
 if length(ecg) < windowLength
     X_file = [];
     Y_file = [];
+    W_file = [];
     return;
 end
 
 numWindows = floor((length(ecg) - windowLength) / stepLength) + 1;
 X_file = zeros(numWindows, 6);
 Y_file = zeros(numWindows, 1);
+W_file = zeros(numWindows, 1);
 keep = false(numWindows, 1);
 
 for w = 1:numWindows
@@ -1262,11 +1533,13 @@ for w = 1:numWindows
     X_file(w, :) = [meanAbs, zeroCrossings, lineLength, thresholdCrossingCount, ...
         rmsAmplitude, robustRange];
     Y_file(w) = windowLabel;
+    W_file(w) = w;
     keep(w) = true;
 end
 
 X_file = X_file(keep, :);
 Y_file = Y_file(keep);
+W_file = W_file(keep);
 end
 
 function [X_clean, Y_clean, record_ids_clean, keep] = remove_feature_outliers(X, Y, record_ids, zLimit)
@@ -1780,26 +2053,4 @@ function print_dataset_stats(Y)
 fprintf('Total windows: %d\n', length(Y));
 fprintf('Abnormal windows: %d (%.2f%%)\n', sum(Y == 1), 100 * sum(Y == 1) / length(Y));
 fprintf('Normal windows: %d (%.2f%%)\n', sum(Y == 0), 100 * sum(Y == 0) / length(Y));
-end
-
-function folders = database_folders_from_names(databaseRoot, databaseNames)
-databaseRoot = string(databaseRoot);
-databaseNames = string(databaseNames);
-folderNames = strings(size(databaseNames));
-
-for idx = 1:numel(databaseNames)
-    switch lower(strtrim(databaseNames(idx)))
-        case "mitdb"
-            folderNames(idx) = "mit-bih-arrhythmia-database-1.0.0";
-        case "vfdb"
-            folderNames(idx) = "mit-bih-malignant-ventricular-ectopy-database-1.0.0";
-        case "cudb"
-            folderNames(idx) = "cu-ventricular-tachyarrhythmia-database-1.0.0";
-        otherwise
-            folderNames(idx) = strtrim(databaseNames(idx));
-    end
-end
-
-folders = fullfile(databaseRoot, folderNames);
-folders = folders(arrayfun(@(p) exist(p, 'dir') == 7, folders));
 end

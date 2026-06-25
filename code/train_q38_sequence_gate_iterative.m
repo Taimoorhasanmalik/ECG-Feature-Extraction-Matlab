@@ -28,7 +28,11 @@ if strlength(databasePathSelection) > 0
     dataFolders = strtrim(split(databasePathSelection, pathsep)).';
     dataFolders = dataFolders(strlength(dataFolders) > 0);
 else
-    dataFolders = fullfile(projectRoot, "Database", databaseNames);
+    localDatabaseRoot = fullfile(projectRoot, "databases");
+    dataFolders = database_folders_from_names(localDatabaseRoot, databaseNames);
+    if isempty(dataFolders)
+        dataFolders = fullfile(projectRoot, "Database", databaseNames);
+    end
     dataFolders = dataFolders(arrayfun(@(p) exist(p, 'dir') == 7, dataFolders));
 end
 if isempty(dataFolders)
@@ -40,7 +44,7 @@ if isempty(dataFolders)
     dataFolders = dataFolders(arrayfun(@(p) exist(p, 'dir') == 7, dataFolders));
 end
 if isempty(dataFolders)
-    dataFolders = fullfile(projectRoot, "databases");
+    dataFolders = database_folders_from_names(fullfile(projectRoot, "databases"), databaseNames);
 end
 modelFolder = fullfile(projectRoot, "models");
 targetSampleRateHz = 100;
@@ -58,9 +62,11 @@ end
 cleanTrainingEnabled = false;
 modelStem = "stage1_q38_sequence3_iterative_lsvm";
 modelStem = modelStem + sampleRateSuffix;
+sequenceModelStem = modelStem;
 if isequal(sort(databaseNames), sort(["mitdb", "vfdb", "cudb"]))
     modelFile = fullfile(modelFolder, modelStem + ".mat");
 else
+    sequenceModelStem = sprintf("%s_%s", modelStem, strjoin(databaseNames, "_"));
     modelFile = fullfile(modelFolder, sprintf("%s_%s.mat", modelStem, ...
         strjoin(databaseNames, "_")));
 end
@@ -144,6 +150,17 @@ sequenceFeatureVariants = struct( ...
     [true true true true true]});
 sequenceAllFeatureNames = {'abnormal_vote_count', 'max_score', 'sum_score', ...
     'score_delta', 'min_score'};
+sequenceVariantSelection = strtrim(string(getenv('ECG_SEQUENCE_VARIANTS')));
+if strlength(sequenceVariantSelection) > 0
+    requestedVariantStems = strtrim(split(sequenceVariantSelection, ','));
+    requestedVariantStems = requestedVariantStems(strlength(requestedVariantStems) > 0);
+    availableVariantStems = string({sequenceFeatureVariants.stem});
+    unknownVariantStems = setdiff(requestedVariantStems, availableVariantStems);
+    if ~isempty(unknownVariantStems)
+        error('Unknown ECG_SEQUENCE_VARIANTS value(s): %s', strjoin(unknownVariantStems, ', '));
+    end
+    sequenceFeatureVariants = sequenceFeatureVariants(ismember(availableVariantStems, requestedVariantStems));
+end
 
 allFeatureNames = {'mean_abs', 'zero_crossings', 'line_length', 'threshold_crossing_count', ...
     'rms_amplitude', 'robust_range'};
@@ -464,13 +481,64 @@ for variantIdx = 1:numel(sequenceFeatureVariants)
     variantStem = string(sequenceFeatureVariants(variantIdx).stem);
     sequenceFeatureMask = sequenceFeatureVariants(variantIdx).featureMask;
     sequenceFeatureNames = sequenceAllFeatureNames(sequenceFeatureMask);
-    sequenceModelFile = fullfile(modelFolder, modelStem + "_" + variantStem + ...
+    sequenceModelFile = fullfile(modelFolder, sequenceModelStem + "_" + variantStem + ...
         "_from_guard98" + ".mat");
 
     fprintf('\n============================================================\n');
     fprintf('Training sequence feature variant: %s\n', variantStem);
     fprintf('Selected sequence features (%d): %s\n', ...
         numel(sequenceFeatureNames), strjoin(string(sequenceFeatureNames), ', '));
+
+    if exist(sequenceModelFile, 'file') == 2
+        existingData = load(sequenceModelFile, 'holdoutTestMetrics', ...
+            'sequenceFeatureNames', 'trainRecordIds', 'testRecordIds');
+        if ~artifact_matches_current_split(existingData, trainRecordIds, testRecordIds)
+            originalSequenceModelFile = sequenceModelFile;
+            [artifactFolder, artifactBaseName, artifactExt] = fileparts(sequenceModelFile);
+            sequenceModelFile = fullfile(artifactFolder, sprintf('%s_records%d_%d%s', ...
+                artifactBaseName, numel(trainRecordIds), numel(testRecordIds), artifactExt));
+            fprintf('Existing artifact split differs from current full-database split; leaving it untouched:\n  %s\n', ...
+                originalSequenceModelFile);
+            fprintf('Current split will be saved as:\n  %s\n', sequenceModelFile);
+            if exist(sequenceModelFile, 'file') == 2
+                existingData = load(sequenceModelFile, 'holdoutTestMetrics', ...
+                    'sequenceFeatureNames', 'trainRecordIds', 'testRecordIds');
+            else
+                existingData = struct();
+            end
+        end
+    else
+        existingData = struct();
+    end
+
+    if isfield(existingData, 'holdoutTestMetrics') && ...
+            artifact_matches_current_split(existingData, trainRecordIds, testRecordIds)
+        fprintf('Existing artifact found for current split; loading metrics and skipping retrain to avoid overwrite:\n  %s\n', ...
+            sequenceModelFile);
+        if ~isfield(existingData, 'holdoutTestMetrics')
+            warning('Existing artifact does not contain holdoutTestMetrics; leaving it untouched and omitting it from summary.');
+            continue;
+        end
+
+        summaryIdx = numel(sequenceSummary) + 1;
+        sequenceSummary(summaryIdx).variant = variantStem;
+        sequenceSummary(summaryIdx).modelFile = sequenceModelFile;
+        if isfield(existingData, 'sequenceFeatureNames')
+            sequenceSummary(summaryIdx).featureNames = string(existingData.sequenceFeatureNames);
+        else
+            sequenceSummary(summaryIdx).featureNames = string(sequenceFeatureNames);
+        end
+        sequenceSummary(summaryIdx).accuracy = existingData.holdoutTestMetrics.accuracy;
+        sequenceSummary(summaryIdx).precision = existingData.holdoutTestMetrics.precision;
+        sequenceSummary(summaryIdx).recall = existingData.holdoutTestMetrics.recall;
+        sequenceSummary(summaryIdx).f1_score = existingData.holdoutTestMetrics.f1_score;
+        sequenceSummary(summaryIdx).auc = existingData.holdoutTestMetrics.auc;
+        sequenceSummary(summaryIdx).TN = existingData.holdoutTestMetrics.TN;
+        sequenceSummary(summaryIdx).FP = existingData.holdoutTestMetrics.FP;
+        sequenceSummary(summaryIdx).FN = existingData.holdoutTestMetrics.FN;
+        sequenceSummary(summaryIdx).TP = existingData.holdoutTestMetrics.TP;
+        continue;
+    end
 
     trainSequence_X_raw = trainSequenceAll_X(:, sequenceFeatureMask);
     testSequence_X = testSequenceAll_X(:, sequenceFeatureMask);
@@ -668,18 +736,19 @@ for variantIdx = 1:numel(sequenceFeatureVariants)
 
     fprintf('\nSequence model saved successfully as %s\n', sequenceModelFile);
 
-    sequenceSummary(variantIdx).variant = variantStem;
-    sequenceSummary(variantIdx).modelFile = sequenceModelFile;
-    sequenceSummary(variantIdx).featureNames = string(sequenceFeatureNames);
-    sequenceSummary(variantIdx).accuracy = holdoutTestMetrics.accuracy;
-    sequenceSummary(variantIdx).precision = holdoutTestMetrics.precision;
-    sequenceSummary(variantIdx).recall = holdoutTestMetrics.recall;
-    sequenceSummary(variantIdx).f1_score = holdoutTestMetrics.f1_score;
-    sequenceSummary(variantIdx).auc = holdoutTestMetrics.auc;
-    sequenceSummary(variantIdx).TN = holdoutTestMetrics.TN;
-    sequenceSummary(variantIdx).FP = holdoutTestMetrics.FP;
-    sequenceSummary(variantIdx).FN = holdoutTestMetrics.FN;
-    sequenceSummary(variantIdx).TP = holdoutTestMetrics.TP;
+    summaryIdx = numel(sequenceSummary) + 1;
+    sequenceSummary(summaryIdx).variant = variantStem;
+    sequenceSummary(summaryIdx).modelFile = sequenceModelFile;
+    sequenceSummary(summaryIdx).featureNames = string(sequenceFeatureNames);
+    sequenceSummary(summaryIdx).accuracy = holdoutTestMetrics.accuracy;
+    sequenceSummary(summaryIdx).precision = holdoutTestMetrics.precision;
+    sequenceSummary(summaryIdx).recall = holdoutTestMetrics.recall;
+    sequenceSummary(summaryIdx).f1_score = holdoutTestMetrics.f1_score;
+    sequenceSummary(summaryIdx).auc = holdoutTestMetrics.auc;
+    sequenceSummary(summaryIdx).TN = holdoutTestMetrics.TN;
+    sequenceSummary(summaryIdx).FP = holdoutTestMetrics.FP;
+    sequenceSummary(summaryIdx).FN = holdoutTestMetrics.FN;
+    sequenceSummary(summaryIdx).TP = holdoutTestMetrics.TP;
 end
 
 fprintf('\nSequence-gate holdout summary:\n');
@@ -703,6 +772,31 @@ elseif contains(databaseName, "tachyarrhythmia") || contains(databaseName, "cudb
 else
     alias = databaseName;
 end
+end
+
+function folders = database_folders_from_names(databaseRoot, databaseNames)
+folderNames = strings(size(databaseNames));
+for idx = 1:numel(databaseNames)
+    switch lower(strtrim(string(databaseNames(idx))))
+        case "mitdb"
+            folderNames(idx) = "mit-bih-arrhythmia-database-1.0.0";
+        case "vfdb"
+            folderNames(idx) = "mit-bih-malignant-ventricular-ectopy-database-1.0.0";
+        case "cudb"
+            folderNames(idx) = "cu-ventricular-tachyarrhythmia-database-1.0.0";
+        otherwise
+            folderNames(idx) = string(databaseNames(idx));
+    end
+end
+
+folders = fullfile(databaseRoot, folderNames);
+folders = folders(arrayfun(@(p) exist(p, 'dir') == 7, folders));
+end
+
+function tf = artifact_matches_current_split(existingData, trainRecordIds, testRecordIds)
+tf = isfield(existingData, 'trainRecordIds') && isfield(existingData, 'testRecordIds') && ...
+    isequal(sort(double(existingData.trainRecordIds(:))), sort(double(trainRecordIds(:)))) && ...
+    isequal(sort(double(existingData.testRecordIds(:))), sort(double(testRecordIds(:))));
 end
 
 function [sequence_X, sequence_Y, sequence_record_ids] = make_sequence_gate_features( ...
@@ -1013,12 +1107,18 @@ end
 
 function [ecg, Fs, ann, type, comments] = read_record_with_fallback(recordname)
 if exist('rdsamp', 'file') == 2 && exist('rdann', 'file') == 2
-    [ecg, Fs, ~] = rdsamp(recordname, 1);
-    [ann, type, ~, ~, ~, comments] = rdann(recordname, 'atr', 1);
-else
-    [ecg, Fs] = local_rdsamp_212(recordname, 1);
-    [ann, type, comments] = local_rdann_atr(recordname);
+    try
+        [ecg, Fs, ~] = rdsamp(recordname, 1);
+        [ann, type, ~, ~, ~, comments] = rdann(recordname, 'atr', 1);
+        return;
+    catch ME
+        warning('WFDB toolbox read failed for %s; using local format-212 reader instead. Reason: %s', ...
+            recordname, ME.message);
+    end
 end
+
+[ecg, Fs] = local_rdsamp_212(recordname, 1);
+[ann, type, comments] = local_rdann_atr(recordname);
 end
 
 function [signal, Fs] = local_rdsamp_212(recordname, channel)

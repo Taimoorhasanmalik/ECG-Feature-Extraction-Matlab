@@ -300,6 +300,102 @@ Holdout sequence metrics:
 
 This is a major improvement over the single-window gate in precision while keeping recall above 90%.
 
+## 120 Hz Retraining and Hybrid Sequence/Window Models
+
+Request:
+
+- retrain the Guard-98 Stage 1 model at `120 Hz` with `2 sec` windows
+- retrain the 3-window `count` sequence model at `120 Hz`
+- train new 120 Hz sequence-length 2 and 3 hybrid models using normal endpoint window features plus only the sequencing `abnormal_vote_count`
+
+Code changes:
+
+- `code/train_q38_recall90_guard98_gate.m`
+  - now defaults to repo-local PhysioNet folders under `databases/`
+  - falls back to the local MIT-BIH format-212 reader if WFDB toolbox calls fail
+- `code/train_q38_sequence_gate_iterative.m`
+  - supports `ECG_SEQUENCE_VARIANTS`, e.g. `count`, so retraining can target one sequence variant
+- `code/train_q38_sequence_window_count_gate_iterative.m`
+  - new hybrid trainer
+  - supports `ECG_SEQUENCE_LENGTH=2` or `3`
+  - feature vector is endpoint window features plus `abnormal_vote_count`
+
+Shared setup:
+
+- sample rate: `120 Hz`
+- window: `2 sec`
+- step: `1 sec`
+- quantization: `Q3.8`
+- train/test split: `84` train records, `21` test records
+- base 120 Hz threshold: `-1.059938192`
+
+New artifacts:
+
+```text
+models/stage1_normal_vs_abnormal_window_quantized_q3_8_recall90_guard98_robust_lsvm_120hz_without_rms_amplitude.mat
+models/stage1_q38_sequence3_iterative_lsvm_120hz_count_from_guard98.mat
+models/stage1_q38_sequence2_window_lsvm_120hz_count_from_guard98.mat
+models/stage1_q38_sequence3_window_lsvm_120hz_count_from_guard98.mat
+```
+
+Stage 1 120 Hz base model:
+
+- features: `mean_abs`, `zero_crossings`, `line_length`, `threshold_crossing_count`, `robust_range`
+- accuracy: `79.35%`
+- precision: `0.3141`
+- recall: `0.9617`
+- F1: `0.4736`
+- AUC: `0.9576`
+- confusion `[TN FP; FN TP] = [19912 5764; 105 2640]`
+
+Pure 3-window sequence-count 120 Hz model:
+
+- sequence feature: `abnormal_vote_count`
+- accuracy: `90.75%`
+- precision: `0.7551`
+- recall: `0.9357`
+- F1: `0.8358`
+- AUC: `0.9395`
+- confusion `[TN FP; FN TP] = [7145 812; 172 2504]`
+
+Hybrid sequence/window 120 Hz models:
+
+- features: `mean_abs`, `zero_crossings`, `line_length`, `threshold_crossing_count`, `robust_range`, `abnormal_vote_count`
+- only sequencing-derived feature is `abnormal_vote_count`
+- sequence 2 accuracy: `93.20%`
+- sequence 2 precision: `0.8402`
+- sequence 2 recall: `0.8762`
+- sequence 2 F1: `0.8579`
+- sequence 2 AUC: `0.9701`
+- sequence 2 confusion `[TN FP; FN TP] = [8403 451; 335 2372]`
+- sequence 3 accuracy: `93.48%`
+- sequence 3 precision: `0.8583`
+- sequence 3 recall: `0.8875`
+- sequence 3 F1: `0.8727`
+- sequence 3 AUC: `0.9747`
+- sequence 3 confusion `[TN FP; FN TP] = [7565 392; 301 2375]`
+
+Hardware interpretation:
+
+- Stage 1 decision is based only on single-window features.
+- `abnormal_vote_count` counts recent base Stage 1 decisions where the abnormal score is greater than or equal to the base threshold.
+- With 2-second windows and 1-second step, sequence length 2 spans about 3 seconds and sequence length 3 spans about 4 seconds.
+- The hybrid models add one small count feature beyond the existing endpoint window feature vector; they do not use sequence `max_score`, `sum_score`, `score_delta`, or `min_score`.
+
+Commands used:
+
+```powershell
+matlab -batch "setenv('ECG_TARGET_SAMPLE_RATE_HZ','120'); run('code/train_q38_recall90_guard98_gate.m')"
+matlab -batch "setenv('ECG_TARGET_SAMPLE_RATE_HZ','120'); setenv('ECG_SEQUENCE_VARIANTS','count'); run('code/train_q38_sequence_gate_iterative.m')"
+matlab -batch "setenv('ECG_TARGET_SAMPLE_RATE_HZ','120'); setenv('ECG_SEQUENCE_LENGTH','2'); run('code/train_q38_sequence_window_count_gate_iterative.m')"
+matlab -batch "setenv('ECG_TARGET_SAMPLE_RATE_HZ','120'); setenv('ECG_SEQUENCE_LENGTH','3'); run('code/train_q38_sequence_window_count_gate_iterative.m')"
+```
+
+Verification note:
+
+- `checkcode` was run on the touched MATLAB scripts and reported warnings only, no syntax errors.
+- A final saved-artifact inspection printed all features and metrics. MATLAB then crashed during shutdown with `std::terminate`; the saved files had already been loaded and printed.
+
 ## Current Best Model
 
 Best completed support-gate result so far:
