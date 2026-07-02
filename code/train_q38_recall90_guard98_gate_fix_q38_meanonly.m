@@ -8,7 +8,7 @@
 %   2. zero_crossings: zero-crossing rate of the first-difference waveform
 %   3. line_length: normalized signal path length inside the window
 %   4. threshold_crossing_count: adaptive threshold crossing count
-%   5. robust_range: 95th minus 5th percentile amplitude range
+%   5. robust_range: 95th minus 5th percentile amplitude range (excluded by default)
 
 clear;
 clc;
@@ -136,7 +136,7 @@ quantizationMax = 2 ^ quantizationIntegerBits - 1 / quantizationScale;
 
 allFeatureNames = {'mean_abs', 'zero_crossings', 'line_length', 'threshold_crossing_count', ...
     'rms_amplitude', 'robust_range'};
-excludedFeatureNames = "rms_amplitude";
+excludedFeatureNames = ["rms_amplitude"; "robust_range"];
 excludedFeatureSelection = strtrim(string(getenv('ECG_EXCLUDE_FEATURES')));
 if strlength(excludedFeatureSelection) > 0
     excludedFeatureNames = strtrim(split(excludedFeatureSelection, ','));
