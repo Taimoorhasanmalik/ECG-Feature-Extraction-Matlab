@@ -1,0 +1,125 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1040" viewBox="0 0 1500 1040" role="img" aria-labelledby="title desc">
+  <title id="title">Shared-replay two-stage ECG hardware flow</title>
+  <desc id="desc">A 120 Hz ECG stream is quantized once to Q3.8 before separate continuous filters. A 240-entry history has independently write-enabled Stage 1 and Stage 2 lanes, mapped to two block RAMs. An abnormal Stage 1 sequence vote rephases the shared sequencer: both stages start their next 240-sample window at the first raw sample after the trigger. One replay datapath and one clock-gated classifier MAC serve both stages. Two normal votes stop new Stage 2 windows; in-flight windows drain.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#52657a"/>
+    </marker>
+    <marker id="controlArrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#9b6b13"/>
+    </marker>
+    <style>
+      text { font-family: "Segoe UI", Arial, sans-serif; fill: #172b43; }
+      .title { font-size: 30px; font-weight: 700; fill: #ffffff; }
+      .subtitle { font-size: 15px; fill: #dbe7f3; }
+      .section { font-size: 14px; font-weight: 700; letter-spacing: 2px; fill: #54677d; }
+      .label { font-size: 20px; font-weight: 700; }
+      .body { font-size: 15px; }
+      .small { font-size: 13px; fill: #52657a; }
+      .tag { font-size: 13px; font-weight: 700; }
+      .line { fill: none; stroke: #52657a; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#arrow); }
+      .control { fill: none; stroke: #b77d18; stroke-width: 2.5; stroke-dasharray: 7 6; stroke-linecap: round; stroke-linejoin: round; marker-end: url(#controlArrow); }
+    </style>
+  </defs>
+
+  <rect width="1500" height="1040" fill="#f7fafc"/>
+  <rect width="1500" height="105" fill="#102842"/>
+  <text x="60" y="48" class="title">Two-stage ECG: shared replay flow</text>
+  <text x="60" y="77" class="subtitle">Implemented Basys 3 path  |  120 Hz ECG samples  |  fixed 100 kHz clock  |  240-entry history and shared datapath</text>
+
+  <rect x="48" y="124" width="1404" height="58" rx="13" fill="#e8eff7"/>
+  <text x="72" y="159" class="body">Window: 240 samples / 2 s</text>
+  <text x="420" y="159" class="body">Stride: 120 samples / 1 s</text>
+  <text x="793" y="159" class="body">Stage 1 replay: effective 50 kHz</text>
+  <text x="1160" y="159" class="body">Stage 2: 100 kHz</text>
+
+  <text x="55" y="215" class="section">CONTINUOUS SAMPLE PATHS</text>
+  <rect x="48" y="230" width="1404" height="285" rx="20" fill="#ffffff" stroke="#d9e4ef" stroke-width="2"/>
+
+  <rect x="75" y="320" width="200" height="105" rx="14" fill="#e8eff7" stroke="#a9bdd1" stroke-width="2"/>
+  <text x="175" y="357" text-anchor="middle" class="label">ECG input</text>
+  <text x="175" y="382" text-anchor="middle" class="body">shared raw Q3.8</text>
+  <text x="175" y="405" text-anchor="middle" class="small">120 Hz, clamp before split</text>
+
+  <path d="M 275 371 H 308 V 294 H 335" class="line"/>
+  <path d="M 308 371 V 433 H 335" class="line"/>
+
+  <rect x="335" y="247" width="245" height="95" rx="14" fill="#e8f1ff" stroke="#80a9e2" stroke-width="2"/>
+  <text x="457" y="281" text-anchor="middle" class="label">Stage 1 filter</text>
+  <text x="457" y="307" text-anchor="middle" class="body">5 Hz high-pass</text>
+  <text x="457" y="329" text-anchor="middle" class="small">own IIR state</text>
+
+  <rect x="335" y="385" width="245" height="95" rx="14" fill="#f0eaff" stroke="#ad91df" stroke-width="2"/>
+  <text x="457" y="419" text-anchor="middle" class="label">Stage 2 filter</text>
+  <text x="457" y="445" text-anchor="middle" class="body">3rd-order 1 Hz HP</text>
+  <text x="457" y="467" text-anchor="middle" class="small">own IIR state</text>
+
+  <path d="M 580 294 H 605 V 326 H 635" class="line"/>
+  <path d="M 580 433 H 605 V 403 H 635" class="line"/>
+
+  <rect x="635" y="292" width="295" height="145" rx="14" fill="#e5f7f4" stroke="#75bdb2" stroke-width="2"/>
+  <text x="782" y="326" text-anchor="middle" class="label">Write-gated history</text>
+  <text x="782" y="354" text-anchor="middle" class="body">240 x 32-bit paired words</text>
+  <text x="782" y="380" text-anchor="middle" class="body">Stage 1 Q3.8 | Stage 2 Q5.8</text>
+  <text x="782" y="407" text-anchor="middle" class="small">two RAMB18s; Stage 2 write-gated</text>
+  <text x="782" y="428" text-anchor="middle" class="small">separate running-stat registers</text>
+
+  <rect x="1010" y="318" width="360" height="105" rx="14" fill="#e5f7f4" stroke="#75bdb2" stroke-width="2"/>
+  <text x="1190" y="354" text-anchor="middle" class="label">Shared window sequencer</text>
+  <text x="1190" y="381" text-anchor="middle" class="body">overlap, start/end, window ID</text>
+  <text x="1190" y="405" text-anchor="middle" class="small">rephase both at next raw sample</text>
+  <path d="M 1010 371 H 930" class="control"/>
+
+  <text x="55" y="552" class="section">AFTER AN ABNORMAL VOTE: BOTH WINDOWS RESTART TOGETHER AT THE NEXT SAMPLE</text>
+  <rect x="48" y="566" width="1404" height="410" rx="20" fill="#ffffff" stroke="#d9e4ef" stroke-width="2"/>
+
+  <rect x="75" y="620" width="225" height="95" rx="14" fill="#e5f7f4" stroke="#75bdb2" stroke-width="2"/>
+  <text x="187" y="653" text-anchor="middle" class="label">Window scheduler</text>
+  <text x="187" y="680" text-anchor="middle" class="body">Stage 1 each 1 s stride</text>
+  <text x="187" y="702" text-anchor="middle" class="small">preserves the window ID</text>
+  <path d="M 1190 423 V 536 H 900 V 590 H 187 V 620" class="control"/>
+  <path d="M 300 667 H 375" class="line"/>
+
+  <rect x="375" y="600" width="340" height="250" rx="18" fill="#edf6f5" stroke="#4da89d" stroke-width="3"/>
+  <text x="545" y="632" text-anchor="middle" class="tag" fill="#1f6e65">ONE SHARED REPLAY DATAPATH</text>
+  <rect x="398" y="649" width="294" height="70" rx="11" fill="#dfeeff" stroke="#80a9e2"/>
+  <text x="545" y="677" text-anchor="middle" class="label">Stage 1 mode</text>
+  <text x="545" y="702" text-anchor="middle" class="body">240 enabled cycles at 50 kHz</text>
+  <rect x="398" y="757" width="294" height="70" rx="11" fill="#eee3ff" stroke="#ad91df"/>
+  <text x="545" y="785" text-anchor="middle" class="label">Stage 2 mode</text>
+  <text x="545" y="810" text-anchor="middle" class="body">240 cycles at 100 kHz</text>
+  <text x="545" y="842" text-anchor="middle" class="small">same arithmetic, different buffered stream</text>
+
+  <path d="M 715 683 H 758" class="line"/>
+  <rect x="758" y="636" width="230" height="94" rx="14" fill="#e8f1ff" stroke="#80a9e2" stroke-width="2"/>
+  <text x="873" y="671" text-anchor="middle" class="label">Shared SVM MAC</text>
+  <text x="873" y="697" text-anchor="middle" class="body">Stage 1: 2-of-3 vote</text>
+  <path d="M 988 683 H 1045" class="line"/>
+
+  <path d="M 1127 618 L 1210 683 L 1127 748 L 1045 683 Z" fill="#fff1d8" stroke="#e3ad51" stroke-width="2"/>
+  <text x="1127" y="679" text-anchor="middle" class="label">Abnormal?</text>
+  <text x="1127" y="702" text-anchor="middle" class="small">current window</text>
+
+  <path d="M 1210 683 H 1290" class="line"/>
+  <text x="1245" y="666" class="tag" fill="#447a3d">NO</text>
+  <rect x="1290" y="638" width="135" height="90" rx="14" fill="#e9f7e8" stroke="#89bf84" stroke-width="2"/>
+  <text x="1357" y="676" text-anchor="middle" class="label">Other</text>
+  <text x="1357" y="703" text-anchor="middle" class="small">code 0</text>
+
+  <path d="M 1097 724 H 1010 V 880 H 340 V 792 H 398" class="line"/>
+  <text x="730" y="875" class="tag" fill="#7a49bd">YES: arm and restart both on next sample; code 3 abnormal</text>
+  <path d="M 692 792 H 758" class="line"/>
+  <rect x="758" y="752" width="230" height="94" rx="14" fill="#f0eaff" stroke="#ad91df" stroke-width="2"/>
+  <text x="873" y="783" text-anchor="middle" class="label">Same MAC, Stage 2</text>
+  <text x="873" y="808" text-anchor="middle" class="body">6-feature 1 Hz model</text>
+  <text x="873" y="830" text-anchor="middle" class="small">clock opens per request; in-flight windows drain</text>
+  <path d="M 988 799 H 1045" class="line"/>
+  <rect x="1045" y="752" width="210" height="94" rx="14" fill="#e9f7e8" stroke="#89bf84" stroke-width="2"/>
+  <text x="1150" y="788" text-anchor="middle" class="label">VT or VF</text>
+  <text x="1150" y="815" text-anchor="middle" class="body">codes 1 / 2</text>
+
+  <text x="75" y="920" class="small">Dashed amber lines: timing/control. Both filters retain causal state; Stage 1 partial windows and old votes are reset at rephase.</text>
+  <text x="75" y="950" class="small">Started Stage 2 windows finish even after two normal votes. The 100 kHz clock stays fixed; the MAC clock opens only per request.</text>
+
+  <text x="54" y="1012" class="small">Implemented in two_stage_shared_replay_top.v  |  120 Hz design; ADC and 250-to-120 Hz resampling are upstream and not included.</text>
+</svg>

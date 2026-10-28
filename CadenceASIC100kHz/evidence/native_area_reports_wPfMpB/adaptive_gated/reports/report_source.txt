@@ -1,0 +1,4 @@
+source_routed=/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/adaptive_gated/postroute
+restored_checkpoint=/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/adaptive_gated/postroute/checkpoints/post_route.enc.dat
+Report-only restore of accepted routed database; no implementation changes
+Area reports are emitted by native report_area, not a scripted cell-area table

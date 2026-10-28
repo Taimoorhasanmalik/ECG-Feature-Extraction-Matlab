@@ -1,0 +1,18 @@
+# Tool scratch and Python caches
+.Xil/
+__pycache__/
+*.pyc
+
+# Bulk archives from ASIC / AWS transfers (too large for GitHub; keep locally)
+*.tar.gz
+*.zip
+
+# Older, incomplete copy nested inside the latest ASIC report package
+ASIC_Reports_Latest_100kHz_20261020/ASIC_Reports_Latest_100kHz_20261020/
+
+# Regenerable exploration caches of the shared-filter sweep
+hw_shared_pipeline/results/shared_*.npz
+hw_shared_pipeline/results/diff_*.npz
+
+# Editor backups
+*.bak

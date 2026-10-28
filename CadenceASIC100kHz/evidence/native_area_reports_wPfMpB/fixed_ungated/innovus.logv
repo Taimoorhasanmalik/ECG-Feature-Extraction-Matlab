@@ -1,0 +1,668 @@
+[10/20 17:29:09      0s] 
+[10/20 17:29:09      0s] Cadence Innovus(TM) Implementation System.
+[10/20 17:29:09      0s] Copyright 2025 Cadence Design Systems, Inc. All rights reserved worldwide.
+[10/20 17:29:09      0s] 
+[10/20 17:29:09      0s] Version:	v25.10-p002_1, built Wed Apr 23 12:43:30 PDT 2025
+[10/20 17:29:09      0s] Options:	-no_gui -files /home/ec2-user/CadenceASIC100kHz/native_postroute_area.tcl -log innovus.log 
+[10/20 17:29:09      0s] Date:		Tue Oct 20 17:29:09 2026
+[10/20 17:29:09      0s] Host:		ip-172-31-47-31.us-east-2.compute.internal (x86_64 w/Linux 5.14.0-687.10.1.el9_8.x86_64) (4cores*8cpus*Intel(R) Xeon(R) Platinum 8488C 107520KB)
+[10/20 17:29:09      0s] OS:		Red Hat Enterprise Linux 9.8 (Plow)
+[10/20 17:29:09      0s] 
+[10/20 17:29:09      0s] License:
+[10/20 17:29:09      0s] 		[17:29:09.093665] Configured Lic search path (25.01-s002): 5280@172.31.36.122
+
+[10/20 17:29:09      0s] 		invs	Innovus Implementation System	25.1	checkout succeeded
+[10/20 17:29:09      0s] 		8 CPU jobs allowed with the current license(s). Use setMultiCpuUsage to set your required CPU count.
+[10/20 17:29:09      0s] 
+[10/20 17:29:09      0s] **Info: Common UI will be the default UI for innovus in the next major release. Please use -legacy_ui when invoking innovus if you wish to continue to use legacy UI.
+[10/20 17:29:20     10s] Memory management switch to non-aggressive memory release mode.
+[10/20 17:29:20     10s] 
+[10/20 17:29:20     10s] OS Mmap count monitoring thread starts. Limit of OS Mmap count is 65530
+[10/20 17:29:20     10s] 
+[10/20 17:29:21     12s] Reset Parastics called with the command setExtractRCMode -reset@(#)CDS: Innovus v25.10-p002_1 (64bit) 04/23/2025 12:43 (Linux 4.18.0-305.el8.x86_64)
+[10/20 17:29:24     14s] @(#)CDS: NanoRoute 25.10-p002_1 NR250317-0405/25_10-UB (database version 18.20.663) {superthreading v2.20}
+[10/20 17:29:24     14s] @(#)CDS: AAE 25.10-b008 (64bit) 04/23/2025 (Linux 4.18.0-305.el8.x86_64)
+[10/20 17:29:24     14s] @(#)CDS: CTE 25.10-b014_1 () Mar 28 2025 03:11:49 ( )
+[10/20 17:29:24     14s] @(#)CDS: SYNTECH 25.10-b006_1 () Mar 13 2025 03:32:26 ( )
+[10/20 17:29:24     14s] @(#)CDS: CPE v25.10-b011
+[10/20 17:29:24     14s] @(#)CDS: IQuantus/TQuantus 24.1.0-s201 (64bit) Thu Mar 20 10:21:58 PDT 2025 (Linux 4.18.0-305.el8.x86_64)
+[10/20 17:29:24     14s] @(#)CDS: OA 22.62-p005 Fri Dec 13 02:00:13 2024
+[10/20 17:29:24     14s] @(#)CDS: SGN 23.10-d005 (03-Oct-2023) (64 bit executable, TkQt5.15.9)
+[10/20 17:29:24     14s] @(#)CDS: RCDB 11.15.0
+[10/20 17:29:24     14s] @(#)CDS: STYLUS 25.10-b003_1 (03/20/2025 14:55 PDT)
+[10/20 17:29:24     14s] @(#)CDS: IntegrityPlanner-25.10-114 (25.10) (2025-04-01 16:19:39+0800)
+[10/20 17:29:24     14s] @(#)CDS: SYNTHESIS_ENGINE 25.10-p002
+[10/20 17:29:24     14s] @(#)CDS: TCDB v24.10-d018
+[10/20 17:29:24     14s] Create and set the environment variable TMPDIR to /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/native_area_reports_wPfMpB/fixed_ungated/innovus_temp_774543_16278b74-1623-4b6d-b635-770ecba22c56_ip-172-31-47-31.us-east-2.compute.internal_ec2-user_CPXQuT.
+
+[10/20 17:29:24     15s] Change the soft stacksize limit to 0.2%RAM (62 mbytes). Set global soft_stack_size_limit to change the value.
+[10/20 17:29:25     16s] Info: Process UID = 774543 / 16278b74-1623-4b6d-b635-770ecba22c56 / 1afSZhWzuV
+[10/20 17:29:25     16s] Loading attribute definitions from mini dummy db...
+[10/20 17:29:26     17s] Info: Defined 24274 Synthesis attributes
+[10/20 17:29:26     17s] Info: Skipped defining 1017 Synthesis attributes already defined in Innovus
+[10/20 17:29:27     18s] 
+[10/20 17:29:27     18s] **INFO:  MMMC transition support version v31-84 
+[10/20 17:29:27     18s] 
+[10/20 17:29:27     18s] <CMD> set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
+[10/20 17:29:27     18s] <CMD> suppressMessage ENCEXT-2799
+[10/20 17:29:27     18s] <CMD> getVersion
+[10/20 17:29:28     18s] [INFO] Loading Pegasus 25.10 fill procedures
+[10/20 17:29:28     18s] **WARN: Tk package not loaded. The Pegasus fill DRC monitor is disabled.
+[10/20 17:29:28     18s] Sourcing file "/home/ec2-user/CadenceASIC100kHz/native_postroute_area.tcl" ...
+[10/20 17:29:28     18s] source /home/ec2-user/CadenceASIC100kHz/native_postroute_area.tcl
+[10/20 17:29:28     18s] <CMD> restoreDesign /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat ecg_asic_power_top
+[10/20 17:29:28     18s] #% Begin load design ... (date=10/20 17:29:28, mem=1868.3M)
+[10/20 17:29:29     19s] Loading design 'ecg_asic_power_top' saved by 'Innovus' '25.10-p002_1' on 'Tue Oct 20 13:03:38 2026'.
+[10/20 17:29:29     19s] % Begin Load MMMC data ... (date=10/20 17:29:29, mem=1871.2M)
+[10/20 17:29:29     19s] % End Load MMMC data ... (date=10/20 17:29:29, total cpu=0:00:00.0, real=0:00:00.0, peak res=1872.1M, current mem=1872.1M)
+[10/20 17:29:29     19s] 
+[10/20 17:29:29     19s] Loading LEF file /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/libs/lef/gsclib045_tech.lef ...
+[10/20 17:29:29     19s] Set DBUPerIGU to M2 pitch 400.
+[10/20 17:29:29     20s] 
+[10/20 17:29:29     20s] Loading LEF file /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/libs/lef/gsclib045_macro.lef ...
+[10/20 17:29:29     20s] **WARN: (IMPLF-200):	Pin 'A' in macro 'ANTENNA' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+[10/20 17:29:29     20s] Type 'man IMPLF-200' for more detail.
+[10/20 17:29:29     20s] 
+##  Check design process and node:  
+##  Both design process and tech node are not set.
+
+[10/20 17:29:29     20s] Loading view definition file from /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/viewDefinition.tcl
+[10/20 17:29:29     20s] Reading cells_slow timing library '/opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib' ...
+[10/20 17:29:30     20s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP9'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+[10/20 17:29:30     20s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP8'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+[10/20 17:29:30     20s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP7'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+[10/20 17:29:30     20s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP6'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+[10/20 17:29:30     20s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP5'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+[10/20 17:29:30     20s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP4'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+[10/20 17:29:30     20s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP3'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+[10/20 17:29:30     20s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP2'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+[10/20 17:29:30     20s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP10'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+[10/20 17:29:30     20s] **WARN: (TECHLIB-302):	No function defined for cell 'ANTENNA'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+[10/20 17:29:30     20s] Read 489 cells in library 'slow_vdd1v0' 
+[10/20 17:29:30     20s] Ending "PreSetAnalysisView" (total cpu=0:00:00.7, real=0:00:01.0, peak res=1958.4M, current mem=1897.4M)
+[10/20 17:29:30     20s] *** End library_loading (cpu=0.01min, real=0.02min, mem=13.6M, fe_cpu=0.35min, fe_real=0.35min, fe_mem=1897.4M) ***
+[10/20 17:29:30     20s] % Begin Load netlist data ... (date=10/20 17:29:30, mem=1897.5M)
+[10/20 17:29:30     20s] *** Begin netlist parsing (mem=1897.5M) ***
+[10/20 17:29:30     20s] Created 489 new cells from 1 timing libraries.
+[10/20 17:29:30     20s] Reading netlist ...
+[10/20 17:29:30     20s] Backslashed names will retain backslash and a trailing blank character.
+[10/20 17:29:30     20s] Reading verilogBinary netlist '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/vbin/ecg_asic_power_top.v.bin'
+[10/20 17:29:30     20s] 
+[10/20 17:29:30     20s] *** Memory Usage v#1 (Current mem = 1918.840M, initial mem = 927.930M) ***
+[10/20 17:29:30     20s] *** End netlist parsing (cpu=0:00:00.1, real=0:00:00.0, mem=1918.8M) ***
+[10/20 17:29:30     20s] % End Load netlist data ... (date=10/20 17:29:30, total cpu=0:00:00.1, real=0:00:00.0, peak res=1916.5M, current mem=1916.5M)
+[10/20 17:29:30     20s] Set top cell to ecg_asic_power_top.
+[10/20 17:29:30     20s] Hooked 489 DB cells to tlib cells.
+[10/20 17:29:30     20s] Ending "BindLib:" (total cpu=0:00:00.0, real=0:00:00.0, peak res=1922.9M, current mem=1922.9M)
+[10/20 17:29:30     20s] Starting recursive module instantiation check.
+[10/20 17:29:30     20s] No recursion found.
+[10/20 17:29:30     20s] Building hierarchical netlist for Cell ecg_asic_power_top ...
+[10/20 17:29:30     20s] ***** UseNewTieNetMode *****.
+[10/20 17:29:30     21s] *** Netlist is unique.
+[10/20 17:29:30     21s] Setting Std. cell height to 3420 DBU (smallest netlist inst).
+[10/20 17:29:30     21s] ** info: there are 599 modules.
+[10/20 17:29:30     21s] ** info: there are 30323 stdCell insts.
+[10/20 17:29:30     21s] ** info: there are 30323 stdCell insts with at least one signal pin.
+[10/20 17:29:30     21s] 
+[10/20 17:29:30     21s] *** Memory Usage v#1 (Current mem = 1966.652M, initial mem = 927.930M) ***
+[10/20 17:29:30     21s] *info: set bottom ioPad orient R0
+[10/20 17:29:30     21s] **WARN: (IMPFP-3961):	The techSite 'CornerSite' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[10/20 17:29:30     21s] Type 'man IMPFP-3961' for more detail.
+[10/20 17:29:30     21s] **WARN: (IMPFP-3961):	The techSite 'IOSite' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[10/20 17:29:30     21s] Type 'man IMPFP-3961' for more detail.
+[10/20 17:29:30     21s] Start create_tracks
+[10/20 17:29:30     21s] **WARN: (IMPDB-6501):	"Option '-process' in setDesignMode" will be obsoleted in future release. Remove it from the script to avoid the interruption of running the script in future.
+[10/20 17:29:30     21s] ##  Process: 45            (User Set)               
+[10/20 17:29:30     21s] ##     Node: (not set)                           
+[10/20 17:29:30     21s] 
+##  Check design process and node:  
+##  Design tech node is not set.
+
+[10/20 17:29:30     21s] Applying the recommended capacitance filtering threshold values for 45nm process node: total_c_th=0, relative_c_th=1 and coupling_c_th=0.1.
+[10/20 17:29:30     21s] 	These values will be used by all post-route extraction engines, including TQuantus, IQuantus and Quantus QRC extraction.
+[10/20 17:29:30     21s] 	Capacitance filtering mode(-capFilterMode option of the setExtractRCMode) is 'relAndCoup' for all engines.
+[10/20 17:29:30     21s] 	The accuracy mode for postRoute effortLevel low extraction will be set to 'high'.
+[10/20 17:29:30     21s] 	Default value for EffortLevel(-effortLevel option of the setExtractRCMode) in postRoute extraction mode will be 'medium' if Quantus QRC technology file is specified else 'low'.
+[10/20 17:29:30     21s] **WARN: (IMPOPT-3602):	The specified path group name tdgp_reg2reg_default is not defined.
+[10/20 17:29:30     21s] Type 'man IMPOPT-3602' for more detail.
+[10/20 17:29:30     21s] Effort level <high> specified for tdgp_reg2reg_default path_group
+[10/20 17:29:30     21s] Slack adjustment of -0 applied on tdgp_reg2reg_default path_group
+[10/20 17:29:30     21s] **WARN: (IMPOPT-3602):	The specified path group name reg2reg is not defined.
+[10/20 17:29:30     21s] Type 'man IMPOPT-3602' for more detail.
+[10/20 17:29:30     21s] Effort level <high> specified for reg2reg path_group
+[10/20 17:29:30     21s] Slack adjustment of -0 applied on reg2reg path_group
+[10/20 17:29:30     21s] **WARN: (IMPOPT-3602):	The specified path group name reg2cgate is not defined.
+[10/20 17:29:30     21s] Type 'man IMPOPT-3602' for more detail.
+[10/20 17:29:30     21s] Effort level <high> specified for reg2cgate path_group
+[10/20 17:29:30     21s] Slack adjustment of -0 applied on reg2cgate path_group
+[10/20 17:29:30     21s] **WARN: (IMPTCM-77):	Option "-drouteStartIteration" for command setNanoRouteMode is obsolete and will be removed in a future release. The obsolete option still works in this release but to avoid this warning and to ensure compatibility with future releases, remove the obsolete option from your script.
+[10/20 17:29:30     21s] AAE_INFO: switching setDelayCal -siAware from false to true ...
+[10/20 17:29:30     21s] AAE_INFO: The setting is changed from false to true in setDelayCalMode -SIAware
+[10/20 17:29:31     21s] Extraction setup Delayed 
+[10/20 17:29:31     21s] *Info: initialize multi-corner CTS.
+[10/20 17:29:31     21s] Reading cells_fast timing library '/opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib' ...
+[10/20 17:29:31     21s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP9'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+[10/20 17:29:31     21s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP8'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+[10/20 17:29:31     21s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP7'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+[10/20 17:29:31     21s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP6'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+[10/20 17:29:31     21s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP5'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+[10/20 17:29:31     21s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP4'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+[10/20 17:29:31     21s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP3'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+[10/20 17:29:31     21s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP2'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+[10/20 17:29:31     21s] **WARN: (TECHLIB-302):	No function defined for cell 'DECAP10'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+[10/20 17:29:31     21s] **WARN: (TECHLIB-302):	No function defined for cell 'ANTENNA'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+[10/20 17:29:31     21s] Read 489 cells in library 'fast_vdd1v0' 
+[10/20 17:29:31     21s] Ending "SetAnalysisView" (total cpu=0:00:00.6, real=0:00:00.0, peak res=2247.8M, current mem=1991.0M)
+[10/20 17:29:31     22s] Tech dependent Parameter, Build TLibAnalyzer for: cellAreaConsiderPadding
+[10/20 17:29:31     22s] 
+[10/20 17:29:31     22s] TimeStamp Creating Cell Server ...(0, 1, 1, 1) in restoreDesign Begin ...
+[10/20 17:29:31     22s] SB Latch Setting to complicate: TLATSRXL complicate code: 8
+[10/20 17:29:31     22s] SB Latch Setting to complicate: TLATSRX4 complicate code: 8
+[10/20 17:29:31     22s] SB Latch Setting to complicate: TLATSRX2 complicate code: 8
+[10/20 17:29:31     22s] SB Latch Setting to complicate: TLATSRX1 complicate code: 8
+[10/20 17:29:31     22s] SB Latch Setting to complicate: TLATNSRXL complicate code: 8
+[10/20 17:29:31     22s] SB Latch Setting to complicate: TLATNSRX4 complicate code: 8
+[10/20 17:29:31     22s] SB Latch Setting to complicate: TLATNSRX2 complicate code: 8
+[10/20 17:29:31     22s] SB Latch Setting to complicate: TLATNSRX1 complicate code: 8
+[10/20 17:29:31     22s] SBFF Setting to complicate: SMDFFHQX8 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SMDFFHQX4 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SMDFFHQX2 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SMDFFHQX1 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SEDFFTRXL complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SEDFFTRX4 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SEDFFTRX2 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SEDFFTRX1 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SEDFFHQX8 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SEDFFHQX4 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SEDFFHQX2 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SEDFFHQX1 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: EDFFTRXL complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: EDFFTRX4 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: EDFFTRX2 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: EDFFTRX1 complicate code: 30.1
+[10/20 17:29:31     22s] Summary for sequential cells identification: 
+[10/20 17:29:31     22s]   Identified SBFF number: 104
+[10/20 17:29:31     22s]   Identified MBFF number: 0
+[10/20 17:29:31     22s]   Identified SB Latch number: 8
+[10/20 17:29:31     22s]   Identified MB Latch number: 0
+[10/20 17:29:31     22s]   Not identified SBFF number: 16
+[10/20 17:29:31     22s]   Not identified MBFF number: 0
+[10/20 17:29:31     22s]   Not identified SB Latch number: 8
+[10/20 17:29:31     22s]   Not identified MB Latch number: 0
+[10/20 17:29:31     22s]   Number of sequential cells which are not FFs: 16
+[10/20 17:29:31     22s] Total number of combinational cells: 318
+[10/20 17:29:31     22s] Total number of sequential cells: 152
+[10/20 17:29:31     22s] Total number of tristate cells: 10
+[10/20 17:29:31     22s] Total number of level shifter cells: 0
+[10/20 17:29:31     22s] Total number of power gating cells: 0
+[10/20 17:29:31     22s] Total number of isolation cells: 0
+[10/20 17:29:31     22s] Total number of power switch cells: 0
+[10/20 17:29:31     22s] Total number of pulse generator cells: 0
+[10/20 17:29:31     22s] Total number of always on buffers: 0
+[10/20 17:29:31     22s] Total number of retention cells: 0
+[10/20 17:29:31     22s] Total number of physical cells: 9
+[10/20 17:29:31     22s] List of usable buffers: CLKBUFX2 BUFX2 CLKBUFX3 BUFX3 CLKBUFX4 BUFX4 CLKBUFX6 BUFX6 CLKBUFX8 BUFX8 CLKBUFX12 BUFX12 CLKBUFX16 BUFX16 CLKBUFX20 BUFX20
+[10/20 17:29:31     22s] Total number of usable buffers: 16
+[10/20 17:29:31     22s] List of unusable buffers:
+[10/20 17:29:31     22s] Total number of unusable buffers: 0
+[10/20 17:29:31     22s] List of usable inverters: INVXL INVX1 INVX2 CLKINVX1 INVX3 CLKINVX2 INVX4 CLKINVX4 CLKINVX3 INVX6 CLKINVX6 INVX8 CLKINVX8 INVX12 CLKINVX12 INVX16 CLKINVX16 INVX20 CLKINVX20
+[10/20 17:29:31     22s] Total number of usable inverters: 19
+[10/20 17:29:31     22s] List of unusable inverters:
+[10/20 17:29:31     22s] Total number of unusable inverters: 0
+[10/20 17:29:31     22s] List of identified usable delay cells: DLY1X1 DLY1X4 DLY2X1 DLY2X4 DLY3X1 DLY3X4 DLY4X1 DLY4X4
+[10/20 17:29:31     22s] Total number of identified usable delay cells: 8
+[10/20 17:29:31     22s] List of identified unusable delay cells:
+[10/20 17:29:31     22s] Total number of identified unusable delay cells: 0
+[10/20 17:29:31     22s] 
+[10/20 17:29:31     22s] TimeStamp Creating Cell Server ...(0, 1, 1, 1) in restoreDesign End ...
+[10/20 17:29:31     22s] 
+[10/20 17:29:31     22s] TimeStamp Deleting Cell Server Begin ...
+[10/20 17:29:31     22s] 
+[10/20 17:29:31     22s] TimeStamp Deleting Cell Server End ...
+[10/20 17:29:31     22s] Ending "Cell type marking" (total cpu=0:00:00.0, real=0:00:00.0, peak res=2281.8M, current mem=2274.3M)
+[10/20 17:29:31     22s] 
+[10/20 17:29:31     22s] TimeStamp Creating Cell Server ...(0, 0, 0, 0) in restoreDesign Begin ...
+[10/20 17:29:31     22s] SB Latch Setting to complicate: TLATSRXL complicate code: 8
+[10/20 17:29:31     22s] SB Latch Setting to complicate: TLATSRX4 complicate code: 8
+[10/20 17:29:31     22s] SB Latch Setting to complicate: TLATSRX2 complicate code: 8
+[10/20 17:29:31     22s] SB Latch Setting to complicate: TLATSRX1 complicate code: 8
+[10/20 17:29:31     22s] SB Latch Setting to complicate: TLATNSRXL complicate code: 8
+[10/20 17:29:31     22s] SB Latch Setting to complicate: TLATNSRX4 complicate code: 8
+[10/20 17:29:31     22s] SB Latch Setting to complicate: TLATNSRX2 complicate code: 8
+[10/20 17:29:31     22s] SB Latch Setting to complicate: TLATNSRX1 complicate code: 8
+[10/20 17:29:31     22s] SBFF Setting to complicate: SMDFFHQX8 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SMDFFHQX4 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SMDFFHQX2 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SMDFFHQX1 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SEDFFTRXL complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SEDFFTRX4 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SEDFFTRX2 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SEDFFTRX1 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SEDFFHQX8 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SEDFFHQX4 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SEDFFHQX2 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: SEDFFHQX1 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: EDFFTRXL complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: EDFFTRX4 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: EDFFTRX2 complicate code: 30.1
+[10/20 17:29:31     22s] SBFF Setting to complicate: EDFFTRX1 complicate code: 30.1
+[10/20 17:29:31     22s] Summary for sequential cells identification: 
+[10/20 17:29:31     22s]   Identified SBFF number: 104
+[10/20 17:29:31     22s]   Identified MBFF number: 0
+[10/20 17:29:31     22s]   Identified SB Latch number: 8
+[10/20 17:29:31     22s]   Identified MB Latch number: 0
+[10/20 17:29:31     22s]   Not identified SBFF number: 16
+[10/20 17:29:31     22s]   Not identified MBFF number: 0
+[10/20 17:29:31     22s]   Not identified SB Latch number: 8
+[10/20 17:29:31     22s]   Not identified MB Latch number: 0
+[10/20 17:29:31     22s]   Number of sequential cells which are not FFs: 16
+[10/20 17:29:31     22s]  Visiting view : view_slow
+[10/20 17:29:31     22s]    : PowerDomain = none : Weighted F : unweighted  = 37.90 (1.000) with rcCorner = 0
+[10/20 17:29:31     22s]    : PowerDomain = none : Weighted F : unweighted  = 20.10 (1.000) with rcCorner = -1
+[10/20 17:29:31     22s]  Visiting view : view_fast
+[10/20 17:29:31     22s]    : PowerDomain = none : Weighted F : unweighted  = 11.90 (1.000) with rcCorner = 1
+[10/20 17:29:31     22s]    : PowerDomain = none : Weighted F : unweighted  = 5.30 (1.000) with rcCorner = -1
+[10/20 17:29:31     22s]  Visiting view : view_slow
+[10/20 17:29:31     22s]    : PowerDomain = none : Weighted F : unweighted  = 37.90 (1.000) with rcCorner = 0
+[10/20 17:29:31     22s]    : PowerDomain = none : Weighted F : unweighted  = 20.10 (1.000) with rcCorner = -1
+[10/20 17:29:31     22s]  Visiting view : view_fast
+[10/20 17:29:31     22s]    : PowerDomain = none : Weighted F : unweighted  = 11.90 (1.000) with rcCorner = 1
+[10/20 17:29:31     22s]    : PowerDomain = none : Weighted F : unweighted  = 5.30 (1.000) with rcCorner = -1
+[10/20 17:29:31     22s] 
+[10/20 17:29:31     22s] TimeStamp Creating Cell Server ...(0, 0, 0, 0) in restoreDesign End ...
+[10/20 17:29:31     22s] 
+[10/20 17:29:31     22s] TimeStamp Deleting Cell Server Begin ...
+[10/20 17:29:31     22s] 
+[10/20 17:29:31     22s] TimeStamp Deleting Cell Server End ...
+[10/20 17:29:31     22s] % Begin Load MMMC data post ... (date=10/20 17:29:31, mem=2276.2M)
+[10/20 17:29:31     22s] % End Load MMMC data post ... (date=10/20 17:29:31, total cpu=0:00:00.0, real=0:00:00.0, peak res=2276.2M, current mem=2276.2M)
+[10/20 17:29:31     22s] Reading floorplan file - /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.fp.gz (mem = 2276.9M).
+[10/20 17:29:31     22s] % Begin Load floorplan data ... (date=10/20 17:29:31, mem=2276.9M)
+[10/20 17:29:31     22s] *info: reset 37178 existing net BottomPreferredLayer and AvoidDetour
+[10/20 17:29:31     22s] Deleting old partition specification.
+[10/20 17:29:31     22s] Set FPlanBox to (0 0 946400 942400)
+[10/20 17:29:31     22s] **WARN: (IMPFP-3961):	The techSite 'CornerSite' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[10/20 17:29:31     22s] Type 'man IMPFP-3961' for more detail.
+[10/20 17:29:31     22s] **WARN: (IMPFP-3961):	The techSite 'IOSite' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+[10/20 17:29:31     22s] Type 'man IMPFP-3961' for more detail.
+[10/20 17:29:31     22s]  ... processed partition successfully.
+[10/20 17:29:31     22s] Reading binary special route file /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.fp.spr.gz (Created by Innovus v25.10-p002_1 on Tue Oct 20 13:03:37 2026, version: 1)
+[10/20 17:29:31     22s] Ending "Read special route file" (total cpu=0:00:00.0, real=0:00:00.0, peak res=2280.9M, current mem=2280.9M)
+[10/20 17:29:31     22s] There are 211 nets with weight being set
+[10/20 17:29:31     22s] There are 211 nets with bottomPreferredRoutingLayer being set
+[10/20 17:29:31     22s] There are 211 nets with avoidDetour being set
+[10/20 17:29:31     22s] Extracting standard cell pins and blockage ...... 
+[10/20 17:29:31     22s] Pin and blockage extraction finished
+[10/20 17:29:31     22s] % End Load floorplan data ... (date=10/20 17:29:31, total cpu=0:00:00.1, real=0:00:00.0, peak res=2283.5M, current mem=2281.2M)
+[10/20 17:29:31     22s] Reading congestion map file /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.route.congmap.gz ...
+[10/20 17:29:31     22s] % Begin Load SymbolTable ... (date=10/20 17:29:31, mem=2281.5M)
+[10/20 17:29:32     22s] Suppress "**WARN ..." messages.
+[10/20 17:29:32     22s] Changing maximum routing layer from 11 to 5.
+[10/20 17:29:32     22s] routingBox: (0 0) (946400 942400)
+[10/20 17:29:32     22s] coreBox:    (40000 40280) (906400 902120)
+[10/20 17:29:32     22s] Un-suppress "**WARN ..." messages.
+[10/20 17:29:32     22s] % End Load SymbolTable ... (date=10/20 17:29:32, total cpu=0:00:00.1, real=0:00:01.0, peak res=2290.3M, current mem=2290.3M)
+[10/20 17:29:32     22s] Loading place ...
+[10/20 17:29:32     22s] % Begin Load placement data ... (date=10/20 17:29:32, mem=2290.3M)
+[10/20 17:29:32     22s] Reading placement file - /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.place.gz.
+[10/20 17:29:32     22s] ** Reading stdCellPlacement_binary (Created by Innovus v25.10-p002_1 on Tue Oct 20 13:03:37 2026, version# 2) ...
+[10/20 17:29:32     22s] Read Views for adaptive view pruning ...
+[10/20 17:29:32     22s] Read 1 views from Binary DB for adaptive view pruning
+[10/20 17:29:32     22s] view_slow
+[10/20 17:29:32     22s] *** applyConnectGlobalNets disabled.
+[10/20 17:29:32     22s] *** Completed restorePlace (cpu=0:00:00.1 real=0:00:00.0 mem=2307.8M) ***
+[10/20 17:29:32     22s] Total net length = 4.973e+05 (2.269e+05 2.703e+05) (ext = 4.225e+03)
+[10/20 17:29:32     22s] % End Load placement data ... (date=10/20 17:29:32, total cpu=0:00:00.1, real=0:00:00.0, peak res=2307.5M, current mem=2304.6M)
+[10/20 17:29:32     22s] Reading PG file /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.pg.gz, version#2, (Created by Innovus v25.10-p002_1 on       Tue Oct 20 13:03:37 2026)
+[10/20 17:29:32     22s] *** Completed restorePGFile (cpu=0:00:00.0 real=0:00:00.0 mem=2305.2M) ***
+[10/20 17:29:32     22s] % Begin Load routing data ... (date=10/20 17:29:32, mem=2304.9M)
+[10/20 17:29:32     22s] Reading routing file - /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.route.gz.
+[10/20 17:29:32     22s] Reading Innovus routing data (Created by Innovus v25.10-p002_1 on Tue Oct 20 13:03:36 2026 Format: 23.1) ...
+[10/20 17:29:32     22s] *** Total 35050 nets are successfully restored.
+[10/20 17:29:32     22s] *** Completed restoreRoute (cpu=0:00:00.3 real=0:00:00.0 mem=2354.1M) ***
+[10/20 17:29:32     22s] % End Load routing data ... (date=10/20 17:29:32, total cpu=0:00:00.3, real=0:00:00.0, peak res=2353.6M, current mem=2353.6M)
+[10/20 17:29:32     22s] TAT_INFO: ::restoreCongMap REAL = 1 : CPU = 0 : MEM = 0.
+[10/20 17:29:32     22s] Reading property file /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.prop
+[10/20 17:29:32     22s] *** Completed restoreProperty (cpu=0:00:00.1 real=0:00:00.0 mem=2361.1M) ***
+[10/20 17:29:32     22s] Reading dirtyarea snapshot file /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.db.da.gz (Create by Innovus v25.10-p002_1 on Tue Oct 20 13:03:37 2026, version: 8).
+[10/20 17:29:34     24s] Loading preRoute extraction data from directory '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/extraction/' ...
+[10/20 17:29:34     24s] eee: Design meta data check started
+[10/20 17:29:34     24s] eee: Design meta data check completed
+[10/20 17:29:34     24s] Extraction setup Started for TopCell ecg_asic_power_top 
+[10/20 17:29:34     24s] Initializing multi-corner RC extraction with 2 active RC Corners ...
+[10/20 17:29:34     24s] Captable file(s) not specified in multi-corner setup. PreRoute extraction will use technology file. For postRoute extraction, default value for effort level would be 'medium' and effort level 'low' would not be allowed.
+[10/20 17:29:34     24s] eee: __QRC_SADV_USE_LE__ is set 0
+[10/20 17:29:34     25s] Generating auto layer map file.
+[10/20 17:29:34     25s] eee: cut Layer Id 33 mapped to tech Id 4 of Layer cont 
+[10/20 17:29:34     25s] eee:  LayerId	    Name	QrcTechId	QrcTechName	Type
+[10/20 17:29:34     25s] eee:       33	    Cont	        4	       cont	Via            
+[10/20 17:29:34     25s] eee:        1	  Metal1	        5	    metal_1	Metal          
+[10/20 17:29:34     25s] eee:       34	    Via1	        6	      via_1	Via            
+[10/20 17:29:34     25s] eee:        2	  Metal2	        7	    metal_2	Metal          
+[10/20 17:29:34     25s] eee:       35	    Via2	        8	      via_2	Via            
+[10/20 17:29:34     25s] eee:        3	  Metal3	        9	    metal_3	Metal          
+[10/20 17:29:34     25s] eee:       36	    Via3	       10	      via_3	Via            
+[10/20 17:29:34     25s] eee:        4	  Metal4	       11	    metal_4	Metal          
+[10/20 17:29:34     25s] eee:       37	    Via4	       12	      via_4	Via            
+[10/20 17:29:34     25s] eee:        5	  Metal5	       13	    metal_5	Metal          
+[10/20 17:29:34     25s] eee:       38	    Via5	       14	      via_5	Via            
+[10/20 17:29:34     25s] eee:        6	  Metal6	       15	    metal_6	Metal          
+[10/20 17:29:34     25s] eee:       39	    Via6	       16	      via_6	Via            
+[10/20 17:29:34     25s] eee:        7	  Metal7	       17	    metal_7	Metal          
+[10/20 17:29:34     25s] eee:       40	    Via7	       18	      via_7	Via            
+[10/20 17:29:34     25s] eee:        8	  Metal8	       19	    metal_8	Metal          
+[10/20 17:29:34     25s] eee:       41	    Via8	       20	      via_8	Via            
+[10/20 17:29:34     25s] eee:        9	  Metal9	       21	    metal_9	Metal          
+[10/20 17:29:34     25s] eee:       42	    Via9	       22	      via_9	Via            
+[10/20 17:29:34     25s] eee:       10	 Metal10	       23	   metal_10	Metal          
+[10/20 17:29:34     25s] eee:       43	   Via10	       24	     via_10	Via            
+[10/20 17:29:34     25s] eee:       11	 Metal11	       25	   metal_11	Metal          
+[10/20 17:29:34     25s] eee: TechFile: /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/libs/mmmc/rc_reference_fast/gpdk045.tch
+[10/20 17:29:34     25s] eee: HoWee  : 0 0 0 0 0 0 0 0 0 0 0 
+[10/20 17:29:34     25s] eee: Erosn  : 0 0 0 0 0 0 0 0 0 0 0 
+[10/20 17:29:34     25s] eee: nrColor: 0 0 0 0 0 0 0 0 0 0 0 
+[10/20 17:29:34     25s] eee: Save / Restore of RC patterns enabled 
+[10/20 17:29:34     25s] eee: Pattern meta data check started
+[10/20 17:29:34     25s] eee: Pattern meta data check completed
+[10/20 17:29:34     25s] eee: Pattern data restore started
+[10/20 17:29:34     25s] Loading preRoute extracted patterns from file '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.techData.gz' ...
+[10/20 17:29:34     25s] eee: Pattern data restore completed
+[10/20 17:29:34     25s] Completed (cpu: 0:00:00.5 real: 0:00:00.0)
+[10/20 17:29:34     25s] Set Shrink Factor to 1.00000
+[10/20 17:29:34     25s] Summary of Active RC-Corners : 
+[10/20 17:29:34     25s]  
+[10/20 17:29:34     25s]  Analysis View: view_slow
+[10/20 17:29:34     25s]     RC-Corner Name        : rc_reference_slow
+[10/20 17:29:34     25s]     RC-Corner Index       : 0
+[10/20 17:29:34     25s]     RC-Corner Temperature : 125 Celsius
+[10/20 17:29:34     25s]     RC-Corner Cap Table   : ''
+[10/20 17:29:34     25s]     RC-Corner PreRoute Res Factor         : 1
+[10/20 17:29:34     25s]     RC-Corner PreRoute Cap Factor         : 1
+[10/20 17:29:34     25s]     RC-Corner PostRoute Res Factor        : 1 {1 1 1}
+[10/20 17:29:34     25s]     RC-Corner PostRoute Cap Factor        : 1 {1 1 1}
+[10/20 17:29:34     25s]     RC-Corner PostRoute XCap Factor       : 1 {1 1 1}
+[10/20 17:29:34     25s]     RC-Corner PreRoute Clock Res Factor   : 1	[Derived from postRoute_res (effortLevel low)]
+[10/20 17:29:34     25s]     RC-Corner PreRoute Clock Cap Factor   : 1	[Derived from postRoute_cap (effortLevel low)]
+[10/20 17:29:34     25s]     RC-Corner PostRoute Clock Cap Factor  : 1 {1 1 1} 	[Derived from postRoute_cap (effortLevel medium)]
+[10/20 17:29:34     25s]     RC-Corner PostRoute Clock Res Factor  : 1 {1 1 1} 	[Derived from postRoute_res (effortLevel medium)]
+[10/20 17:29:34     25s]     RC-Corner PostRoute Clock coupling capacitance Factor : 1 {1 1 1} 	[Derived from postRoute_xcap (effortLevel medium)]
+[10/20 17:29:34     25s]     RC-Corner Technology file: '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/libs/mmmc/rc_reference_fast/gpdk045.tch'
+[10/20 17:29:34     25s]  
+[10/20 17:29:34     25s]  Analysis View: view_fast
+[10/20 17:29:34     25s]     RC-Corner Name        : rc_reference_fast
+[10/20 17:29:34     25s]     RC-Corner Index       : 1
+[10/20 17:29:34     25s]     RC-Corner Temperature : 0 Celsius
+[10/20 17:29:34     25s]     RC-Corner Cap Table   : ''
+[10/20 17:29:34     25s]     RC-Corner PreRoute Res Factor         : 1
+[10/20 17:29:34     25s]     RC-Corner PreRoute Cap Factor         : 1
+[10/20 17:29:34     25s]     RC-Corner PostRoute Res Factor        : 1 {1 1 1}
+[10/20 17:29:34     25s]     RC-Corner PostRoute Cap Factor        : 1 {1 1 1}
+[10/20 17:29:34     25s]     RC-Corner PostRoute XCap Factor       : 1 {1 1 1}
+[10/20 17:29:34     25s]     RC-Corner PreRoute Clock Res Factor   : 1	[Derived from postRoute_res (effortLevel low)]
+[10/20 17:29:34     25s]     RC-Corner PreRoute Clock Cap Factor   : 1	[Derived from postRoute_cap (effortLevel low)]
+[10/20 17:29:34     25s]     RC-Corner PostRoute Clock Cap Factor  : 1 {1 1 1} 	[Derived from postRoute_cap (effortLevel medium)]
+[10/20 17:29:34     25s]     RC-Corner PostRoute Clock Res Factor  : 1 {1 1 1} 	[Derived from postRoute_res (effortLevel medium)]
+[10/20 17:29:34     25s]     RC-Corner PostRoute Clock coupling capacitance Factor : 1 {1 1 1} 	[Derived from postRoute_xcap (effortLevel medium)]
+[10/20 17:29:34     25s]     RC-Corner Technology file: '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/libs/mmmc/rc_reference_fast/gpdk045.tch'
+[10/20 17:29:34     25s] Technology file '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/libs/mmmc/rc_reference_fast/gpdk045.tch' associated with first view 'view_slow' will be used as the primary corner for the multi-corner extraction.
+[10/20 17:29:34     25s] eee: RC Grid memory allocated = 111012 (29 X 29 X 11 X 12b)
+[10/20 17:29:34     25s] eee: Grid density data restore started
+[10/20 17:29:34     25s] eee: Grid density data restore completed
+[10/20 17:29:34     25s] eee: pegSigSF=1.070000
+[10/20 17:29:34     25s] Initializing multi-corner resistance tables ...
+[10/20 17:29:34     25s] eee: Blockage data restore started... completed.
+[10/20 17:29:35     25s] eee: Grid unit RC data restore started
+[10/20 17:29:35     25s] eee:     Restore started for corner rc_reference_slow
+[10/20 17:29:35     25s] eee:         Current session: rc_reference_slow Tech: /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/libs/mmmc/rc_reference_fast/gpdk045.tch 125.000000 1.000000 1.000000 
+[10/20 17:29:35     25s] eee:         Saved   session: rc_reference_slow Tech: /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute/checkpoints/route_hold.enc.dat/libs/mmmc/rc_reference_fast/gpdk045.tch 125.000000 1.000000 1.000000 
+[10/20 17:29:35     25s] eee:     Restore completed for corner rc_reference_slow
+[10/20 17:29:35     25s] eee:     Restore started for corner rc_reference_fast
+[10/20 17:29:35     25s] eee:         Current session: rc_reference_fast Tech: /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/libs/mmmc/rc_reference_fast/gpdk045.tch 0.000000 1.000000 1.000000 
+[10/20 17:29:35     25s] eee:         Saved   session: rc_reference_fast Tech: /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute/checkpoints/route_hold.enc.dat/libs/mmmc/rc_reference_fast/gpdk045.tch 0.000000 1.000000 1.000000 
+[10/20 17:29:35     25s] eee:     Restore completed for corner rc_reference_fast
+[10/20 17:29:35     25s] eee: Grid unit RC data restore completed
+[10/20 17:29:35     25s] eee: l=1 avDens=0.113587 usedTrk=7176.430992 availTrk=63180.000000 sigTrk=7176.430992
+[10/20 17:29:35     25s] eee: l=2 avDens=0.211232 usedTrk=10709.799403 availTrk=50701.500000 sigTrk=10709.799403
+[10/20 17:29:35     25s] eee: l=3 avDens=0.253858 usedTrk=13845.436432 availTrk=54540.000000 sigTrk=13845.436432
+[10/20 17:29:35     25s] eee: l=4 avDens=0.191306 usedTrk=9683.167737 availTrk=50616.000000 sigTrk=9683.167737
+[10/20 17:29:35     25s] eee: l=5 avDens=0.068700 usedTrk=3425.405262 availTrk=49860.000000 sigTrk=3425.405262
+[10/20 17:29:35     25s] eee: l=6 avDens=0.021585 usedTrk=647.777778 availTrk=30010.500000 sigTrk=647.777778
+[10/20 17:29:35     25s] eee: l=7 avDens=0.000000 usedTrk=0.000000 availTrk=0.000000 sigTrk=0.000000
+[10/20 17:29:35     25s] eee: l=8 avDens=0.000000 usedTrk=0.000000 availTrk=0.000000 sigTrk=0.000000
+[10/20 17:29:35     25s] eee: l=9 avDens=0.000000 usedTrk=0.000000 availTrk=0.000000 sigTrk=0.000000
+[10/20 17:29:35     25s] eee: l=10 avDens=0.000000 usedTrk=0.000000 availTrk=0.000000 sigTrk=0.000000
+[10/20 17:29:35     25s] eee: l=11 avDens=0.000000 usedTrk=0.000000 availTrk=0.000000 sigTrk=0.000000
+[10/20 17:29:35     25s] eee: LAM-FP: thresh=1 ; dimX=2490.526316 ; dimY=2480.000000 ; multX=1.000000 ; multY=1.000000 ; minP=380 ; fpMult=1.000000 ;
+[10/20 17:29:35     25s] eee: LAM: n=40 LLS=2-3 HLS=3-5 rDens=0.317858 uaWl=1.000000 uaWlH=0.339400 aWlH=0.000000 lMod=0 pMax=0.867800 pMod=80 pModAss=50 wcR=0.500000 crit=0.000000 siPrev=0 newSi=0.001600 wHLS=1.250000 viaL=0.000000 shortMod=0.000000 fModUnas=0.000000 fModAs=0.000000 pDens=0.500000 
+[10/20 17:29:35     25s] eee: dbu = 2000, Design = [ll(0.000000, 0.000000) ur(473.200000, 471.200000)], Layers = [f(11) b(0)], Grid size = 17.100000 um, Grid Dim = (28 X 28)
+[10/20 17:29:35     25s] eee: Metal Layers Info:
+[10/20 17:29:35     25s] eee: +----------+-----+---------+---------+---------+--------+--------+---+---+----+
+[10/20 17:29:35     25s] eee: |   Layer  |  Id |    W    |    S    |    P    |   uC   |   uR   | D | T | wS |
+[10/20 17:29:35     25s] eee: +----------+-----+---------+---------+---------+--------+--------+---+---+----+
+[10/20 17:29:35     25s] eee: |   Metal1 |   1 |   0.060 |   0.060 |   0.190 |  0.121 |   1.23 | H | 0 |  1 |
+[10/20 17:29:35     25s] eee: |   Metal2 |   2 |   0.080 |   0.070 |   0.200 |  0.116 |   0.76 | V | 0 |  1 |
+[10/20 17:29:35     25s] eee: |   Metal3 |   3 |   0.080 |   0.070 |   0.190 |  0.124 |   0.76 | H | 0 |  1 |
+[10/20 17:29:35     25s] eee: |   Metal4 |   4 |   0.080 |   0.070 |   0.200 |  0.118 |   0.76 | V | 0 |  1 |
+[10/20 17:29:35     25s] eee: |   Metal5 |   5 |   0.080 |   0.070 |   0.190 |  0.125 |   0.76 | H | 0 |  1 |
+[10/20 17:29:35     25s] eee: |   Metal6 |   6 |   0.080 |   0.070 |   0.200 |  0.119 |   0.76 | V | 0 |  1 |
+[10/20 17:29:35     25s] eee: |   Metal7 |   7 |   0.080 |   0.070 |   0.190 |  0.127 |   0.76 | H | 0 |  1 |
+[10/20 17:29:35     25s] eee: |   Metal8 |   8 |   0.080 |   0.070 |   0.200 |  0.121 |   0.27 | V | 0 |  1 |
+[10/20 17:29:35     25s] eee: |   Metal9 |   9 |   0.080 |   0.070 |   0.190 |  0.773 |   0.27 | H | 0 |  1 |
+[10/20 17:29:35     25s] eee: |  Metal10 |  10 |   0.220 |   0.200 |   0.500 |  0.388 |   0.10 | V | 0 |  1 |
+[10/20 17:29:35     25s] eee: |  Metal11 |  11 |   0.220 |   0.200 |   0.475 |  0.535 |   0.10 | H | 0 |  1 |
+[10/20 17:29:35     25s] eee: +----------+-----+---------+---------+---------+--------+--------+---+---+----+
+[10/20 17:29:35     25s] eee: uC/uR for corner rc_reference_slow, min-width/min-spacing, 30 perc over/under densities.
+[10/20 17:29:35     25s] eee: +-----------------------NDR Info-----------------------+
+[10/20 17:29:35     25s] eee: NDR Count = 2, Fake NDR = 0
+[10/20 17:29:35     25s] eee: +----------------------------------------------------+
+[10/20 17:29:35     25s] eee: | NDR Name = LEFSpecialRouteSpec  | Id = 1  | isHard = 0 
+[10/20 17:29:35     25s] eee: +----------------------------------------------------+
+[10/20 17:29:35     25s] eee: +----------------------------------------------------+
+[10/20 17:29:35     25s] eee: | NDR Name = VLMDefaultSetup  | Id = 2  | isHard = 0 
+[10/20 17:29:35     25s] eee: +----------------------------------------------------+
+[10/20 17:29:35     25s] Default value for postRoute extraction mode's effortLevel (-effortLevel option of setExtractRCMode) changed to 'medium'.
+[10/20 17:29:35     25s] Restore PreRoute all RC Grid data successful.Restoring parasitic data from file '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.rcdb.d' ...
+[10/20 17:29:35     25s] Opening parasitic data file '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.rcdb.d/ecg_asic_power_top.rcdb.d' for reading (mem: 2425.770M)
+[10/20 17:29:35     25s] Reading RCDB with compressed RC data.
+[10/20 17:29:35     25s] Opening parasitic data file '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.rcdb.d/ecg_asic_power_top.rcdb.d' for content verification (mem: 2426.043M)
+[10/20 17:29:35     25s] Reading RCDB with compressed RC data.
+[10/20 17:29:35     25s] Closing parasitic data file '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.rcdb.d/ecg_asic_power_top.rcdb.d': 0 access done (mem: 2426.043M)
+[10/20 17:29:35     25s] Closing parasitic data file '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.rcdb.d/ecg_asic_power_top.rcdb.d': 0 access done (mem: 2426.043M)
+[10/20 17:29:35     25s] Begin read_parasitics... (cpu: 0:00:00.0 real: 0:00:00.0 mem: 2426.590M)
+[10/20 17:29:35     25s] Following multi-corner parasitics specified:
+[10/20 17:29:35     25s] 	/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.rcdb.d (rcdb)
+[10/20 17:29:35     25s] Opening parasitic data file '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.rcdb.d/ecg_asic_power_top.rcdb.d' for reading (mem: 2426.590M)
+[10/20 17:29:35     25s] Reading RCDB with compressed RC data.
+[10/20 17:29:35     25s] 		Cell ecg_asic_power_top has rcdb /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.rcdb.d/ecg_asic_power_top.rcdb.d specified
+[10/20 17:29:35     25s] Cell ecg_asic_power_top, hinst 
+[10/20 17:29:35     25s] processing rcdb (/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.rcdb.d/ecg_asic_power_top.rcdb.d) for hinst (top) of cell (ecg_asic_power_top);
+[10/20 17:29:35     25s] Closing parasitic data file '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.rcdb.d/ecg_asic_power_top.rcdb.d': 0 access done (mem: 2427.023M)
+[10/20 17:29:35     25s] Lumped Parasitic Loading Started (total cpu=0:00:00.0, real=0:00:00.0, current mem=2417.578M)
+[10/20 17:29:35     25s] Opening parasitic data file '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/native_area_reports_wPfMpB/fixed_ungated/innovus_temp_774543_16278b74-1623-4b6d-b635-770ecba22c56_ip-172-31-47-31.us-east-2.compute.internal_ec2-user_CPXQuT/ecg_asic_power_top_774543_16278b74-1623-4b6d-b635-770ecba22c56_cXrrN1.rcdb.d/ecg_asic_power_top.rcdb.d' for reading (mem: 2417.637M)
+[10/20 17:29:35     25s] Reading RCDB with compressed RC data.
+[10/20 17:29:35     25s] Lumped Parasitic Loading Completed (total cpu=0:00:00.1, real=0:00:00.0, current mem=2419.730M)
+[10/20 17:29:35     25s] Closing parasitic data file '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/native_area_reports_wPfMpB/fixed_ungated/innovus_temp_774543_16278b74-1623-4b6d-b635-770ecba22c56_ip-172-31-47-31.us-east-2.compute.internal_ec2-user_CPXQuT/ecg_asic_power_top_774543_16278b74-1623-4b6d-b635-770ecba22c56_cXrrN1.rcdb.d/ecg_asic_power_top.rcdb.d': 0 access done (mem: 2419.355M)
+[10/20 17:29:35     25s] Done read_parasitics... (cpu: 0:00:00.5 real: 0:00:00.0 mem: 2419.355M)
+[10/20 17:29:35     25s] Start generating vias ..
+[10/20 17:29:35     25s] ### import design signature (1): route=1 fixed_route=1 flt_obj=0 vio=1905142130 swire=1 shield_wire=1 net_attr=1 dirty_area=0 del_dirty_area=0 cell=0 placement=0 pin_access=1 inst_pattern=1 inst_orient=1 via=610195162 routing_via=1 timing=1 sns=1 ppa_info=1
+[10/20 17:29:35     25s] #Skip building auto via since it is not turned on.
+[10/20 17:29:35     25s] Extracting standard cell pins and blockage ...... 
+[10/20 17:29:35     25s] Pin and blockage extraction finished
+[10/20 17:29:35     25s] Via generation completed.
+[10/20 17:29:35     25s] % Begin Load power constraints ... (date=10/20 17:29:35, mem=2423.4M)
+[10/20 17:29:35     25s] % End Load power constraints ... (date=10/20 17:29:35, total cpu=0:00:00.0, real=0:00:00.0, peak res=2448.6M, current mem=2448.6M)
+[10/20 17:29:35     25s] % Begin load AAE data ... (date=10/20 17:29:35, mem=2496.3M)
+[10/20 17:29:35     26s] **WARN: (IMPESI-3505):	setDelayCalMode -eng_enablePrePlacedFlow false (default=false) will be obsoleted along with its sgs2set equivalent.  This parameter will continue to be supported in the current release, but will be removed in the next major release of the software.
+[10/20 17:29:35     26s] AAE DB initialization (MEM=2522.667969 CPU=0:00:00.0 REAL=0:00:00.0) 
+[10/20 17:29:35     26s] % End load AAE data ... (date=10/20 17:29:35, total cpu=0:00:00.5, real=0:00:00.0, peak res=2526.9M, current mem=2526.9M)
+[10/20 17:29:35     26s] Restoring CCOpt config...
+[10/20 17:29:36     26s] 
+[10/20 17:29:36     26s] TimeStamp Creating Cell Server ...(0, 0, 0, 0) in restoreDesign Begin ...
+[10/20 17:29:36     26s] SB Latch Setting to complicate: TLATSRXL complicate code: 8
+[10/20 17:29:36     26s] SB Latch Setting to complicate: TLATSRX4 complicate code: 8
+[10/20 17:29:36     26s] SB Latch Setting to complicate: TLATSRX2 complicate code: 8
+[10/20 17:29:36     26s] SB Latch Setting to complicate: TLATSRX1 complicate code: 8
+[10/20 17:29:36     26s] SB Latch Setting to complicate: TLATNSRXL complicate code: 8
+[10/20 17:29:36     26s] SB Latch Setting to complicate: TLATNSRX4 complicate code: 8
+[10/20 17:29:36     26s] SB Latch Setting to complicate: TLATNSRX2 complicate code: 8
+[10/20 17:29:36     26s] SB Latch Setting to complicate: TLATNSRX1 complicate code: 8
+[10/20 17:29:36     26s] SBFF Setting to complicate: SMDFFHQX8 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SMDFFHQX4 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SMDFFHQX2 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SMDFFHQX1 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SEDFFTRXL complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SEDFFTRX4 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SEDFFTRX2 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SEDFFTRX1 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SEDFFHQX8 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SEDFFHQX4 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SEDFFHQX2 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SEDFFHQX1 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: EDFFTRXL complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: EDFFTRX4 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: EDFFTRX2 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: EDFFTRX1 complicate code: 30.1
+[10/20 17:29:36     26s] Summary for sequential cells identification: 
+[10/20 17:29:36     26s]   Identified SBFF number: 104
+[10/20 17:29:36     26s]   Identified MBFF number: 0
+[10/20 17:29:36     26s]   Identified SB Latch number: 8
+[10/20 17:29:36     26s]   Identified MB Latch number: 0
+[10/20 17:29:36     26s]   Not identified SBFF number: 16
+[10/20 17:29:36     26s]   Not identified MBFF number: 0
+[10/20 17:29:36     26s]   Not identified SB Latch number: 8
+[10/20 17:29:36     26s]   Not identified MB Latch number: 0
+[10/20 17:29:36     26s]   Number of sequential cells which are not FFs: 16
+[10/20 17:29:36     26s]  Visiting view : view_slow
+[10/20 17:29:36     26s]    : PowerDomain = none : Weighted F : unweighted  = 38.00 (1.000) with rcCorner = 0
+[10/20 17:29:36     26s]    : PowerDomain = none : Weighted F : unweighted  = 20.10 (1.000) with rcCorner = -1
+[10/20 17:29:36     26s]  Visiting view : view_fast
+[10/20 17:29:36     26s]    : PowerDomain = none : Weighted F : unweighted  = 11.90 (1.000) with rcCorner = 1
+[10/20 17:29:36     26s]    : PowerDomain = none : Weighted F : unweighted  = 5.30 (1.000) with rcCorner = -1
+[10/20 17:29:36     26s]  Visiting view : view_slow
+[10/20 17:29:36     26s]    : PowerDomain = none : Weighted F : unweighted  = 38.00 (1.000) with rcCorner = 0
+[10/20 17:29:36     26s]    : PowerDomain = none : Weighted F : unweighted  = 20.10 (1.000) with rcCorner = -1
+[10/20 17:29:36     26s]  Visiting view : view_fast
+[10/20 17:29:36     26s]    : PowerDomain = none : Weighted F : unweighted  = 11.90 (1.000) with rcCorner = 1
+[10/20 17:29:36     26s]    : PowerDomain = none : Weighted F : unweighted  = 5.30 (1.000) with rcCorner = -1
+[10/20 17:29:36     26s] 
+[10/20 17:29:36     26s] TimeStamp Creating Cell Server ...(0, 0, 0, 0) in restoreDesign End ...
+[10/20 17:29:36     26s]   Extracting original clock gating for source_100khz...
+[10/20 17:29:36     26s]     clock_tree source_100khz contains 43 sinks and 0 clock gates.
+[10/20 17:29:36     26s]   Extracting original clock gating for source_100khz done.
+[10/20 17:29:36     26s]   Extracting original clock gating for processing_fast...
+[10/20 17:29:36     26s]     clock_tree processing_fast contains 8642 sinks and 2 clock gates.
+[10/20 17:29:36     26s]   Extracting original clock gating for processing_fast done.
+[10/20 17:29:36     26s]   Found 1 generator input for clock tree processing_fast.
+[10/20 17:29:36     26s]   The skew group processing_fast/functional was created. It contains 8642 sinks and 1 sources.
+[10/20 17:29:36     26s]   The skew group source_100khz/functional was created. It contains 8684 sinks and 1 sources.
+[10/20 17:29:36     26s]   The skew group source_100khz/functional was created. It contains 8684 sinks and 1 sources.
+[10/20 17:29:36     26s] Restoring CCOpt config done.
+[10/20 17:29:36     26s] 
+[10/20 17:29:36     26s] TimeStamp Deleting Cell Server Begin ...
+[10/20 17:29:36     26s] 
+[10/20 17:29:36     26s] TimeStamp Deleting Cell Server End ...
+[10/20 17:29:36     26s] 
+[10/20 17:29:36     26s] TimeStamp Creating Cell Server ...(0, 1, 1, 1) in restoreDesign Begin ...
+[10/20 17:29:36     26s] SB Latch Setting to complicate: TLATSRXL complicate code: 8
+[10/20 17:29:36     26s] SB Latch Setting to complicate: TLATSRX4 complicate code: 8
+[10/20 17:29:36     26s] SB Latch Setting to complicate: TLATSRX2 complicate code: 8
+[10/20 17:29:36     26s] SB Latch Setting to complicate: TLATSRX1 complicate code: 8
+[10/20 17:29:36     26s] SB Latch Setting to complicate: TLATNSRXL complicate code: 8
+[10/20 17:29:36     26s] SB Latch Setting to complicate: TLATNSRX4 complicate code: 8
+[10/20 17:29:36     26s] SB Latch Setting to complicate: TLATNSRX2 complicate code: 8
+[10/20 17:29:36     26s] SB Latch Setting to complicate: TLATNSRX1 complicate code: 8
+[10/20 17:29:36     26s] SBFF Setting to complicate: SMDFFHQX8 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SMDFFHQX4 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SMDFFHQX2 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SMDFFHQX1 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SEDFFTRXL complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SEDFFTRX4 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SEDFFTRX2 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SEDFFTRX1 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SEDFFHQX8 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SEDFFHQX4 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SEDFFHQX2 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: SEDFFHQX1 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: EDFFTRXL complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: EDFFTRX4 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: EDFFTRX2 complicate code: 30.1
+[10/20 17:29:36     26s] SBFF Setting to complicate: EDFFTRX1 complicate code: 30.1
+[10/20 17:29:36     26s] Summary for sequential cells identification: 
+[10/20 17:29:36     26s]   Identified SBFF number: 104
+[10/20 17:29:36     26s]   Identified MBFF number: 0
+[10/20 17:29:36     26s]   Identified SB Latch number: 8
+[10/20 17:29:36     26s]   Identified MB Latch number: 0
+[10/20 17:29:36     26s]   Not identified SBFF number: 16
+[10/20 17:29:36     26s]   Not identified MBFF number: 0
+[10/20 17:29:36     26s]   Not identified SB Latch number: 8
+[10/20 17:29:36     26s]   Not identified MB Latch number: 0
+[10/20 17:29:36     26s]   Number of sequential cells which are not FFs: 16
+[10/20 17:29:36     26s] Total number of combinational cells: 318
+[10/20 17:29:36     26s] Total number of sequential cells: 152
+[10/20 17:29:36     26s] Total number of tristate cells: 10
+[10/20 17:29:36     26s] Total number of level shifter cells: 0
+[10/20 17:29:36     26s] Total number of power gating cells: 0
+[10/20 17:29:36     26s] Total number of isolation cells: 0
+[10/20 17:29:36     26s] Total number of power switch cells: 0
+[10/20 17:29:36     26s] Total number of pulse generator cells: 0
+[10/20 17:29:36     26s] Total number of always on buffers: 0
+[10/20 17:29:36     26s] Total number of retention cells: 0
+[10/20 17:29:36     26s] Total number of physical cells: 9
+[10/20 17:29:36     26s] List of usable buffers: CLKBUFX2 BUFX2 CLKBUFX3 BUFX3 CLKBUFX4 BUFX4 CLKBUFX6 BUFX6 CLKBUFX8 BUFX8 CLKBUFX12 BUFX12 CLKBUFX16 BUFX16 CLKBUFX20 BUFX20
+[10/20 17:29:36     26s] Total number of usable buffers: 16
+[10/20 17:29:36     26s] List of unusable buffers:
+[10/20 17:29:36     26s] Total number of unusable buffers: 0
+[10/20 17:29:36     26s] List of usable inverters: INVXL INVX1 INVX2 CLKINVX1 INVX3 CLKINVX2 INVX4 CLKINVX4 CLKINVX3 INVX6 CLKINVX6 INVX8 CLKINVX8 INVX12 CLKINVX12 INVX16 CLKINVX16 INVX20 CLKINVX20
+[10/20 17:29:36     26s] Total number of usable inverters: 19
+[10/20 17:29:36     26s] List of unusable inverters:
+[10/20 17:29:36     26s] Total number of unusable inverters: 0
+[10/20 17:29:36     26s] List of identified usable delay cells: DLY1X1 DLY1X4 DLY2X1 DLY2X4 DLY3X1 DLY3X4 DLY4X1 DLY4X4
+[10/20 17:29:36     26s] Total number of identified usable delay cells: 8
+[10/20 17:29:36     26s] List of identified unusable delay cells:
+[10/20 17:29:36     26s] Total number of identified unusable delay cells: 0
+[10/20 17:29:36     26s] 
+[10/20 17:29:36     26s] TimeStamp Creating Cell Server ...(0, 1, 1, 1) in restoreDesign End ...
+[10/20 17:29:36     26s] 
+[10/20 17:29:36     26s] TimeStamp Deleting Cell Server Begin ...
+[10/20 17:29:36     26s] 
+[10/20 17:29:36     26s] TimeStamp Deleting Cell Server End ...
+[10/20 17:29:36     26s] #% End load design ... (date=10/20 17:29:36, total cpu=0:00:07.7, real=0:00:08.0, peak res=2547.0M, current mem=2532.1M)
+[10/20 17:29:36     26s] 
+[10/20 17:29:36     26s] *** Summary of all messages that are not suppressed in this session:
+[10/20 17:29:36     26s] Severity  ID               Count  Summary                                  
+[10/20 17:29:36     26s] WARNING   IMPLF-200            1  Pin '%s' in macro '%s' has no ANTENNAGAT...
+[10/20 17:29:36     26s] WARNING   IMPFP-3961           4  The techSite '%s' has no related standar...
+[10/20 17:29:36     26s] WARNING   IMPDB-6501           1  "Option '-process' in setDesignMode" wil...
+[10/20 17:29:36     26s] WARNING   IMPESI-3505          1  setDelayCalMode -eng_%s (default=%s) wil...
+[10/20 17:29:36     26s] WARNING   IMPOPT-3602          3  The specified path group name %s is not ...
+[10/20 17:29:36     26s] WARNING   IMPTCM-77            1  Option "%s" for command %s is obsolete a...
+[10/20 17:29:36     26s] WARNING   TECHLIB-302         20  No function defined for cell '%s'. The c...
+[10/20 17:29:36     26s] *** Message Summary: 31 warning(s), 0 error(s)
+[10/20 17:29:36     26s] 
+[10/20 17:29:36     26s] <CMD> report_area -detail -depth 3 -out_file reports/innovus_postroute_area.rpt
+[10/20 17:29:36     26s] <CMD> report_area -detail -depth 3 -include_physical -out_file reports/innovus_postroute_area_including_physical.rpt
+[10/20 17:29:36     26s] <CMD> reportGateCount -level 3 -stdCellOnly -outfile reports/innovus_postroute_gate_count.rpt
+[10/20 17:29:36     26s] Gate area 1.0260 um^2
+[10/20 17:29:36     26s] [0] ecg_asic_power_top Gates=114671 Cells=30323 Area=117652.8 um^2
+[10/20 17:29:36     26s] [1] core Gates=114663 Cells=30317 Area=117644.2 um^2
+[10/20 17:29:36     26s] [2] core/pipeline Gates=113966 Cells=30201 Area=116929.1 um^2
+[10/20 17:29:36     26s] [3] core/pipeline/banks[0].stats1 Gates=2358 Cells=719 Area=2419.3 um^2
+[10/20 17:29:36     26s] [3] core/pipeline/banks[0].stats2 Gates=2294 Cells=669 Area=2354.0 um^2
+[10/20 17:29:36     26s] [3] core/pipeline/banks[1].stats1 Gates=2355 Cells=712 Area=2416.6 um^2
+[10/20 17:29:36     26s] [3] core/pipeline/banks[1].stats2 Gates=2290 Cells=662 Area=2349.5 um^2
+[10/20 17:29:36     26s] [3] core/pipeline/mac2 Gates=5962 Cells=1762 Area=6117.0 um^2
+[10/20 17:29:36     27s] 
+[10/20 17:29:36     27s] *** Memory Usage v#1 (Current mem = 2532.527M, initial mem = 927.930M) ***
+[10/20 17:29:36     27s] 
+[10/20 17:29:36     27s] *** Summary of all messages that are not suppressed in this session:
+[10/20 17:29:36     27s] Severity  ID               Count  Summary                                  
+[10/20 17:29:36     27s] WARNING   IMPLF-200            1  Pin '%s' in macro '%s' has no ANTENNAGAT...
+[10/20 17:29:36     27s] WARNING   IMPFP-3961           4  The techSite '%s' has no related standar...
+[10/20 17:29:36     27s] WARNING   IMPDB-6501           1  "Option '-process' in setDesignMode" wil...
+[10/20 17:29:36     27s] WARNING   IMPESI-3505          1  setDelayCalMode -eng_%s (default=%s) wil...
+[10/20 17:29:36     27s] WARNING   IMPOPT-3602          3  The specified path group name %s is not ...
+[10/20 17:29:36     27s] WARNING   IMPTCM-77            1  Option "%s" for command %s is obsolete a...
+[10/20 17:29:36     27s] WARNING   TECHLIB-302         20  No function defined for cell '%s'. The c...
+[10/20 17:29:36     27s] *** Message Summary: 31 warning(s), 0 error(s)
+[10/20 17:29:36     27s] 
+[10/20 17:29:36     27s] --- Ending "Innovus" (totcpu=0:00:27.0, real=0:00:27.0, mem=2532.5M) ---

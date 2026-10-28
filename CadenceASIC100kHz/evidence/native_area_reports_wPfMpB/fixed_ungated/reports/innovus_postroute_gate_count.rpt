@@ -1,0 +1,9 @@
+Gate area 1.0260 um^2
+Level 0 Module ecg_asic_power_top                       Gates=    114671 Cells=   30323 Area=  117652.8 um^2
+Level 1 Module core                                     Gates=114663     Cells=30317    Area=  117644.2 um^2
+Level 2 Module core/pipeline                            Gates=113966     Cells=30201    Area=  116929.1 um^2
+Level 3 Module core/pipeline/banks[0].stats1            Gates=2358       Cells=719      Area=    2419.3 um^2
+Level 3 Module core/pipeline/banks[0].stats2            Gates=2294       Cells=669      Area=    2354.0 um^2
+Level 3 Module core/pipeline/banks[1].stats1            Gates=2355       Cells=712      Area=    2416.6 um^2
+Level 3 Module core/pipeline/banks[1].stats2            Gates=2290       Cells=662      Area=    2349.5 um^2
+Level 3 Module core/pipeline/mac2                       Gates=5962       Cells=1762     Area=    6117.0 um^2

@@ -1,0 +1,14 @@
+__pycache__/
+*.pyc
+*.jou
+*.log
+*.wlf
+work/
+vivado_adaptive_project/*.cache/
+vivado_adaptive_project/*.gen/
+vivado_adaptive_project/*.hw/
+vivado_adaptive_project/*.runs/
+vivado_adaptive_project/*.sim/
+vivado_adaptive_project/*.ip_user_files/
+vivado_adaptive_project/*.srcs/
+.Xil/

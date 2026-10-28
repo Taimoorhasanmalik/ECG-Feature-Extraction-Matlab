@@ -1,0 +1,5 @@
+source_postcts=/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/adaptive_gated/cts
+restored_checkpoint=/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/adaptive_gated/route_retry1/checkpoints/routed_raw.enc.dat
+action=postroute
+Reference QRC technology retained in both PVT views; no independent RC corners or qualified OCV supplied
+Tie fanout/distance settings are implementation choices, not foundry-qualified limits

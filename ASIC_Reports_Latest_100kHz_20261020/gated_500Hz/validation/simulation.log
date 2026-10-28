@@ -1,0 +1,1224 @@
+xrun(64): 26.03-s001-20260323: (c) Copyright 1995-2026 Cadence Design Systems, Inc.
+TOOL:	xrun(64)	26.03-s001-20260323: Started on Oct 20, 2026 at 12:44:58 UTC
+xrun
+	-64bit
+	-sv
+	-timescale 1ns/1ps
+	-unbuffered
+	-access +r
+	-nospecify
+	+define+ECG_GATE_NETLIST
+	/opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/verilog/slow_vdd1v0_basicCells.v
+	/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/adaptive_gated/export/exports/post_route.v
+	/home/ec2-user/CadenceASIC100kHz/sim/ecg_asic_power_tb.sv
+	-top ecg_asic_power_tb
+	-input /home/ec2-user/CadenceASIC100kHz/pair_activity.tcl
+	-l simulation.log
+	+NO_DUMP=1
+	+WORKLOAD=normal
+	+WARMUP_SAMPLES=1200
+	+MEASURE_SAMPLES=7200
+
+   User defined plus("+") options:
+	+NO_DUMP=1
+	+WORKLOAD=normal
+	+WARMUP_SAMPLES=1200
+	+MEASURE_SAMPLES=7200
+
+file: /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/verilog/slow_vdd1v0_basicCells.v
+	module worklib.ACHCONX2:v
+		errors: 0, warnings: 0
+	module worklib.ADDFHX1:v
+		errors: 0, warnings: 0
+	module worklib.ADDFHX2:v
+		errors: 0, warnings: 0
+	module worklib.ADDFHX4:v
+		errors: 0, warnings: 0
+	module worklib.ADDFHXL:v
+		errors: 0, warnings: 0
+	module worklib.ADDFX1:v
+		errors: 0, warnings: 0
+	module worklib.ADDFX2:v
+		errors: 0, warnings: 0
+	module worklib.ADDFX4:v
+		errors: 0, warnings: 0
+	module worklib.ADDFXL:v
+		errors: 0, warnings: 0
+	module worklib.ADDHX1:v
+		errors: 0, warnings: 0
+	module worklib.ADDHX2:v
+		errors: 0, warnings: 0
+	module worklib.ADDHX4:v
+		errors: 0, warnings: 0
+	module worklib.ADDHXL:v
+		errors: 0, warnings: 0
+	module worklib.AND2X1:v
+		errors: 0, warnings: 0
+	module worklib.AND2X2:v
+		errors: 0, warnings: 0
+	module worklib.AND2X4:v
+		errors: 0, warnings: 0
+	module worklib.AND2X6:v
+		errors: 0, warnings: 0
+	module worklib.AND2X8:v
+		errors: 0, warnings: 0
+	module worklib.AND2XL:v
+		errors: 0, warnings: 0
+	module worklib.AND3X1:v
+		errors: 0, warnings: 0
+	module worklib.AND3X2:v
+		errors: 0, warnings: 0
+	module worklib.AND3X4:v
+		errors: 0, warnings: 0
+	module worklib.AND3X6:v
+		errors: 0, warnings: 0
+	module worklib.AND3X8:v
+		errors: 0, warnings: 0
+	module worklib.AND3XL:v
+		errors: 0, warnings: 0
+	module worklib.AND4X1:v
+		errors: 0, warnings: 0
+	module worklib.AND4X2:v
+		errors: 0, warnings: 0
+	module worklib.AND4X4:v
+		errors: 0, warnings: 0
+	module worklib.AND4X6:v
+		errors: 0, warnings: 0
+	module worklib.AND4X8:v
+		errors: 0, warnings: 0
+	module worklib.AND4XL:v
+		errors: 0, warnings: 0
+	module worklib.ANTENNA:v
+		errors: 0, warnings: 0
+	module worklib.AO21X1:v
+		errors: 0, warnings: 0
+	module worklib.AO21X2:v
+		errors: 0, warnings: 0
+	module worklib.AO21X4:v
+		errors: 0, warnings: 0
+	module worklib.AO21XL:v
+		errors: 0, warnings: 0
+	module worklib.AO22X1:v
+		errors: 0, warnings: 0
+	module worklib.AO22X2:v
+		errors: 0, warnings: 0
+	module worklib.AO22X4:v
+		errors: 0, warnings: 0
+	module worklib.AO22XL:v
+		errors: 0, warnings: 0
+	module worklib.AOI211X1:v
+		errors: 0, warnings: 0
+	module worklib.AOI211X2:v
+		errors: 0, warnings: 0
+	module worklib.AOI211X4:v
+		errors: 0, warnings: 0
+	module worklib.AOI211XL:v
+		errors: 0, warnings: 0
+	module worklib.AOI21X1:v
+		errors: 0, warnings: 0
+	module worklib.AOI21X2:v
+		errors: 0, warnings: 0
+	module worklib.AOI21X4:v
+		errors: 0, warnings: 0
+	module worklib.AOI21XL:v
+		errors: 0, warnings: 0
+	module worklib.AOI221X1:v
+		errors: 0, warnings: 0
+	module worklib.AOI221X2:v
+		errors: 0, warnings: 0
+	module worklib.AOI221X4:v
+		errors: 0, warnings: 0
+	module worklib.AOI221XL:v
+		errors: 0, warnings: 0
+	module worklib.AOI222X1:v
+		errors: 0, warnings: 0
+	module worklib.AOI222X2:v
+		errors: 0, warnings: 0
+	module worklib.AOI222X4:v
+		errors: 0, warnings: 0
+	module worklib.AOI222XL:v
+		errors: 0, warnings: 0
+	module worklib.AOI22X1:v
+		errors: 0, warnings: 0
+	module worklib.AOI22X2:v
+		errors: 0, warnings: 0
+	module worklib.AOI22X4:v
+		errors: 0, warnings: 0
+	module worklib.AOI22XL:v
+		errors: 0, warnings: 0
+	module worklib.AOI2BB1X1:v
+		errors: 0, warnings: 0
+	module worklib.AOI2BB1X2:v
+		errors: 0, warnings: 0
+	module worklib.AOI2BB1X4:v
+		errors: 0, warnings: 0
+	module worklib.AOI2BB1XL:v
+		errors: 0, warnings: 0
+	module worklib.AOI2BB2X1:v
+		errors: 0, warnings: 0
+	module worklib.AOI2BB2X2:v
+		errors: 0, warnings: 0
+	module worklib.AOI2BB2X4:v
+		errors: 0, warnings: 0
+	module worklib.AOI2BB2XL:v
+		errors: 0, warnings: 0
+	module worklib.AOI31X1:v
+		errors: 0, warnings: 0
+	module worklib.AOI31X2:v
+		errors: 0, warnings: 0
+	module worklib.AOI31X4:v
+		errors: 0, warnings: 0
+	module worklib.AOI31XL:v
+		errors: 0, warnings: 0
+	module worklib.AOI32X1:v
+		errors: 0, warnings: 0
+	module worklib.AOI32X2:v
+		errors: 0, warnings: 0
+	module worklib.AOI32X4:v
+		errors: 0, warnings: 0
+	module worklib.AOI32XL:v
+		errors: 0, warnings: 0
+	module worklib.AOI33X1:v
+		errors: 0, warnings: 0
+	module worklib.AOI33X2:v
+		errors: 0, warnings: 0
+	module worklib.AOI33X4:v
+		errors: 0, warnings: 0
+	module worklib.AOI33XL:v
+		errors: 0, warnings: 0
+	module worklib.BMXIX2:v
+		errors: 0, warnings: 0
+	module worklib.BMXIX4:v
+		errors: 0, warnings: 0
+	module worklib.BUFX12:v
+		errors: 0, warnings: 0
+	module worklib.BUFX16:v
+		errors: 0, warnings: 0
+	module worklib.BUFX2:v
+		errors: 0, warnings: 0
+	module worklib.BUFX20:v
+		errors: 0, warnings: 0
+	module worklib.BUFX3:v
+		errors: 0, warnings: 0
+	module worklib.BUFX4:v
+		errors: 0, warnings: 0
+	module worklib.BUFX6:v
+		errors: 0, warnings: 0
+	module worklib.BUFX8:v
+		errors: 0, warnings: 0
+	module worklib.CLKAND2X12:v
+		errors: 0, warnings: 0
+	module worklib.CLKAND2X2:v
+		errors: 0, warnings: 0
+	module worklib.CLKAND2X3:v
+		errors: 0, warnings: 0
+	module worklib.CLKAND2X4:v
+		errors: 0, warnings: 0
+	module worklib.CLKAND2X6:v
+		errors: 0, warnings: 0
+	module worklib.CLKAND2X8:v
+		errors: 0, warnings: 0
+	module worklib.CLKBUFX12:v
+		errors: 0, warnings: 0
+	module worklib.CLKBUFX16:v
+		errors: 0, warnings: 0
+	module worklib.CLKBUFX2:v
+		errors: 0, warnings: 0
+	module worklib.CLKBUFX20:v
+		errors: 0, warnings: 0
+	module worklib.CLKBUFX3:v
+		errors: 0, warnings: 0
+	module worklib.CLKBUFX4:v
+		errors: 0, warnings: 0
+	module worklib.CLKBUFX6:v
+		errors: 0, warnings: 0
+	module worklib.CLKBUFX8:v
+		errors: 0, warnings: 0
+	module worklib.CLKINVX1:v
+		errors: 0, warnings: 0
+	module worklib.CLKINVX12:v
+		errors: 0, warnings: 0
+	module worklib.CLKINVX16:v
+		errors: 0, warnings: 0
+	module worklib.CLKINVX2:v
+		errors: 0, warnings: 0
+	module worklib.CLKINVX20:v
+		errors: 0, warnings: 0
+	module worklib.CLKINVX3:v
+		errors: 0, warnings: 0
+	module worklib.CLKINVX4:v
+		errors: 0, warnings: 0
+	module worklib.CLKINVX6:v
+		errors: 0, warnings: 0
+	module worklib.CLKINVX8:v
+		errors: 0, warnings: 0
+	module worklib.CLKMX2X12:v
+		errors: 0, warnings: 0
+	module worklib.CLKMX2X2:v
+		errors: 0, warnings: 0
+	module worklib.CLKMX2X3:v
+		errors: 0, warnings: 0
+	module worklib.CLKMX2X4:v
+		errors: 0, warnings: 0
+	module worklib.CLKMX2X6:v
+		errors: 0, warnings: 0
+	module worklib.CLKMX2X8:v
+		errors: 0, warnings: 0
+	module worklib.CLKXOR2X1:v
+		errors: 0, warnings: 0
+	module worklib.CLKXOR2X2:v
+		errors: 0, warnings: 0
+	module worklib.CLKXOR2X4:v
+		errors: 0, warnings: 0
+	module worklib.CLKXOR2X8:v
+		errors: 0, warnings: 0
+	module worklib.DECAP10:v
+		errors: 0, warnings: 0
+	module worklib.DECAP2:v
+		errors: 0, warnings: 0
+	module worklib.DECAP3:v
+		errors: 0, warnings: 0
+	module worklib.DECAP4:v
+		errors: 0, warnings: 0
+	module worklib.DECAP5:v
+		errors: 0, warnings: 0
+	module worklib.DECAP6:v
+		errors: 0, warnings: 0
+	module worklib.DECAP7:v
+		errors: 0, warnings: 0
+	module worklib.DECAP8:v
+		errors: 0, warnings: 0
+	module worklib.DECAP9:v
+		errors: 0, warnings: 0
+	module worklib.DFFHQX1:v
+		errors: 0, warnings: 0
+	module worklib.DFFHQX2:v
+		errors: 0, warnings: 0
+	module worklib.DFFHQX4:v
+		errors: 0, warnings: 0
+	module worklib.DFFHQX8:v
+		errors: 0, warnings: 0
+	module worklib.DFFNSRX1:v
+		errors: 0, warnings: 0
+	module worklib.DFFNSRX2:v
+		errors: 0, warnings: 0
+	module worklib.DFFNSRX4:v
+		errors: 0, warnings: 0
+	module worklib.DFFNSRXL:v
+		errors: 0, warnings: 0
+	module worklib.DFFQX1:v
+		errors: 0, warnings: 0
+	module worklib.DFFQX2:v
+		errors: 0, warnings: 0
+	module worklib.DFFQX4:v
+		errors: 0, warnings: 0
+	module worklib.DFFQXL:v
+		errors: 0, warnings: 0
+	module worklib.DFFRHQX1:v
+		errors: 0, warnings: 0
+	module worklib.DFFRHQX2:v
+		errors: 0, warnings: 0
+	module worklib.DFFRHQX4:v
+		errors: 0, warnings: 0
+	module worklib.DFFRHQX8:v
+		errors: 0, warnings: 0
+	module worklib.DFFRX1:v
+		errors: 0, warnings: 0
+	module worklib.DFFRX2:v
+		errors: 0, warnings: 0
+	module worklib.DFFRX4:v
+		errors: 0, warnings: 0
+	module worklib.DFFRXL:v
+		errors: 0, warnings: 0
+	module worklib.DFFSHQX1:v
+		errors: 0, warnings: 0
+	module worklib.DFFSHQX2:v
+		errors: 0, warnings: 0
+	module worklib.DFFSHQX4:v
+		errors: 0, warnings: 0
+	module worklib.DFFSHQX8:v
+		errors: 0, warnings: 0
+	module worklib.DFFSRHQX1:v
+		errors: 0, warnings: 0
+	module worklib.DFFSRHQX2:v
+		errors: 0, warnings: 0
+	module worklib.DFFSRHQX4:v
+		errors: 0, warnings: 0
+	module worklib.DFFSRHQX8:v
+		errors: 0, warnings: 0
+	module worklib.DFFSRX1:v
+		errors: 0, warnings: 0
+	module worklib.DFFSRX2:v
+		errors: 0, warnings: 0
+	module worklib.DFFSRX4:v
+		errors: 0, warnings: 0
+	module worklib.DFFSRXL:v
+		errors: 0, warnings: 0
+	module worklib.DFFSX1:v
+		errors: 0, warnings: 0
+	module worklib.DFFSX2:v
+		errors: 0, warnings: 0
+	module worklib.DFFSX4:v
+		errors: 0, warnings: 0
+	module worklib.DFFSXL:v
+		errors: 0, warnings: 0
+	module worklib.DFFTRX1:v
+		errors: 0, warnings: 0
+	module worklib.DFFTRX2:v
+		errors: 0, warnings: 0
+	module worklib.DFFTRX4:v
+		errors: 0, warnings: 0
+	module worklib.DFFTRXL:v
+		errors: 0, warnings: 0
+	module worklib.DFFX1:v
+		errors: 0, warnings: 0
+	module worklib.DFFX2:v
+		errors: 0, warnings: 0
+	module worklib.DFFX4:v
+		errors: 0, warnings: 0
+	module worklib.DFFXL:v
+		errors: 0, warnings: 0
+	module worklib.DLY1X1:v
+		errors: 0, warnings: 0
+	module worklib.DLY1X4:v
+		errors: 0, warnings: 0
+	module worklib.DLY2X1:v
+		errors: 0, warnings: 0
+	module worklib.DLY2X4:v
+		errors: 0, warnings: 0
+	module worklib.DLY3X1:v
+		errors: 0, warnings: 0
+	module worklib.DLY3X4:v
+		errors: 0, warnings: 0
+	module worklib.DLY4X1:v
+		errors: 0, warnings: 0
+	module worklib.DLY4X4:v
+		errors: 0, warnings: 0
+	module worklib.EDFFHQX1:v
+		errors: 0, warnings: 0
+	module worklib.EDFFHQX2:v
+		errors: 0, warnings: 0
+	module worklib.EDFFHQX4:v
+		errors: 0, warnings: 0
+	module worklib.EDFFHQX8:v
+		errors: 0, warnings: 0
+	module worklib.EDFFTRX1:v
+		errors: 0, warnings: 0
+	module worklib.EDFFTRX2:v
+		errors: 0, warnings: 0
+	module worklib.EDFFTRX4:v
+		errors: 0, warnings: 0
+	module worklib.EDFFTRXL:v
+		errors: 0, warnings: 0
+	module worklib.EDFFX1:v
+		errors: 0, warnings: 0
+	module worklib.EDFFX2:v
+		errors: 0, warnings: 0
+	module worklib.EDFFX4:v
+		errors: 0, warnings: 0
+	module worklib.EDFFXL:v
+		errors: 0, warnings: 0
+	module worklib.HOLDX1:v
+		errors: 0, warnings: 0
+	module worklib.INVX1:v
+		errors: 0, warnings: 0
+	module worklib.INVX12:v
+		errors: 0, warnings: 0
+	module worklib.INVX16:v
+		errors: 0, warnings: 0
+	module worklib.INVX2:v
+		errors: 0, warnings: 0
+	module worklib.INVX20:v
+		errors: 0, warnings: 0
+	module worklib.INVX3:v
+		errors: 0, warnings: 0
+	module worklib.INVX4:v
+		errors: 0, warnings: 0
+	module worklib.INVX6:v
+		errors: 0, warnings: 0
+	module worklib.INVX8:v
+		errors: 0, warnings: 0
+	module worklib.INVXL:v
+		errors: 0, warnings: 0
+	module worklib.MDFFHQX1:v
+		errors: 0, warnings: 0
+	module worklib.MDFFHQX2:v
+		errors: 0, warnings: 0
+	module worklib.MDFFHQX4:v
+		errors: 0, warnings: 0
+	module worklib.MDFFHQX8:v
+		errors: 0, warnings: 0
+	module worklib.MX2X1:v
+		errors: 0, warnings: 0
+	module worklib.MX2X2:v
+		errors: 0, warnings: 0
+	module worklib.MX2X4:v
+		errors: 0, warnings: 0
+	module worklib.MX2X6:v
+		errors: 0, warnings: 0
+	module worklib.MX2X8:v
+		errors: 0, warnings: 0
+	module worklib.MX2XL:v
+		errors: 0, warnings: 0
+	module worklib.MX3X1:v
+		errors: 0, warnings: 0
+	module worklib.MX3X2:v
+		errors: 0, warnings: 0
+	module worklib.MX3X4:v
+		errors: 0, warnings: 0
+	module worklib.MX3XL:v
+		errors: 0, warnings: 0
+	module worklib.MX4X1:v
+		errors: 0, warnings: 0
+	module worklib.MX4X2:v
+		errors: 0, warnings: 0
+	module worklib.MX4X4:v
+		errors: 0, warnings: 0
+	module worklib.MX4XL:v
+		errors: 0, warnings: 0
+	module worklib.MXI2X1:v
+		errors: 0, warnings: 0
+	module worklib.MXI2X2:v
+		errors: 0, warnings: 0
+	module worklib.MXI2X4:v
+		errors: 0, warnings: 0
+	module worklib.MXI2X6:v
+		errors: 0, warnings: 0
+	module worklib.MXI2X8:v
+		errors: 0, warnings: 0
+	module worklib.MXI2XL:v
+		errors: 0, warnings: 0
+	module worklib.MXI3X1:v
+		errors: 0, warnings: 0
+	module worklib.MXI3X2:v
+		errors: 0, warnings: 0
+	module worklib.MXI3X4:v
+		errors: 0, warnings: 0
+	module worklib.MXI3XL:v
+		errors: 0, warnings: 0
+	module worklib.MXI4X1:v
+		errors: 0, warnings: 0
+	module worklib.MXI4X2:v
+		errors: 0, warnings: 0
+	module worklib.MXI4X4:v
+		errors: 0, warnings: 0
+	module worklib.MXI4XL:v
+		errors: 0, warnings: 0
+	module worklib.NAND2BX1:v
+		errors: 0, warnings: 0
+	module worklib.NAND2BX2:v
+		errors: 0, warnings: 0
+	module worklib.NAND2BX4:v
+		errors: 0, warnings: 0
+	module worklib.NAND2BXL:v
+		errors: 0, warnings: 0
+	module worklib.NAND2X1:v
+		errors: 0, warnings: 0
+	module worklib.NAND2X2:v
+		errors: 0, warnings: 0
+	module worklib.NAND2X4:v
+		errors: 0, warnings: 0
+	module worklib.NAND2X6:v
+		errors: 0, warnings: 0
+	module worklib.NAND2X8:v
+		errors: 0, warnings: 0
+	module worklib.NAND2XL:v
+		errors: 0, warnings: 0
+	module worklib.NAND3BX1:v
+		errors: 0, warnings: 0
+	module worklib.NAND3BX2:v
+		errors: 0, warnings: 0
+	module worklib.NAND3BX4:v
+		errors: 0, warnings: 0
+	module worklib.NAND3BXL:v
+		errors: 0, warnings: 0
+	module worklib.NAND3X1:v
+		errors: 0, warnings: 0
+	module worklib.NAND3X2:v
+		errors: 0, warnings: 0
+	module worklib.NAND3X4:v
+		errors: 0, warnings: 0
+	module worklib.NAND3X6:v
+		errors: 0, warnings: 0
+	module worklib.NAND3X8:v
+		errors: 0, warnings: 0
+	module worklib.NAND3XL:v
+		errors: 0, warnings: 0
+	module worklib.NAND4BBX1:v
+		errors: 0, warnings: 0
+	module worklib.NAND4BBX2:v
+		errors: 0, warnings: 0
+	module worklib.NAND4BBX4:v
+		errors: 0, warnings: 0
+	module worklib.NAND4BBXL:v
+		errors: 0, warnings: 0
+	module worklib.NAND4BX1:v
+		errors: 0, warnings: 0
+	module worklib.NAND4BX2:v
+		errors: 0, warnings: 0
+	module worklib.NAND4BX4:v
+		errors: 0, warnings: 0
+	module worklib.NAND4BXL:v
+		errors: 0, warnings: 0
+	module worklib.NAND4X1:v
+		errors: 0, warnings: 0
+	module worklib.NAND4X2:v
+		errors: 0, warnings: 0
+	module worklib.NAND4X4:v
+		errors: 0, warnings: 0
+	module worklib.NAND4X6:v
+		errors: 0, warnings: 0
+	module worklib.NAND4X8:v
+		errors: 0, warnings: 0
+	module worklib.NAND4XL:v
+		errors: 0, warnings: 0
+	module worklib.NOR2BX1:v
+		errors: 0, warnings: 0
+	module worklib.NOR2BX2:v
+		errors: 0, warnings: 0
+	module worklib.NOR2BX4:v
+		errors: 0, warnings: 0
+	module worklib.NOR2BXL:v
+		errors: 0, warnings: 0
+	module worklib.NOR2X1:v
+		errors: 0, warnings: 0
+	module worklib.NOR2X2:v
+		errors: 0, warnings: 0
+	module worklib.NOR2X4:v
+		errors: 0, warnings: 0
+	module worklib.NOR2X6:v
+		errors: 0, warnings: 0
+	module worklib.NOR2X8:v
+		errors: 0, warnings: 0
+	module worklib.NOR2XL:v
+		errors: 0, warnings: 0
+	module worklib.NOR3BX1:v
+		errors: 0, warnings: 0
+	module worklib.NOR3BX2:v
+		errors: 0, warnings: 0
+	module worklib.NOR3BX4:v
+		errors: 0, warnings: 0
+	module worklib.NOR3BXL:v
+		errors: 0, warnings: 0
+	module worklib.NOR3X1:v
+		errors: 0, warnings: 0
+	module worklib.NOR3X2:v
+		errors: 0, warnings: 0
+	module worklib.NOR3X4:v
+		errors: 0, warnings: 0
+	module worklib.NOR3X6:v
+		errors: 0, warnings: 0
+	module worklib.NOR3X8:v
+		errors: 0, warnings: 0
+	module worklib.NOR3XL:v
+		errors: 0, warnings: 0
+	module worklib.NOR4BBX1:v
+		errors: 0, warnings: 0
+	module worklib.NOR4BBX2:v
+		errors: 0, warnings: 0
+	module worklib.NOR4BBX4:v
+		errors: 0, warnings: 0
+	module worklib.NOR4BBXL:v
+		errors: 0, warnings: 0
+	module worklib.NOR4BX1:v
+		errors: 0, warnings: 0
+	module worklib.NOR4BX2:v
+		errors: 0, warnings: 0
+	module worklib.NOR4BX4:v
+		errors: 0, warnings: 0
+	module worklib.NOR4BXL:v
+		errors: 0, warnings: 0
+	module worklib.NOR4X1:v
+		errors: 0, warnings: 0
+	module worklib.NOR4X2:v
+		errors: 0, warnings: 0
+	module worklib.NOR4X4:v
+		errors: 0, warnings: 0
+	module worklib.NOR4X6:v
+		errors: 0, warnings: 0
+	module worklib.NOR4X8:v
+		errors: 0, warnings: 0
+	module worklib.NOR4XL:v
+		errors: 0, warnings: 0
+	module worklib.OA21X1:v
+		errors: 0, warnings: 0
+	module worklib.OA21X2:v
+		errors: 0, warnings: 0
+	module worklib.OA21X4:v
+		errors: 0, warnings: 0
+	module worklib.OA21XL:v
+		errors: 0, warnings: 0
+	module worklib.OA22X1:v
+		errors: 0, warnings: 0
+	module worklib.OA22X2:v
+		errors: 0, warnings: 0
+	module worklib.OA22X4:v
+		errors: 0, warnings: 0
+	module worklib.OA22XL:v
+		errors: 0, warnings: 0
+	module worklib.OAI211X1:v
+		errors: 0, warnings: 0
+	module worklib.OAI211X2:v
+		errors: 0, warnings: 0
+	module worklib.OAI211X4:v
+		errors: 0, warnings: 0
+	module worklib.OAI211XL:v
+		errors: 0, warnings: 0
+	module worklib.OAI21X1:v
+		errors: 0, warnings: 0
+	module worklib.OAI21X2:v
+		errors: 0, warnings: 0
+	module worklib.OAI21X4:v
+		errors: 0, warnings: 0
+	module worklib.OAI21XL:v
+		errors: 0, warnings: 0
+	module worklib.OAI221X1:v
+		errors: 0, warnings: 0
+	module worklib.OAI221X2:v
+		errors: 0, warnings: 0
+	module worklib.OAI221X4:v
+		errors: 0, warnings: 0
+	module worklib.OAI221XL:v
+		errors: 0, warnings: 0
+	module worklib.OAI222X1:v
+		errors: 0, warnings: 0
+	module worklib.OAI222X2:v
+		errors: 0, warnings: 0
+	module worklib.OAI222X4:v
+		errors: 0, warnings: 0
+	module worklib.OAI222XL:v
+		errors: 0, warnings: 0
+	module worklib.OAI22X1:v
+		errors: 0, warnings: 0
+	module worklib.OAI22X2:v
+		errors: 0, warnings: 0
+	module worklib.OAI22X4:v
+		errors: 0, warnings: 0
+	module worklib.OAI22XL:v
+		errors: 0, warnings: 0
+	module worklib.OAI2BB1X1:v
+		errors: 0, warnings: 0
+	module worklib.OAI2BB1X2:v
+		errors: 0, warnings: 0
+	module worklib.OAI2BB1X4:v
+		errors: 0, warnings: 0
+	module worklib.OAI2BB1XL:v
+		errors: 0, warnings: 0
+	module worklib.OAI2BB2X1:v
+		errors: 0, warnings: 0
+	module worklib.OAI2BB2X2:v
+		errors: 0, warnings: 0
+	module worklib.OAI2BB2X4:v
+		errors: 0, warnings: 0
+	module worklib.OAI2BB2XL:v
+		errors: 0, warnings: 0
+	module worklib.OAI31X1:v
+		errors: 0, warnings: 0
+	module worklib.OAI31X2:v
+		errors: 0, warnings: 0
+	module worklib.OAI31X4:v
+		errors: 0, warnings: 0
+	module worklib.OAI31XL:v
+		errors: 0, warnings: 0
+	module worklib.OAI32X1:v
+		errors: 0, warnings: 0
+	module worklib.OAI32X2:v
+		errors: 0, warnings: 0
+	module worklib.OAI32X4:v
+		errors: 0, warnings: 0
+	module worklib.OAI32XL:v
+		errors: 0, warnings: 0
+	module worklib.OAI33X1:v
+		errors: 0, warnings: 0
+	module worklib.OAI33X2:v
+		errors: 0, warnings: 0
+	module worklib.OAI33X4:v
+		errors: 0, warnings: 0
+	module worklib.OAI33XL:v
+		errors: 0, warnings: 0
+	module worklib.OR2X1:v
+		errors: 0, warnings: 0
+	module worklib.OR2X2:v
+		errors: 0, warnings: 0
+	module worklib.OR2X4:v
+		errors: 0, warnings: 0
+	module worklib.OR2X6:v
+		errors: 0, warnings: 0
+	module worklib.OR2X8:v
+		errors: 0, warnings: 0
+	module worklib.OR2XL:v
+		errors: 0, warnings: 0
+	module worklib.OR3X1:v
+		errors: 0, warnings: 0
+	module worklib.OR3X2:v
+		errors: 0, warnings: 0
+	module worklib.OR3X4:v
+		errors: 0, warnings: 0
+	module worklib.OR3X6:v
+		errors: 0, warnings: 0
+	module worklib.OR3X8:v
+		errors: 0, warnings: 0
+	module worklib.OR3XL:v
+		errors: 0, warnings: 0
+	module worklib.OR4X1:v
+		errors: 0, warnings: 0
+	module worklib.OR4X2:v
+		errors: 0, warnings: 0
+	module worklib.OR4X4:v
+		errors: 0, warnings: 0
+	module worklib.OR4X6:v
+		errors: 0, warnings: 0
+	module worklib.OR4X8:v
+		errors: 0, warnings: 0
+	module worklib.OR4XL:v
+		errors: 0, warnings: 0
+	module worklib.SDFFHQX1:v
+		errors: 0, warnings: 0
+	module worklib.SDFFHQX2:v
+		errors: 0, warnings: 0
+	module worklib.SDFFHQX4:v
+		errors: 0, warnings: 0
+	module worklib.SDFFHQX8:v
+		errors: 0, warnings: 0
+	module worklib.SDFFNSRX1:v
+		errors: 0, warnings: 0
+	module worklib.SDFFNSRX2:v
+		errors: 0, warnings: 0
+	module worklib.SDFFNSRX4:v
+		errors: 0, warnings: 0
+	module worklib.SDFFNSRXL:v
+		errors: 0, warnings: 0
+	module worklib.SDFFQX1:v
+		errors: 0, warnings: 0
+	module worklib.SDFFQX2:v
+		errors: 0, warnings: 0
+	module worklib.SDFFQX4:v
+		errors: 0, warnings: 0
+	module worklib.SDFFQXL:v
+		errors: 0, warnings: 0
+	module worklib.SDFFRHQX1:v
+		errors: 0, warnings: 0
+	module worklib.SDFFRHQX2:v
+		errors: 0, warnings: 0
+	module worklib.SDFFRHQX4:v
+		errors: 0, warnings: 0
+	module worklib.SDFFRHQX8:v
+		errors: 0, warnings: 0
+	module worklib.SDFFRX1:v
+		errors: 0, warnings: 0
+	module worklib.SDFFRX2:v
+		errors: 0, warnings: 0
+	module worklib.SDFFRX4:v
+		errors: 0, warnings: 0
+	module worklib.SDFFRXL:v
+		errors: 0, warnings: 0
+	module worklib.SDFFSHQX1:v
+		errors: 0, warnings: 0
+	module worklib.SDFFSHQX2:v
+		errors: 0, warnings: 0
+	module worklib.SDFFSHQX4:v
+		errors: 0, warnings: 0
+	module worklib.SDFFSHQX8:v
+		errors: 0, warnings: 0
+	module worklib.SDFFSRHQX1:v
+		errors: 0, warnings: 0
+	module worklib.SDFFSRHQX2:v
+		errors: 0, warnings: 0
+	module worklib.SDFFSRHQX4:v
+		errors: 0, warnings: 0
+	module worklib.SDFFSRHQX8:v
+		errors: 0, warnings: 0
+	module worklib.SDFFSRX1:v
+		errors: 0, warnings: 0
+	module worklib.SDFFSRX2:v
+		errors: 0, warnings: 0
+	module worklib.SDFFSRX4:v
+		errors: 0, warnings: 0
+	module worklib.SDFFSRXL:v
+		errors: 0, warnings: 0
+	module worklib.SDFFSX1:v
+		errors: 0, warnings: 0
+	module worklib.SDFFSX2:v
+		errors: 0, warnings: 0
+	module worklib.SDFFSX4:v
+		errors: 0, warnings: 0
+	module worklib.SDFFSXL:v
+		errors: 0, warnings: 0
+	module worklib.SDFFTRX1:v
+		errors: 0, warnings: 0
+	module worklib.SDFFTRX2:v
+		errors: 0, warnings: 0
+	module worklib.SDFFTRX4:v
+		errors: 0, warnings: 0
+	module worklib.SDFFTRXL:v
+		errors: 0, warnings: 0
+	module worklib.SDFFX1:v
+		errors: 0, warnings: 0
+	module worklib.SDFFX2:v
+		errors: 0, warnings: 0
+	module worklib.SDFFX4:v
+		errors: 0, warnings: 0
+	module worklib.SDFFXL:v
+		errors: 0, warnings: 0
+	module worklib.SEDFFHQX1:v
+		errors: 0, warnings: 0
+	module worklib.SEDFFHQX2:v
+		errors: 0, warnings: 0
+	module worklib.SEDFFHQX4:v
+		errors: 0, warnings: 0
+	module worklib.SEDFFHQX8:v
+		errors: 0, warnings: 0
+	module worklib.SEDFFTRX1:v
+		errors: 0, warnings: 0
+	module worklib.SEDFFTRX2:v
+		errors: 0, warnings: 0
+	module worklib.SEDFFTRX4:v
+		errors: 0, warnings: 0
+	module worklib.SEDFFTRXL:v
+		errors: 0, warnings: 0
+	module worklib.SEDFFX1:v
+		errors: 0, warnings: 0
+	module worklib.SEDFFX2:v
+		errors: 0, warnings: 0
+	module worklib.SEDFFX4:v
+		errors: 0, warnings: 0
+	module worklib.SEDFFXL:v
+		errors: 0, warnings: 0
+	module worklib.SMDFFHQX1:v
+		errors: 0, warnings: 0
+	module worklib.SMDFFHQX2:v
+		errors: 0, warnings: 0
+	module worklib.SMDFFHQX4:v
+		errors: 0, warnings: 0
+	module worklib.SMDFFHQX8:v
+		errors: 0, warnings: 0
+	module worklib.TBUFX1:v
+		errors: 0, warnings: 0
+	module worklib.TBUFX12:v
+		errors: 0, warnings: 0
+	module worklib.TBUFX16:v
+		errors: 0, warnings: 0
+	module worklib.TBUFX2:v
+		errors: 0, warnings: 0
+	module worklib.TBUFX20:v
+		errors: 0, warnings: 0
+	module worklib.TBUFX3:v
+		errors: 0, warnings: 0
+	module worklib.TBUFX4:v
+		errors: 0, warnings: 0
+	module worklib.TBUFX6:v
+		errors: 0, warnings: 0
+	module worklib.TBUFX8:v
+		errors: 0, warnings: 0
+	module worklib.TBUFXL:v
+		errors: 0, warnings: 0
+	module worklib.TIEHI:v
+		errors: 0, warnings: 0
+	module worklib.TIELO:v
+		errors: 0, warnings: 0
+	module worklib.TLATNCAX12:v
+		errors: 0, warnings: 0
+	module worklib.TLATNCAX16:v
+		errors: 0, warnings: 0
+	module worklib.TLATNCAX2:v
+		errors: 0, warnings: 0
+	module worklib.TLATNCAX20:v
+		errors: 0, warnings: 0
+	module worklib.TLATNCAX3:v
+		errors: 0, warnings: 0
+	module worklib.TLATNCAX4:v
+		errors: 0, warnings: 0
+	module worklib.TLATNCAX6:v
+		errors: 0, warnings: 0
+	module worklib.TLATNCAX8:v
+		errors: 0, warnings: 0
+	module worklib.TLATNSRX1:v
+		errors: 0, warnings: 0
+	module worklib.TLATNSRX2:v
+		errors: 0, warnings: 0
+	module worklib.TLATNSRX4:v
+		errors: 0, warnings: 0
+	module worklib.TLATNSRXL:v
+		errors: 0, warnings: 0
+	module worklib.TLATNTSCAX12:v
+		errors: 0, warnings: 0
+	module worklib.TLATNTSCAX16:v
+		errors: 0, warnings: 0
+	module worklib.TLATNTSCAX2:v
+		errors: 0, warnings: 0
+	module worklib.TLATNTSCAX20:v
+		errors: 0, warnings: 0
+	module worklib.TLATNTSCAX3:v
+		errors: 0, warnings: 0
+	module worklib.TLATNTSCAX4:v
+		errors: 0, warnings: 0
+	module worklib.TLATNTSCAX6:v
+		errors: 0, warnings: 0
+	module worklib.TLATNTSCAX8:v
+		errors: 0, warnings: 0
+	module worklib.TLATNX1:v
+		errors: 0, warnings: 0
+	module worklib.TLATNX2:v
+		errors: 0, warnings: 0
+	module worklib.TLATNX4:v
+		errors: 0, warnings: 0
+	module worklib.TLATNXL:v
+		errors: 0, warnings: 0
+	module worklib.TLATSRX1:v
+		errors: 0, warnings: 0
+	module worklib.TLATSRX2:v
+		errors: 0, warnings: 0
+	module worklib.TLATSRX4:v
+		errors: 0, warnings: 0
+	module worklib.TLATSRXL:v
+		errors: 0, warnings: 0
+	module worklib.TLATX1:v
+		errors: 0, warnings: 0
+	module worklib.TLATX2:v
+		errors: 0, warnings: 0
+	module worklib.TLATX4:v
+		errors: 0, warnings: 0
+	module worklib.TLATXL:v
+		errors: 0, warnings: 0
+	module worklib.XNOR2X1:v
+		errors: 0, warnings: 0
+	module worklib.XNOR2X2:v
+		errors: 0, warnings: 0
+	module worklib.XNOR2X4:v
+		errors: 0, warnings: 0
+	module worklib.XNOR2XL:v
+		errors: 0, warnings: 0
+	module worklib.XNOR3X1:v
+		errors: 0, warnings: 0
+	module worklib.XNOR3XL:v
+		errors: 0, warnings: 0
+	module worklib.XOR2X1:v
+		errors: 0, warnings: 0
+	module worklib.XOR2X2:v
+		errors: 0, warnings: 0
+	module worklib.XOR2X4:v
+		errors: 0, warnings: 0
+	module worklib.XOR2XL:v
+		errors: 0, warnings: 0
+	module worklib.XOR3X1:v
+		errors: 0, warnings: 0
+	module worklib.XOR3XL:v
+		errors: 0, warnings: 0
+	primitive worklib.altos_latch:v
+		errors: 0, warnings: 0
+	primitive worklib.altos_dff_err:v
+		errors: 0, warnings: 0
+	primitive worklib.altos_dff:v
+		errors: 0, warnings: 0
+	primitive worklib.altos_dff_r_err:v
+		errors: 0, warnings: 0
+	primitive worklib.altos_dff_r:v
+		errors: 0, warnings: 0
+	primitive worklib.altos_dff_s_err:v
+		errors: 0, warnings: 0
+	primitive worklib.altos_dff_s:v
+		errors: 0, warnings: 0
+	primitive worklib.altos_dff_sr_err:v
+		errors: 0, warnings: 0
+	primitive worklib.altos_dff_sr_0:v
+		errors: 0, warnings: 0
+	primitive worklib.altos_dff_sr_1:v
+		errors: 0, warnings: 0
+	primitive worklib.altos_latch_r:v
+		errors: 0, warnings: 0
+	primitive worklib.altos_latch_s:v
+		errors: 0, warnings: 0
+	primitive worklib.altos_latch_sr_0:v
+		errors: 0, warnings: 0
+	primitive worklib.altos_latch_sr_1:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/adaptive_gated/export/exports/post_route.v
+	module worklib.BUFGCE:v
+		errors: 0, warnings: 0
+	module worklib.ecg_adaptive_clock_SOURCE_HZ100000_SLOW_HZ500:v
+		errors: 0, warnings: 0
+	module worklib.ecg_sample_mailbox:v
+		errors: 0, warnings: 0
+	module worklib.shared_stream_stats_bank:v
+		errors: 0, warnings: 0
+	module worklib.shared_stream_stats_bank_3_770:v
+		errors: 0, warnings: 0
+	module worklib.shared_stream_stats_bank_769:v
+		errors: 0, warnings: 0
+	module worklib.shared_stream_stats_bank_3:v
+		errors: 0, warnings: 0
+	module worklib.BUFGCE_CE_TYPE32h53594e43_SIM_DEVICE56h37534552494553:v
+		errors: 0, warnings: 0
+	module worklib.shared_classifier_mac_q_GATE_IDLE_CLOCK1:v
+		errors: 0, warnings: 0
+	module worklib.feature_set_SAMPLE_WIDTH14_WINDOW_SAMPLES240_STEP_SAMPLES120:v
+		errors: 0, warnings: 0
+	module worklib.BUFGCE_CE_TYPE32h53594e43_SIM_DEVICE56h37534552494553_6603:v
+		errors: 0, warnings: 0
+	module worklib.two_stage_shared_replay_top_SHARED_HP1_MODEL1_DEEP_HISTORY0_CLOCK_GATING1_STAGE1_FULL_RATE0:v
+		errors: 0, warnings: 0
+	module worklib.two_stage_adaptive_clock_top_SOURCE_HZ100000_ADAPTIVE_CLOCK1_STAGE1_FULL_RATE0_CLOCK_GATING1:v
+		errors: 0, warnings: 0
+	module worklib.ecg_asic_power_top:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/sim/ecg_asic_power_tb.sv
+	module worklib.ecg_asic_power_tb:sv
+		errors: 0, warnings: 0
+	Elaborating the design hierarchy:
+		Caching library 'worklib' ....... Done
+   shared_stream_stats_bank \banks[0].stats1  (.resetn(resetn),
+                                            |
+xmelab: *W,CUVWSP (../export/exports/post_route.v,54502|44): 3 output ports were not connected:
+xmelab: (../export/exports/post_route.v,777): FE_DBTN48_hp_d1_2
+xmelab: (../export/exports/post_route.v,791): FE_DBTN69_hp_d1_9
+xmelab: (../export/exports/post_route.v,793): FE_DBTN72_hp_d1_10
+
+   shared_stream_stats_bank_3_770 \banks[0].stats2  (.resetn(FE_OFN3617_pipeline_resetn),
+                                                  |
+xmelab: *W,CUVWSP (../export/exports/post_route.v,54621|50): 1 output port was not connected:
+xmelab: (../export/exports/post_route.v,4499): FE_DBTN24_seq_sample_5
+
+	Top level design units:
+		worklib.ecg_asic_power_tb:sv (module)
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.DFFRX2:v <0x73f7c9a3>
+			streams:   0, words:     0
+		worklib.SDFFRHQX4:v <0x1bb00cb4>
+			streams:   0, words:     0
+		worklib.DFFRHQX2:v <0x5d249f6d>
+			streams:   0, words:     0
+		worklib.DFFRHQX4:v <0x26ff0f2e>
+			streams:   0, words:     0
+		worklib.DFFRHQX8:v <0x580a47a7>
+			streams:   0, words:     0
+		worklib.SDFFQX1:v <0x63e35697>
+			streams:   0, words:     0
+		worklib.TLATNCAX6:v <0x7599e857>
+			streams:   0, words:     0
+		worklib.TLATNCAX12:v <0x7594908a>
+			streams:   0, words:     0
+		worklib.DFFRX1:v <0x7204ef5a>
+			streams:   0, words:     0
+		worklib.two_stage_shared_replay_top_SHARED_HP1_MODEL1_DEEP_HISTORY0_CLOCK_GATING1_STAGE1_FULL_RATE0:v <0x68b0b42b>
+			streams:   0, words:     0
+		worklib.SDFFRHQX1:v <0x0a892591>
+			streams:   0, words:     0
+		worklib.DFFNSRX1:v <0x3d1b52aa>
+			streams:   0, words:     0
+		worklib.DFFRHQX1:v <0x2cba8b6a>
+			streams:   0, words:     0
+		worklib.TLATNCAX12:v <0x2fad4e62>
+			streams:   0, words:     0
+		worklib.ecg_asic_power_tb:sv <0x7e3ae352>
+			streams:  29, words: 33771
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                       Instances  Unique
+		Modules:                  30,378     152
+		UDPs:                     17,385       7
+		Primitives:              107,512       5
+		Registers:                 8,725      50
+		Scalar wires:              8,700       -
+		Expanded wires:               32       1
+		Vectored wires:                2       -
+		Always blocks:                 3       3
+		Initial blocks:               24      24
+		Pseudo assignments:            1       -
+		Timing checks:            92,850       -
+		Delayed tcheck signals:   31,908       -
+		Process Clocks:                1       1
+		Simulation timescale:        1ps
+	Writing initial simulation snapshot: worklib.ecg_asic_power_tb:sv
+Loading snapshot worklib.ecg_asic_power_tb:sv .................... Done
+xcelium> source /opt/cadence/installs/XCELIUM2603/tools/xcelium/files/xmsimrc
+xcelium> # Exact bounds from the 100 kHz bench: 100 reset cycles + 10 ms startup,
+xcelium> # 1200 warm-up samples at 120 Hz, then one extra source cycle.
+xcelium> if {![info exists ::env(ECG_PAIR_TCF)]} {error "Set ECG_PAIR_TCF"}
+xcelium> run -absolute 10011010000 ns
+CONFIG source_hz=100000 sample_hz=120 warmup_samples=1200 measure_samples=7200 workload=normal
+RESULT time_ns=5011005000 stage2=0 id=2 code=0 measured=0
+RESULT time_ns=6011005000 stage2=0 id=3 code=0 measured=0
+RESULT time_ns=7011005000 stage2=0 id=4 code=0 measured=0
+RESULT time_ns=8011005000 stage2=0 id=5 code=0 measured=0
+RESULT time_ns=9011005000 stage2=0 id=6 code=0 measured=0
+RESULT time_ns=10011005000 stage2=0 id=7 code=0 measured=0
+Ran until 10011010 US + 0
+xcelium> puts "NATIVE_TCF_START time_ns=10011010000"
+NATIVE_TCF_START time_ns=10011010000
+xcelium> dumptcf -scope ecg_asic_power_tb.dut -output $::env(ECG_PAIR_TCF) \
+>     -internal -memories -dumpwireasnet -collapse_genblks -timescale ps
+xcelium> run -absolute 70011010000 ns
+CAPTURE_START time_ns=10011010000 accepted=1199
+RESULT time_ns=11011005000 stage2=0 id=8 code=0 measured=1
+RESULT time_ns=12011005000 stage2=0 id=9 code=0 measured=1
+RESULT time_ns=13011005000 stage2=0 id=10 code=0 measured=1
+RESULT time_ns=14011005000 stage2=0 id=11 code=0 measured=1
+RESULT time_ns=15011005000 stage2=0 id=12 code=0 measured=1
+RESULT time_ns=16011005000 stage2=0 id=13 code=0 measured=1
+RESULT time_ns=17011005000 stage2=0 id=14 code=0 measured=1
+RESULT time_ns=18011005000 stage2=0 id=15 code=0 measured=1
+RESULT time_ns=19011005000 stage2=0 id=16 code=0 measured=1
+RESULT time_ns=20011005000 stage2=0 id=17 code=0 measured=1
+RESULT time_ns=21011005000 stage2=0 id=18 code=0 measured=1
+RESULT time_ns=22011005000 stage2=0 id=19 code=0 measured=1
+RESULT time_ns=23011005000 stage2=0 id=20 code=0 measured=1
+RESULT time_ns=24011005000 stage2=0 id=21 code=0 measured=1
+RESULT time_ns=25011005000 stage2=0 id=22 code=0 measured=1
+RESULT time_ns=26011005000 stage2=0 id=23 code=0 measured=1
+RESULT time_ns=27011005000 stage2=0 id=24 code=0 measured=1
+RESULT time_ns=28011005000 stage2=0 id=25 code=0 measured=1
+RESULT time_ns=29011005000 stage2=0 id=26 code=0 measured=1
+RESULT time_ns=30011005000 stage2=0 id=27 code=0 measured=1
+RESULT time_ns=31011005000 stage2=0 id=28 code=0 measured=1
+RESULT time_ns=32011005000 stage2=0 id=29 code=0 measured=1
+RESULT time_ns=33011005000 stage2=0 id=30 code=0 measured=1
+RESULT time_ns=34011005000 stage2=0 id=31 code=0 measured=1
+RESULT time_ns=35011005000 stage2=0 id=32 code=0 measured=1
+RESULT time_ns=36011005000 stage2=0 id=33 code=0 measured=1
+RESULT time_ns=37011005000 stage2=0 id=34 code=0 measured=1
+RESULT time_ns=38011005000 stage2=0 id=35 code=0 measured=1
+RESULT time_ns=39011005000 stage2=0 id=36 code=0 measured=1
+RESULT time_ns=40011005000 stage2=0 id=37 code=0 measured=1
+RESULT time_ns=41011005000 stage2=0 id=38 code=0 measured=1
+RESULT time_ns=42011005000 stage2=0 id=39 code=0 measured=1
+RESULT time_ns=43011005000 stage2=0 id=40 code=0 measured=1
+RESULT time_ns=44011005000 stage2=0 id=41 code=0 measured=1
+RESULT time_ns=45011005000 stage2=0 id=42 code=0 measured=1
+RESULT time_ns=46011005000 stage2=0 id=43 code=0 measured=1
+RESULT time_ns=47011005000 stage2=0 id=44 code=0 measured=1
+RESULT time_ns=48011005000 stage2=0 id=45 code=0 measured=1
+RESULT time_ns=49011005000 stage2=0 id=46 code=0 measured=1
+RESULT time_ns=50011005000 stage2=0 id=47 code=0 measured=1
+RESULT time_ns=51011005000 stage2=0 id=48 code=0 measured=1
+RESULT time_ns=52011005000 stage2=0 id=49 code=0 measured=1
+RESULT time_ns=53011005000 stage2=0 id=50 code=0 measured=1
+RESULT time_ns=54011005000 stage2=0 id=51 code=0 measured=1
+RESULT time_ns=55011005000 stage2=0 id=52 code=0 measured=1
+RESULT time_ns=56011005000 stage2=0 id=53 code=0 measured=1
+RESULT time_ns=57011005000 stage2=0 id=54 code=0 measured=1
+RESULT time_ns=58011005000 stage2=0 id=55 code=0 measured=1
+RESULT time_ns=59011005000 stage2=0 id=56 code=0 measured=1
+RESULT time_ns=60011005000 stage2=0 id=57 code=0 measured=1
+RESULT time_ns=61011005000 stage2=0 id=58 code=0 measured=1
+RESULT time_ns=62011005000 stage2=0 id=59 code=0 measured=1
+RESULT time_ns=63011005000 stage2=0 id=60 code=0 measured=1
+RESULT time_ns=64011005000 stage2=0 id=61 code=0 measured=1
+RESULT time_ns=65011005000 stage2=0 id=62 code=0 measured=1
+RESULT time_ns=66011005000 stage2=0 id=63 code=0 measured=1
+RESULT time_ns=67011005000 stage2=0 id=64 code=0 measured=1
+RESULT time_ns=68011005000 stage2=0 id=65 code=0 measured=1
+RESULT time_ns=69011005000 stage2=0 id=66 code=0 measured=1
+RESULT time_ns=70011005000 stage2=0 id=67 code=0 measured=1
+Ran until 70011010 US + 0
+xcelium> dumptcf -end
+xcelium> puts "NATIVE_TCF_END time_ns=70011010000 duration_ns=60000000000"
+NATIVE_TCF_END time_ns=70011010000 duration_ns=60000000000
+xcelium> run
+CAPTURE_END time_ns=70011010000 duration_ns=60000000000 S1=60 S2=0 processing_edges=30000 fast_edges=0
+PASS: sent=8400 accepted=8400 S1=66 S2=0 fast_entries=0
+Simulation complete via $finish(1) at time 70039010 US + 1
+/home/ec2-user/CadenceASIC100kHz/sim/ecg_asic_power_tb.sv:164         $finish;
+xcelium> exit
+TOOL:	xrun(64)	26.03-s001-20260323: Exiting on Oct 20, 2026 at 12:46:08 UTC  (total: 00:01:10)

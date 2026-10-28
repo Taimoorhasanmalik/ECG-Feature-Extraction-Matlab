@@ -1,0 +1,4 @@
+ClockName Frequency   Period  RiseTime  FallTime
+default    100000    10000   0    5000  
+source_100khz    100000    10000   0    5000  
+processing_fast    100000    10000   0    5000  

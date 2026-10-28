@@ -1,0 +1,59 @@
+xrun(64): 26.03-s001-20260323: (c) Copyright 1995-2026 Cadence Design Systems, Inc.
+TOOL:	xrun(64)	26.03-s001-20260323: Started on Oct 20, 2026 at 09:57:55 UTC
+xrun
+	-64bit
+	-sv
+	-timescale 1ns/1ps
+	-unbuffered
+	/home/ec2-user/CadenceASIC100kHz/rtl/ecg_adaptive_clock.v
+	/home/ec2-user/CadenceASIC100kHz/rtl/asic_clock_primitives.v
+	/home/ec2-user/CadenceASIC100kHz/sim/gsclib_icg_functional.v
+	/home/ec2-user/CadenceASIC100kHz/sim/clock_profile_tb.sv
+	-top clock_profile_tb
+	-l simulation.log
+file: /home/ec2-user/CadenceASIC100kHz/rtl/ecg_adaptive_clock.v
+	module worklib.ecg_adaptive_clock:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/rtl/asic_clock_primitives.v
+	module worklib.BUFGCE:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/sim/gsclib_icg_functional.v
+	module worklib.TLATNCAX12:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/sim/clock_profile_tb.sv
+	module worklib.clock_profile_tb:sv
+		errors: 0, warnings: 0
+	Elaborating the design hierarchy:
+		Caching library 'worklib' ....... Done
+	Top level design units:
+		worklib.clock_profile_tb:sv (module)
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.TLATNCAX12:v <0x1ecaf95c>
+			streams:   3, words:   531
+		worklib.clock_profile_tb:sv <0x24e9c60f>
+			streams:  12, words: 13863
+		worklib.ecg_adaptive_clock:v <0x26bab900>
+			streams:  12, words:  2854
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                 4       4
+		Registers:              16      16
+		Scalar wires:            7       -
+		Always blocks:           7       7
+		Initial blocks:          8       8
+		Cont. assignments:       2       2
+		Pseudo assignments:      1       -
+		Process Clocks:          5       5
+		Simulation timescale:  1ps
+	Writing initial simulation snapshot: worklib.clock_profile_tb:sv
+Loading snapshot worklib.clock_profile_tb:sv .................... Done
+xcelium> source /opt/cadence/installs/XCELIUM2603/tools/xcelium/files/xmsimrc
+xcelium> run
+PASS: 100kHz direct fast, 500Hz /200 slow; switches=60 pulses=458; all high pulses=5us
+Simulation complete via $finish(1) at time 198315 US + 2
+/home/ec2-user/CadenceASIC100kHz/sim/clock_profile_tb.sv:51         $finish;
+xcelium> exit
+TOOL:	xrun(64)	26.03-s001-20260323: Exiting on Oct 20, 2026 at 09:57:56 UTC  (total: 00:00:01)

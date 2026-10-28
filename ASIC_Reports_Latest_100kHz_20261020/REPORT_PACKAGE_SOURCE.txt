@@ -1,0 +1,15 @@
+report_date=2026-10-20
+design=ecg_asic_power_top
+source_hz=100000
+pair_directory=/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG
+original_report_directory=/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/apr_reports_YDMduv
+original_archive=ASIC_Reports_Latest_100kHz_20261020_originals.tar.gz
+original_archive_sha256=c434a58a87bc0a7eb374403e52dbb667c16bb2b4fc54e97c20868c2cceb7f2bc
+verified_original_files=120
+gated_routed_source=adaptive_gated/postroute
+ungated_routed_source=fixed_ungated/postroute_repaired
+No analysis was rerun to prepare this report package.
+Original reports were copied byte-for-byte and verified against SHA256SUMS.
+Readable timing files are lossless decompressions of timing/raw_compressed files.
+README.md and SUMMARY.csv are reporting indexes, not raw Cadence tool output.
+MANIFEST_SHA256.csv covers original files and generated readable/index files.

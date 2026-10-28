@@ -1,0 +1,17 @@
+scope=adaptive_core
+top=ecg_asic_power_top
+source_directory=/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/synthesis
+source_clock=source_100khz
+clock_mode=fixed_ungated
+netlist=/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/synthesis/mapped.v
+sdc=/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/synthesis/mapped.sdc
+slow_lib=/opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib
+fast_lib=/opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib
+qrc_tech=/opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/qrc/qx/gpdk045.tch
+tech_lef=/opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/lef/gsclib045_tech.lef
+macro_lef=/opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/lef/gsclib045_macro.lef
+Extra multibit LEF omitted: AWS audit found 18 overlapping macros and zero extra-only macros
+slow_temperature=125
+fast_temperature=0
+Same reference RC technology in both views; not independent best/worst RC characterization
+Imported constraints unchanged; IO/reset/CDC/adaptive transitions still require review

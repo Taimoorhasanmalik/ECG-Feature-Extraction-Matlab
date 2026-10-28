@@ -1,0 +1,337 @@
+
+Cadence Innovus(TM) Implementation System.
+Copyright 2025 Cadence Design Systems, Inc. All rights reserved worldwide.
+
+Version:	v25.10-p002_1, built Wed Apr 23 12:43:30 PDT 2025
+Options:	-no_gui -files /home/ec2-user/CadenceASIC100kHz/native_postroute_area.tcl -log innovus.log 
+Date:		Tue Oct 20 17:29:09 2026
+Host:		ip-172-31-47-31.us-east-2.compute.internal (x86_64 w/Linux 5.14.0-687.10.1.el9_8.x86_64) (4cores*8cpus*Intel(R) Xeon(R) Platinum 8488C 107520KB)
+OS:		Red Hat Enterprise Linux 9.8 (Plow)
+
+License:
+		[17:29:09.093665] Configured Lic search path (25.01-s002): 5280@172.31.36.122
+
+		invs	Innovus Implementation System	25.1	checkout succeeded
+		8 CPU jobs allowed with the current license(s). Use setMultiCpuUsage to set your required CPU count.
+
+**Info: Common UI will be the default UI for innovus in the next major release. Please use -legacy_ui when invoking innovus if you wish to continue to use legacy UI.
+Change the soft stacksize limit to 0.2%RAM (62 mbytes). Set global soft_stack_size_limit to change the value.
+Info: Process UID = 774543 / 16278b74-1623-4b6d-b635-770ecba22c56 / 1afSZhWzuV
+Loading attribute definitions from mini dummy db...
+Info: Defined 24274 Synthesis attributes
+Info: Skipped defining 1017 Synthesis attributes already defined in Innovus
+
+**INFO:  MMMC transition support version v31-84 
+
+<CMD> set_global _enable_mmmc_by_default_flow      $CTE::mmmc_default
+<CMD> suppressMessage ENCEXT-2799
+<CMD> getVersion
+[INFO] Loading Pegasus 25.10 fill procedures
+**WARN: Tk package not loaded. The Pegasus fill DRC monitor is disabled.
+Sourcing file "/home/ec2-user/CadenceASIC100kHz/native_postroute_area.tcl" ...
+source /home/ec2-user/CadenceASIC100kHz/native_postroute_area.tcl
+<CMD> restoreDesign /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat ecg_asic_power_top
+#% Begin load design ... (date=10/20 17:29:28, mem=1868.3M)
+Loading design 'ecg_asic_power_top' saved by 'Innovus' '25.10-p002_1' on 'Tue Oct 20 13:03:38 2026'.
+% Begin Load MMMC data ... (date=10/20 17:29:29, mem=1871.2M)
+% End Load MMMC data ... (date=10/20 17:29:29, total cpu=0:00:00.0, real=0:00:00.0, peak res=1872.1M, current mem=1872.1M)
+rc_reference_fast rc_reference_slow
+
+Loading LEF file /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/libs/lef/gsclib045_tech.lef ...
+Set DBUPerIGU to M2 pitch 400.
+
+Loading LEF file /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/libs/lef/gsclib045_macro.lef ...
+**WARN: (IMPLF-200):	Pin 'A' in macro 'ANTENNA' has no ANTENNAGATEAREA value defined. The library data is incomplete and some process antenna rules will not be checked correctly.
+Type 'man IMPLF-200' for more detail.
+
+##  Check design process and node:  
+##  Both design process and tech node are not set.
+
+Loading view definition file from /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/viewDefinition.tcl
+Reading cells_slow timing library '/opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib' ...
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP9'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP8'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP7'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP6'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP5'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP4'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP3'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP2'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP10'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'ANTENNA'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib)
+Read 489 cells in library 'slow_vdd1v0' 
+*** End library_loading (cpu=0.01min, real=0.02min, mem=13.6M, fe_cpu=0.35min, fe_real=0.35min, fe_mem=1897.4M) ***
+% Begin Load netlist data ... (date=10/20 17:29:30, mem=1897.5M)
+*** Begin netlist parsing (mem=1897.5M) ***
+Created 489 new cells from 1 timing libraries.
+Reading netlist ...
+Backslashed names will retain backslash and a trailing blank character.
+Reading verilogBinary netlist '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/vbin/ecg_asic_power_top.v.bin'
+
+*** Memory Usage v#1 (Current mem = 1918.840M, initial mem = 927.930M) ***
+*** End netlist parsing (cpu=0:00:00.1, real=0:00:00.0, mem=1918.8M) ***
+% End Load netlist data ... (date=10/20 17:29:30, total cpu=0:00:00.1, real=0:00:00.0, peak res=1916.5M, current mem=1916.5M)
+Set top cell to ecg_asic_power_top.
+Hooked 489 DB cells to tlib cells.
+Starting recursive module instantiation check.
+No recursion found.
+Building hierarchical netlist for Cell ecg_asic_power_top ...
+***** UseNewTieNetMode *****.
+*** Netlist is unique.
+** info: there are 599 modules.
+** info: there are 30323 stdCell insts.
+** info: there are 30323 stdCell insts with at least one signal pin.
+
+*** Memory Usage v#1 (Current mem = 1966.652M, initial mem = 927.930M) ***
+*info: set bottom ioPad orient R0
+**WARN: (IMPFP-3961):	The techSite 'CornerSite' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+Type 'man IMPFP-3961' for more detail.
+**WARN: (IMPFP-3961):	The techSite 'IOSite' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+Type 'man IMPFP-3961' for more detail.
+Start create_tracks
+**WARN: (IMPDB-6501):	"Option '-process' in setDesignMode" will be obsoleted in future release. Remove it from the script to avoid the interruption of running the script in future.
+##  Process: 45            (User Set)               
+##     Node: (not set)                           
+
+##  Check design process and node:  
+##  Design tech node is not set.
+
+Applying the recommended capacitance filtering threshold values for 45nm process node: total_c_th=0, relative_c_th=1 and coupling_c_th=0.1.
+	These values will be used by all post-route extraction engines, including TQuantus, IQuantus and Quantus QRC extraction.
+	Capacitance filtering mode(-capFilterMode option of the setExtractRCMode) is 'relAndCoup' for all engines.
+	The accuracy mode for postRoute effortLevel low extraction will be set to 'high'.
+	Default value for EffortLevel(-effortLevel option of the setExtractRCMode) in postRoute extraction mode will be 'medium' if Quantus QRC technology file is specified else 'low'.
+**WARN: (IMPOPT-3602):	The specified path group name tdgp_reg2reg_default is not defined.
+Type 'man IMPOPT-3602' for more detail.
+Effort level <high> specified for tdgp_reg2reg_default path_group
+Slack adjustment of -0 applied on tdgp_reg2reg_default path_group
+**WARN: (IMPOPT-3602):	The specified path group name reg2reg is not defined.
+Type 'man IMPOPT-3602' for more detail.
+Effort level <high> specified for reg2reg path_group
+Slack adjustment of -0 applied on reg2reg path_group
+**WARN: (IMPOPT-3602):	The specified path group name reg2cgate is not defined.
+Type 'man IMPOPT-3602' for more detail.
+Effort level <high> specified for reg2cgate path_group
+Slack adjustment of -0 applied on reg2cgate path_group
+**WARN: (IMPTCM-77):	Option "-drouteStartIteration" for command setNanoRouteMode is obsolete and will be removed in a future release. The obsolete option still works in this release but to avoid this warning and to ensure compatibility with future releases, remove the obsolete option from your script.
+AAE_INFO: switching setDelayCal -siAware from false to true ...
+AAE_INFO: The setting is changed from false to true in setDelayCalMode -SIAware
+*Info: initialize multi-corner CTS.
+Reading cells_fast timing library '/opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib' ...
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP9'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP8'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP7'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP6'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP5'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP4'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP3'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP2'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'DECAP10'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+**WARN: (TECHLIB-302):	No function defined for cell 'ANTENNA'. The cell will only be used for analysis. (File /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/fast_vdd1v0_basicCells.lib)
+Read 489 cells in library 'fast_vdd1v0' 
+Total number of combinational cells: 318
+Total number of sequential cells: 152
+Total number of tristate cells: 10
+Total number of level shifter cells: 0
+Total number of power gating cells: 0
+Total number of isolation cells: 0
+Total number of power switch cells: 0
+Total number of pulse generator cells: 0
+Total number of always on buffers: 0
+Total number of retention cells: 0
+Total number of physical cells: 9
+List of usable buffers: CLKBUFX2 BUFX2 CLKBUFX3 BUFX3 CLKBUFX4 BUFX4 CLKBUFX6 BUFX6 CLKBUFX8 BUFX8 CLKBUFX12 BUFX12 CLKBUFX16 BUFX16 CLKBUFX20 BUFX20
+Total number of usable buffers: 16
+List of unusable buffers:
+Total number of unusable buffers: 0
+List of usable inverters: INVXL INVX1 INVX2 CLKINVX1 INVX3 CLKINVX2 INVX4 CLKINVX4 CLKINVX3 INVX6 CLKINVX6 INVX8 CLKINVX8 INVX12 CLKINVX12 INVX16 CLKINVX16 INVX20 CLKINVX20
+Total number of usable inverters: 19
+List of unusable inverters:
+Total number of unusable inverters: 0
+List of identified usable delay cells: DLY1X1 DLY1X4 DLY2X1 DLY2X4 DLY3X1 DLY3X4 DLY4X1 DLY4X4
+Total number of identified usable delay cells: 8
+List of identified unusable delay cells:
+Total number of identified unusable delay cells: 0
+% Begin Load MMMC data post ... (date=10/20 17:29:31, mem=2276.2M)
+% End Load MMMC data post ... (date=10/20 17:29:31, total cpu=0:00:00.0, real=0:00:00.0, peak res=2276.2M, current mem=2276.2M)
+Reading floorplan file - /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.fp.gz (mem = 2276.9M).
+% Begin Load floorplan data ... (date=10/20 17:29:31, mem=2276.9M)
+*info: reset 37178 existing net BottomPreferredLayer and AvoidDetour
+Deleting old partition specification.
+Set FPlanBox to (0 0 946400 942400)
+**WARN: (IMPFP-3961):	The techSite 'CornerSite' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+Type 'man IMPFP-3961' for more detail.
+**WARN: (IMPFP-3961):	The techSite 'IOSite' has no related standard cells in the LEF/OA library. The calculations for this site type cannot be made unless standard cell models of this type exist in the LEF/OA library. Ignore this warning if the SITE is not used by the library. Alternatively, remove the SITE definition for the LEF/OA library to avoid this message.
+Type 'man IMPFP-3961' for more detail.
+ ... processed partition successfully.
+Reading binary special route file /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.fp.spr.gz (Created by Innovus v25.10-p002_1 on Tue Oct 20 13:03:37 2026, version: 1)
+Ending "Read special route file" (total cpu=0:00:00.0, real=0:00:00.0, peak res=2280.9M, current mem=2280.9M)
+There are 211 nets with weight being set
+There are 211 nets with bottomPreferredRoutingLayer being set
+There are 211 nets with avoidDetour being set
+Extracting standard cell pins and blockage ...... 
+Pin and blockage extraction finished
+% End Load floorplan data ... (date=10/20 17:29:31, total cpu=0:00:00.1, real=0:00:00.0, peak res=2283.5M, current mem=2281.2M)
+Reading congestion map file /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.route.congmap.gz ...
+% Begin Load SymbolTable ... (date=10/20 17:29:31, mem=2281.5M)
+Suppress "**WARN ..." messages.
+Un-suppress "**WARN ..." messages.
+% End Load SymbolTable ... (date=10/20 17:29:32, total cpu=0:00:00.1, real=0:00:01.0, peak res=2290.3M, current mem=2290.3M)
+Loading place ...
+% Begin Load placement data ... (date=10/20 17:29:32, mem=2290.3M)
+Reading placement file - /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.place.gz.
+** Reading stdCellPlacement_binary (Created by Innovus v25.10-p002_1 on Tue Oct 20 13:03:37 2026, version# 2) ...
+Read Views for adaptive view pruning ...
+Read 1 views from Binary DB for adaptive view pruning
+view_slow
+*** applyConnectGlobalNets disabled.
+*** Completed restorePlace (cpu=0:00:00.1 real=0:00:00.0 mem=2307.8M) ***
+Total net length = 4.973e+05 (2.269e+05 2.703e+05) (ext = 4.225e+03)
+% End Load placement data ... (date=10/20 17:29:32, total cpu=0:00:00.1, real=0:00:00.0, peak res=2307.5M, current mem=2304.6M)
+Reading PG file /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.pg.gz, version#2, (Created by Innovus v25.10-p002_1 on       Tue Oct 20 13:03:37 2026)
+*** Completed restorePGFile (cpu=0:00:00.0 real=0:00:00.0 mem=2305.2M) ***
+% Begin Load routing data ... (date=10/20 17:29:32, mem=2304.9M)
+Reading routing file - /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.route.gz.
+Reading Innovus routing data (Created by Innovus v25.10-p002_1 on Tue Oct 20 13:03:36 2026 Format: 23.1) ...
+*** Total 35050 nets are successfully restored.
+*** Completed restoreRoute (cpu=0:00:00.3 real=0:00:00.0 mem=2354.1M) ***
+% End Load routing data ... (date=10/20 17:29:32, total cpu=0:00:00.3, real=0:00:00.0, peak res=2353.6M, current mem=2353.6M)
+TAT_INFO: ::restoreCongMap REAL = 1 : CPU = 0 : MEM = 0.
+Reading property file /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.prop
+*** Completed restoreProperty (cpu=0:00:00.1 real=0:00:00.0 mem=2361.1M) ***
+Reading dirtyarea snapshot file /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.db.da.gz (Create by Innovus v25.10-p002_1 on Tue Oct 20 13:03:37 2026, version: 8).
+Loading preRoute extraction data from directory '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/extraction/' ...
+Extraction setup Started for TopCell ecg_asic_power_top 
+Initializing multi-corner RC extraction with 2 active RC Corners ...
+Captable file(s) not specified in multi-corner setup. PreRoute extraction will use technology file. For postRoute extraction, default value for effort level would be 'medium' and effort level 'low' would not be allowed.
+Generating auto layer map file.
+Loading preRoute extracted patterns from file '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.techData.gz' ...
+Completed (cpu: 0:00:00.5 real: 0:00:00.0)
+Set Shrink Factor to 1.00000
+Summary of Active RC-Corners : 
+ 
+ Analysis View: view_slow
+    RC-Corner Name        : rc_reference_slow
+    RC-Corner Index       : 0
+    RC-Corner Temperature : 125 Celsius
+    RC-Corner Cap Table   : ''
+    RC-Corner PreRoute Res Factor         : 1
+    RC-Corner PreRoute Cap Factor         : 1
+    RC-Corner PostRoute Res Factor        : 1 {1 1 1}
+    RC-Corner PostRoute Cap Factor        : 1 {1 1 1}
+    RC-Corner PostRoute XCap Factor       : 1 {1 1 1}
+    RC-Corner PreRoute Clock Res Factor   : 1	[Derived from postRoute_res (effortLevel low)]
+    RC-Corner PreRoute Clock Cap Factor   : 1	[Derived from postRoute_cap (effortLevel low)]
+    RC-Corner PostRoute Clock Cap Factor  : 1 {1 1 1} 	[Derived from postRoute_cap (effortLevel medium)]
+    RC-Corner PostRoute Clock Res Factor  : 1 {1 1 1} 	[Derived from postRoute_res (effortLevel medium)]
+    RC-Corner PostRoute Clock coupling capacitance Factor : 1 {1 1 1} 	[Derived from postRoute_xcap (effortLevel medium)]
+    RC-Corner Technology file: '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/libs/mmmc/rc_reference_fast/gpdk045.tch'
+ 
+ Analysis View: view_fast
+    RC-Corner Name        : rc_reference_fast
+    RC-Corner Index       : 1
+    RC-Corner Temperature : 0 Celsius
+    RC-Corner Cap Table   : ''
+    RC-Corner PreRoute Res Factor         : 1
+    RC-Corner PreRoute Cap Factor         : 1
+    RC-Corner PostRoute Res Factor        : 1 {1 1 1}
+    RC-Corner PostRoute Cap Factor        : 1 {1 1 1}
+    RC-Corner PostRoute XCap Factor       : 1 {1 1 1}
+    RC-Corner PreRoute Clock Res Factor   : 1	[Derived from postRoute_res (effortLevel low)]
+    RC-Corner PreRoute Clock Cap Factor   : 1	[Derived from postRoute_cap (effortLevel low)]
+    RC-Corner PostRoute Clock Cap Factor  : 1 {1 1 1} 	[Derived from postRoute_cap (effortLevel medium)]
+    RC-Corner PostRoute Clock Res Factor  : 1 {1 1 1} 	[Derived from postRoute_res (effortLevel medium)]
+    RC-Corner PostRoute Clock coupling capacitance Factor : 1 {1 1 1} 	[Derived from postRoute_xcap (effortLevel medium)]
+    RC-Corner Technology file: '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/libs/mmmc/rc_reference_fast/gpdk045.tch'
+Initializing multi-corner resistance tables ...
+Default value for postRoute extraction mode's effortLevel (-effortLevel option of setExtractRCMode) changed to 'medium'.
+Restoring parasitic data from file '/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.rcdb.d' ...
+Reading RCDB with compressed RC data.
+Reading RCDB with compressed RC data.
+Begin read_parasitics... (cpu: 0:00:00.0 real: 0:00:00.0 mem: 2426.590M)
+Following multi-corner parasitics specified:
+	/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.rcdb.d (rcdb)
+Reading RCDB with compressed RC data.
+		Cell ecg_asic_power_top has rcdb /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/ecg_asic_power_top.rcdb.d/ecg_asic_power_top.rcdb.d specified
+Cell ecg_asic_power_top, hinst 
+Reading RCDB with compressed RC data.
+Done read_parasitics... (cpu: 0:00:00.5 real: 0:00:00.0 mem: 2419.355M)
+delay_fast delay_slow
+Start generating vias ..
+#Skip building auto via since it is not turned on.
+Extracting standard cell pins and blockage ...... 
+Pin and blockage extraction finished
+Via generation completed.
+% Begin Load power constraints ... (date=10/20 17:29:35, mem=2423.4M)
+'set_default_switching_activity' finished successfully.
+% End Load power constraints ... (date=10/20 17:29:35, total cpu=0:00:00.0, real=0:00:00.0, peak res=2448.6M, current mem=2448.6M)
+delay_fast delay_slow
+% Begin load AAE data ... (date=10/20 17:29:35, mem=2496.3M)
+**WARN: (IMPESI-3505):	setDelayCalMode -eng_enablePrePlacedFlow false (default=false) will be obsoleted along with its sgs2set equivalent.  This parameter will continue to be supported in the current release, but will be removed in the next major release of the software.
+AAE DB initialization (MEM=2522.667969 CPU=0:00:00.0 REAL=0:00:00.0) 
+% End load AAE data ... (date=10/20 17:29:35, total cpu=0:00:00.5, real=0:00:00.0, peak res=2526.9M, current mem=2526.9M)
+Restoring CCOpt config...
+  Extracting original clock gating for source_100khz...
+    clock_tree source_100khz contains 43 sinks and 0 clock gates.
+  Extracting original clock gating for source_100khz done.
+  Extracting original clock gating for processing_fast...
+    clock_tree processing_fast contains 8642 sinks and 2 clock gates.
+  Extracting original clock gating for processing_fast done.
+  Found 1 generator input for clock tree processing_fast.
+  The skew group processing_fast/functional was created. It contains 8642 sinks and 1 sources.
+  The skew group source_100khz/functional was created. It contains 8684 sinks and 1 sources.
+  The skew group source_100khz/functional was created. It contains 8684 sinks and 1 sources.
+Restoring CCOpt config done.
+Total number of combinational cells: 318
+Total number of sequential cells: 152
+Total number of tristate cells: 10
+Total number of level shifter cells: 0
+Total number of power gating cells: 0
+Total number of isolation cells: 0
+Total number of power switch cells: 0
+Total number of pulse generator cells: 0
+Total number of always on buffers: 0
+Total number of retention cells: 0
+Total number of physical cells: 9
+List of usable buffers: CLKBUFX2 BUFX2 CLKBUFX3 BUFX3 CLKBUFX4 BUFX4 CLKBUFX6 BUFX6 CLKBUFX8 BUFX8 CLKBUFX12 BUFX12 CLKBUFX16 BUFX16 CLKBUFX20 BUFX20
+Total number of usable buffers: 16
+List of unusable buffers:
+Total number of unusable buffers: 0
+List of usable inverters: INVXL INVX1 INVX2 CLKINVX1 INVX3 CLKINVX2 INVX4 CLKINVX4 CLKINVX3 INVX6 CLKINVX6 INVX8 CLKINVX8 INVX12 CLKINVX12 INVX16 CLKINVX16 INVX20 CLKINVX20
+Total number of usable inverters: 19
+List of unusable inverters:
+Total number of unusable inverters: 0
+List of identified usable delay cells: DLY1X1 DLY1X4 DLY2X1 DLY2X4 DLY3X1 DLY3X4 DLY4X1 DLY4X4
+Total number of identified usable delay cells: 8
+List of identified unusable delay cells:
+Total number of identified unusable delay cells: 0
+#% End load design ... (date=10/20 17:29:36, total cpu=0:00:07.7, real=0:00:08.0, peak res=2547.0M, current mem=2532.1M)
+
+*** Summary of all messages that are not suppressed in this session:
+Severity  ID               Count  Summary                                  
+WARNING   IMPLF-200            1  Pin '%s' in macro '%s' has no ANTENNAGAT...
+WARNING   IMPFP-3961           4  The techSite '%s' has no related standar...
+WARNING   IMPDB-6501           1  "Option '-process' in setDesignMode" wil...
+WARNING   IMPESI-3505          1  setDelayCalMode -eng_%s (default=%s) wil...
+WARNING   IMPOPT-3602          3  The specified path group name %s is not ...
+WARNING   IMPTCM-77            1  Option "%s" for command %s is obsolete a...
+WARNING   TECHLIB-302         20  No function defined for cell '%s'. The c...
+*** Message Summary: 31 warning(s), 0 error(s)
+
+<CMD> report_area -detail -depth 3 -out_file reports/innovus_postroute_area.rpt
+<CMD> report_area -detail -depth 3 -include_physical -out_file reports/innovus_postroute_area_including_physical.rpt
+<CMD> reportGateCount -level 3 -stdCellOnly -outfile reports/innovus_postroute_gate_count.rpt
+Gate area 1.0260 um^2
+[0] ecg_asic_power_top Gates=114671 Cells=30323 Area=117652.8 um^2
+[1] core Gates=114663 Cells=30317 Area=117644.2 um^2
+[2] core/pipeline Gates=113966 Cells=30201 Area=116929.1 um^2
+[3] core/pipeline/banks[0].stats1 Gates=2358 Cells=719 Area=2419.3 um^2
+[3] core/pipeline/banks[0].stats2 Gates=2294 Cells=669 Area=2354.0 um^2
+[3] core/pipeline/banks[1].stats1 Gates=2355 Cells=712 Area=2416.6 um^2
+[3] core/pipeline/banks[1].stats2 Gates=2290 Cells=662 Area=2349.5 um^2
+[3] core/pipeline/mac2 Gates=5962 Cells=1762 Area=6117.0 um^2
+
+*** Memory Usage v#1 (Current mem = 2532.527M, initial mem = 927.930M) ***
+*** Message Summary: 31 warning(s), 0 error(s)
+
+--- Ending "Innovus" (totcpu=0:00:27.0, real=0:00:27.0, mem=2532.5M) ---

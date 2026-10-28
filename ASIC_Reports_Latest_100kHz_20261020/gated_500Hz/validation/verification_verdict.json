@@ -1,0 +1,22 @@
+{
+  "directory": "/home/ec2-user/CadenceASICImplementation/runs/physical_verify_JJEymC/verification",
+  "checks": {
+    "drc": {
+      "pass": true,
+      "violations": 0,
+      "selected_rule_count": 562
+    },
+    "antenna": {
+      "pass": true,
+      "violations": 0,
+      "selected_rule_count": 1
+    },
+    "lvs": {
+      "pass": true,
+      "verdict": "MATCH",
+      "blackboxed_cells": 0
+    }
+  },
+  "selected_checks_pass": true,
+  "scope": "Generic GPDK045 default rule selection; not density/DFM/EMIR/manufacturing sign-off"
+}

@@ -1,0 +1,10 @@
+# Vivado-generated state; retain the .xpr and referenced source files.
+/*.cache/
+/*.gen/
+/*.hw/
+/*.ip_user_files/
+/*.runs/
+/*.sim/
+/*.log
+/*.jou
+/.Xil/

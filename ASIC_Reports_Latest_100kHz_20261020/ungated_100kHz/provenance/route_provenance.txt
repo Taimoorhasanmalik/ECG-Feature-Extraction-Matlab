@@ -1,0 +1,5 @@
+source_postcts=/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/cts
+restored_checkpoint=/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute/checkpoints/route_hold.enc.dat
+action=repair
+Reference QRC technology retained in both PVT views; no independent RC corners or qualified OCV supplied
+Tie fanout/distance settings are implementation choices, not foundry-qualified limits

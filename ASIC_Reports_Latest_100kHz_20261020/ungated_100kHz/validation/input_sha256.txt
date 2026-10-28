@@ -1,0 +1,3 @@
+55217059f355b5ea7386d70ff29500e5aa4f77ee39e7245364aa62feeb09c42e  /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/export/exports/post_route.v
+6e27549be7c1d2442589b744d477e7d86b559f5f0fb887e279d2a25b71f2aa1b  /opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/verilog/slow_vdd1v0_basicCells.v
+cadf5a7d2fec36ea352c8c31881bb80f13cf9ad65b4f7bb24929880c5c9e9f57  /home/ec2-user/CadenceASIC100kHz/sim/ecg_asic_power_tb.sv

@@ -1,0 +1,140 @@
+*----------------------------------------------------------------------------------------
+*	Innovus 25.10-p002_1 (64bit) 04/23/2025 12:43 (Linux 4.18.0-305.el8.x86_64)
+*	
+*
+* 	Date & Time:	2026-Oct-20 13:12:49 (2026-Oct-20 13:12:49 GMT)
+*
+*----------------------------------------------------------------------------------------
+*
+*	Design: ecg_asic_power_top
+*
+*	Liberty Libraries used: 
+*	        view_slow: /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired/checkpoints/post_route.enc.dat/libs/mmmc/slow_vdd1v0_basicCells.lib
+*
+*	Power Domain used: 
+*              Rail:        VDD      Voltage:        0.9 
+*
+*       Power View : view_slow
+*
+*       User-Defined Activity : N.A.
+*
+*	Switching Activity File used: 
+*	        /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/activity/activity.tcf
+*
+*            Total Design annotation coverage: 35048/35048 = 100.000000% 
+
+*       Hierarchical Global Activity: N.A.
+*
+*       Global Activity: N.A.
+*
+*       Sequential Element Activity: 0.200000
+*
+*       Primary Input Activity: 0.200000
+*
+*       Default icg ratio: N.A.
+*
+*       Global Comb ClockGate Ratio: N.A.
+*
+*	Power Units = 1mW
+*
+*	Time Units = 1e-09 secs 
+*
+*       report_power -outfile reports/net_activity_power.rpt -toggle_rate -net -nworst 30 -view view_slow
+*
+-----------------------------------------------------------------------------------------
+
+
+Total Power 
+-----------------------------------------------------------------------------------------
+Total Internal Power:        0.00158925 	   37.7135%
+Total Switching Power:       0.00038314 	    9.0920%
+Total Leakage Power:         0.00224162 	   53.1945%
+Total Power:                 0.00421401 
+-----------------------------------------------------------------------------------------
+
+
+Group                           Internal   Switching     Leakage       Total  Percentage 
+                                Power      Power         Power         Power  (%)        
+-----------------------------------------------------------------------------------------
+Sequential                       0.00151   1.461e-07    0.001093    0.002603       61.78 
+Macro                                  0           0           0           0           0 
+IO                                     0           0           0           0           0 
+Combinational                  1.038e-06   1.171e-06    0.001125    0.001127       26.74 
+Clock (Combinational)          7.441e-05   0.0003748     2.3e-05   0.0004722        11.2 
+Clock (Sequential)             3.589e-06   7.064e-06   1.073e-06   1.173e-05      0.2783 
+-----------------------------------------------------------------------------------------
+Total                           0.001589   0.0003831    0.002242    0.004214         100 
+-----------------------------------------------------------------------------------------
+
+
+Clock                           Internal   Switching     Leakage       Total  Percentage 
+                                Power      Power         Power         Power  (%)        
+-----------------------------------------------------------------------------------------
+source_100khz                  2.671e-06   5.977e-06   8.014e-07    9.45e-06      0.2243 
+processing_fast                7.533e-05   0.0003758   2.327e-05   0.0004744       11.26 
+-----------------------------------------------------------------------------------------
+Total (excluding duplicates)     7.8e-05   0.0003818   2.407e-05   0.0004839       11.48 
+-----------------------------------------------------------------------------------------
+Clock: source_100khz
+Clock Period: 10.000000 usec 
+Clock Toggle Rate:     0.2000 Mhz 
+Clock Static Probability:  0.5000
+
+Clock: processing_fast
+Clock Period: 10.000000 usec 
+Clock Toggle Rate:     0.2000 Mhz 
+Clock Static Probability:  0.5000
+
+
+
+Rail                  Voltage   Internal   Switching     Leakage       Total  Percentage 
+                                Power      Power         Power         Power  (%)        
+-----------------------------------------------------------------------------------------
+VDD                       0.9   0.001589   0.0003831    0.002242    0.004214         100 
+
+
+Net                               Toggle Capacitance     Voltage       Power  Percentage 
+-----------------------------------------------------------------------------------------
+core/pipeline/mac2/gated_clk       2e+05   5.599e-14         0.9   4.535e-06      0.1076 
+core/pipeline/CTS_101              2e+05   2.952e-14         0.9   2.391e-06     0.05674 
+core/pipeline/CTS_40               2e+05   2.845e-14         0.9   2.305e-06     0.05469 
+core/pipeline/CTS_104              2e+05    2.81e-14         0.9   2.276e-06     0.05402 
+core/pipeline/CTS_172              2e+05   2.804e-14         0.9   2.271e-06     0.05389 
+core/pipeline/CTS_105              2e+05   2.724e-14         0.9   2.207e-06     0.05236 
+core/pipeline/CTS_182              2e+05   2.723e-14         0.9   2.205e-06     0.05233 
+core/pipeline/CTS_103              2e+05   2.721e-14         0.9   2.204e-06      0.0523 
+core/pipeline/CTS_56               2e+05   2.717e-14         0.9   2.201e-06     0.05222 
+core/pipeline/CTS_16               2e+05   2.712e-14         0.9   2.197e-06     0.05212 
+core/pipeline/CTS_26               2e+05   2.709e-14         0.9   2.194e-06     0.05207 
+core/pipeline/CTS_99               2e+05   2.708e-14         0.9   2.194e-06     0.05206 
+core/pipeline/CTS_98               2e+05   2.688e-14         0.9   2.177e-06     0.05167 
+core/pipeline/CTS_31               2e+05   2.685e-14         0.9   2.175e-06     0.05161 
+core/pipeline/CTS_146              2e+05   2.667e-14         0.9    2.16e-06     0.05127 
+core/pipeline/CTS_20               2e+05   2.662e-14         0.9   2.157e-06     0.05118 
+core/pipeline/CTS_168              2e+05   2.658e-14         0.9   2.153e-06     0.05109 
+core/pipeline/CTS_12               2e+05   2.657e-14         0.9   2.152e-06     0.05108 
+core/pipeline/CTS_97               2e+05   2.655e-14         0.9   2.151e-06     0.05104 
+core/pipeline/CTS_124              2e+05   2.617e-14         0.9    2.12e-06      0.0503 
+core/pipeline/CTS_10               2e+05   2.606e-14         0.9   2.111e-06     0.05008 
+core/pipeline/CTS_11               2e+05   2.602e-14         0.9   2.108e-06     0.05002 
+core/pipeline/CTS_13               2e+05   2.584e-14         0.9   2.093e-06     0.04968 
+core/pipeline/CTS_102              2e+05   2.576e-14         0.9   2.087e-06     0.04952 
+core/pipeline/CTS_93               2e+05   2.575e-14         0.9   2.086e-06      0.0495 
+core/CTS_1                         2e+05   2.575e-14         0.9   2.086e-06      0.0495 
+core/pipeline/CTS_164              2e+05   2.569e-14         0.9   2.081e-06     0.04938 
+core/pipeline/CTS_137              2e+05   2.557e-14         0.9   2.071e-06     0.04914 
+core/pipeline/CTS_157              2e+05   2.549e-14         0.9   2.065e-06     0.04899 
+core/pipeline/CTS_34               2e+05   2.545e-14         0.9   2.061e-06     0.04891 
+
+
+-----------------------------------------------------------------------------------------
+*	Power Distribution Summary: 
+*                Highest Average Power: core/pipeline/mac2/gate/clock_gate (TLATNCAX12):        6.521e-06 
+*                Highest Leakage Power: core/low_power_clock/clock_buffer/clock_gate (TLATNCAX12):         4.62e-07 
+*          Total Cap:      8.41309e-11 F
+*          Total instances in design: 30323
+*          Total instances in design with no power:     0
+*          Total instances in design with no activity:     0
+*          Total Fillers and Decap:     0
+-----------------------------------------------------------------------------------------
+

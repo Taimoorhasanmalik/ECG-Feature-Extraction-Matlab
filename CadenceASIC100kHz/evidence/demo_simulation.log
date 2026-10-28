@@ -1,0 +1,153 @@
+xrun(64): 26.03-s001-20260323: (c) Copyright 1995-2026 Cadence Design Systems, Inc.
+TOOL:	xrun(64)	26.03-s001-20260323: Started on Oct 20, 2026 at 09:57:57 UTC
+xrun
+	-64bit
+	-sv
+	-timescale 1ns/1ps
+	-unbuffered
+	-access +r
+	/home/ec2-user/CadenceASIC100kHz/rtl/01_highpass_iir_filter.v
+	/home/ec2-user/CadenceASIC100kHz/rtl/02_window_sequencer.v
+	/home/ec2-user/CadenceASIC100kHz/rtl/ecg_adaptive_clock.v
+	/home/ec2-user/CadenceASIC100kHz/rtl/ecg_sample_mailbox.v
+	/home/ec2-user/CadenceASIC100kHz/rtl/stage2_filter_q29.v
+	/home/ec2-user/CadenceASIC100kHz/rtl/stage2_shared_hp1_q29.v
+	/home/ec2-user/CadenceASIC100kHz/rtl/stage2_classifier_gated_q.v
+	/home/ec2-user/CadenceASIC100kHz/rtl/shared_classifier_mac_q.v
+	/home/ec2-user/CadenceASIC100kHz/rtl/two_stage_shared_replay_top.v
+	/home/ec2-user/CadenceASIC100kHz/rtl/two_stage_adaptive_clock_top.v
+	/home/ec2-user/CadenceASIC100kHz/rtl/asic_clock_primitives.v
+	/home/ec2-user/CadenceASIC100kHz/rtl/ecg_asic_power_top.v
+	/home/ec2-user/CadenceASIC100kHz/sim/gsclib_icg_functional.v
+	/home/ec2-user/CadenceASIC100kHz/sim/ecg_asic_power_tb.sv
+	-top ecg_asic_power_tb
+	-l simulation.log
+	+NO_DUMP=1
+	+WORKLOAD=demo
+	+WARMUP_SAMPLES=1200
+	+MEASURE_SAMPLES=120
+	+MEM_FILE=/home/ec2-user/CadenceASIC100kHz/mem/synthetic_two_stage_demo_q3_8.mem
+
+   User defined plus("+") options:
+	+NO_DUMP=1
+	+WORKLOAD=demo
+	+WARMUP_SAMPLES=1200
+	+MEASURE_SAMPLES=120
+	+MEM_FILE=/home/ec2-user/CadenceASIC100kHz/mem/synthetic_two_stage_demo_q3_8.mem
+
+file: /home/ec2-user/CadenceASIC100kHz/rtl/01_highpass_iir_filter.v
+	module worklib.ecg_pthighpass_iir:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/rtl/02_window_sequencer.v
+	module worklib.feature_set:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/rtl/ecg_adaptive_clock.v
+	module worklib.ecg_adaptive_clock:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/rtl/ecg_sample_mailbox.v
+	module worklib.ecg_sample_mailbox:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/rtl/stage2_filter_q29.v
+	module worklib.stage2_biquad_q29:v
+		errors: 0, warnings: 0
+	module worklib.stage2_filter_q29:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/rtl/stage2_shared_hp1_q29.v
+	module worklib.stage2_shared_hp1_q29:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/rtl/stage2_classifier_gated_q.v
+	module worklib.stage2_classifier_gated_q:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/rtl/shared_classifier_mac_q.v
+	module worklib.shared_classifier_mac_q:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/rtl/two_stage_shared_replay_top.v
+	module worklib.two_stage_shared_replay_top:v
+		errors: 0, warnings: 0
+	module worklib.shared_stream_stats_bank:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/rtl/two_stage_adaptive_clock_top.v
+	module worklib.two_stage_adaptive_clock_top:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/rtl/asic_clock_primitives.v
+	module worklib.BUFGCE:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/rtl/ecg_asic_power_top.v
+	module worklib.ecg_asic_power_top:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/sim/gsclib_icg_functional.v
+	module worklib.TLATNCAX12:v
+		errors: 0, warnings: 0
+file: /home/ec2-user/CadenceASIC100kHz/sim/ecg_asic_power_tb.sv
+	module worklib.ecg_asic_power_tb:sv
+		errors: 0, warnings: 0
+	Elaborating the design hierarchy:
+		Caching library 'worklib' ....... Done
+	Top level design units:
+		worklib.ecg_asic_power_tb:sv (module)
+	Building instance overlay tables: .................... Done
+	Generating native compiled code:
+		worklib.stage2_classifier_gated_q:v <0x6c4585f5>
+			streams:  20, words: 10132
+		worklib.shared_classifier_mac_q:v <0x368d5f0f>
+			streams:  27, words: 15423
+		worklib.shared_stream_stats_bank:v <0x783b8611>
+			streams:  13, words:  7000
+		worklib.shared_stream_stats_bank:v <0x5fda47ed>
+			streams:  13, words:  7138
+		worklib.TLATNCAX12:v <0x2c1e9d2c>
+			streams:   3, words:   567
+		worklib.feature_set:v <0x59f847c7>
+			streams:  26, words: 13503
+		worklib.stage2_shared_hp1_q29:v <0x6a4fd7ca>
+			streams:  10, words:  9456
+		worklib.ecg_pthighpass_iir:v <0x26eb4261>
+			streams:  19, words:  9418
+		worklib.ecg_sample_mailbox:v <0x7204ca59>
+			streams:  15, words:  4478
+		worklib.TLATNCAX12:v <0x131fc56f>
+			streams:   3, words:   567
+		worklib.ecg_adaptive_clock:v <0x6e2b8a3d>
+			streams:  12, words:  3250
+		worklib.ecg_asic_power_tb:sv <0x1ce2be8b>
+			streams:  29, words: 33400
+		worklib.two_stage_shared_replay_top:v <0x01c1f718>
+			streams: 157, words: 76761
+		worklib.two_stage_adaptive_clock_top:v <0x4e970f50>
+			streams:   1, words:   127
+	Building instance specific data structures.
+	Loading native compiled code:     .................... Done
+	Design hierarchy summary:
+		                 Instances  Unique
+		Modules:                23      14
+		Registers:             263     224
+		Scalar wires:           63       -
+		Expanded wires:         12       6
+		Vectored wires:        143       -
+		Always blocks:          34      28
+		Initial blocks:         25      25
+		Cont. assignments:     123     107
+		Pseudo assignments:      5       -
+		Process Clocks:         26      10
+		Simulation timescale:  1ps
+	Writing initial simulation snapshot: worklib.ecg_asic_power_tb:sv
+Loading snapshot worklib.ecg_asic_power_tb:sv .................... Done
+xcelium> source /opt/cadence/installs/XCELIUM2603/tools/xcelium/files/xmsimrc
+xcelium> run
+CONFIG source_hz=100000 sample_hz=120 warmup_samples=1200 measure_samples=120 workload=demo
+RESULT time_ns=5009035000 stage2=0 id=2 code=3 measured=0
+RESULT time_ns=7010205000 stage2=1 id=3 code=2 measured=0
+RESULT time_ns=8010205000 stage2=1 id=4 code=2 measured=0
+RESULT time_ns=9007675000 stage2=0 id=5 code=0 measured=0
+RESULT time_ns=9010205000 stage2=1 id=5 code=2 measured=0
+RESULT time_ns=10007675000 stage2=0 id=6 code=0 measured=0
+RESULT time_ns=10010205000 stage2=1 id=6 code=2 measured=0
+CAPTURE_START time_ns=10011010000 accepted=1199
+RESULT time_ns=11007675000 stage2=0 id=7 code=0 measured=1
+RESULT time_ns=11010205000 stage2=1 id=7 code=2 measured=1
+CAPTURE_END time_ns=11011010000 duration_ns=1000000000 S1=1 S2=1 processing_edges=99921 fast_edges=99921
+PASS: sent=1320 accepted=1320 S1=4 S2=5 fast_entries=1
+Simulation complete via $finish(1) at time 11038220 US + 2
+/home/ec2-user/CadenceASIC100kHz/sim/ecg_asic_power_tb.sv:164         $finish;
+xcelium> exit
+TOOL:	xrun(64)	26.03-s001-20260323: Exiting on Oct 20, 2026 at 09:57:57 UTC  (total: 00:00:00)

@@ -1,0 +1,6 @@
+capture_validation=PASS
+duration_ns=60000000000
+source_transitions=12000000
+processing_transitions=60000
+stage2_stats_transitions=0
+activity_sha256=2fac62011e967fc790b092de26e93e1d98a3721a485c2b2acfb760f1d4534f53

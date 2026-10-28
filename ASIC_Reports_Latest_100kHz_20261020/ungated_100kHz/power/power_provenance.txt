@@ -1,0 +1,11 @@
+source_routed=/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/postroute_repaired
+activity=/home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/fixed_ungated/activity/activity.tcf
+activity_format=TCF
+rtl_activity=false
+duration_ns=60000000000
+view=view_slow
+mode=fixed_ungated
+source_hz=100000
+Full core, including clock controller/mailbox and routed clock trees; 0.9 V / 125 C library view
+Static average power from simulated activity on routed netlist; inspect coverage/defaults before acceptance
+Actual simulated clock activity retained; no scaling to faster SDC generated clocks

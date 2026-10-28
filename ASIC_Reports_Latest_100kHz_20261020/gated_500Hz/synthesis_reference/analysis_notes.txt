@@ -1,0 +1,9 @@
+mode=adaptive_gated
+library=/opt/cadence/pdks/gsclib045_svt_v4.8/gsclib045/timing/slow_vdd1v0_basicCells.lib
+activity=NONE
+source_hz=100000; sample_hz=120; processing_hz=500/100000
+source_clock=source_100khz
+clock_profile=direct100k_pulse_div200
+slow_clock_high_ns=5000; slow_clock_period_ns=2000000
+ASIC native 100 kHz source; no 100 MHz clock or fast-mode divider
+No power claim: fresh routed/gate-activity estimates are required

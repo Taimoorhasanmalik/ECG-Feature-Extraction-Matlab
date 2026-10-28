@@ -1,0 +1,112 @@
+*----------------------------------------------------------------------------------------
+*	Innovus 25.10-p002_1 (64bit) 04/23/2025 12:43 (Linux 4.18.0-305.el8.x86_64)
+*	
+*
+* 	Date & Time:	2026-Oct-20 12:49:33 (2026-Oct-20 12:49:33 GMT)
+*
+*----------------------------------------------------------------------------------------
+*
+*	Design: ecg_asic_power_top
+*
+*	Liberty Libraries used: 
+*	        view_slow: /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/adaptive_gated/postroute/checkpoints/post_route.enc.dat/libs/mmmc/slow_vdd1v0_basicCells.lib
+*
+*	Power Domain used: 
+*              Rail:        VDD      Voltage:        0.9 
+*
+*       Power View : view_slow
+*
+*       User-Defined Activity : N.A.
+*
+*	Switching Activity File used: 
+*	        /home/ec2-user/CadenceASIC100kHz/runs/power_pair_vwGzHG/adaptive_gated/activity/activity.tcf
+*
+*            Total Design annotation coverage: 35108/35108 = 100.000000% 
+
+*       Hierarchical Global Activity: N.A.
+*
+*       Global Activity: N.A.
+*
+*       Sequential Element Activity: 0.200000
+*
+*       Primary Input Activity: 0.200000
+*
+*       Default icg ratio: N.A.
+*
+*       Global Comb ClockGate Ratio: N.A.
+*
+*	Power Units = 1mW
+*
+*	Time Units = 1e-09 secs 
+*
+*       report_power -outfile reports/power_activity_stats.rpt -view view_slow
+*
+-----------------------------------------------------------------------------------------
+
+
+Total Power 
+-----------------------------------------------------------------------------------------
+Total Internal Power:        0.00002401 	    1.0560%
+Total Switching Power:       0.00000785 	    0.3454%
+Total Leakage Power:         0.00224171 	   98.5986%
+Total Power:                 0.00227357 
+-----------------------------------------------------------------------------------------
+
+
+Group                           Internal   Switching     Leakage       Total  Percentage 
+                                Power      Power         Power         Power  (%)        
+-----------------------------------------------------------------------------------------
+Sequential                     2.078e-05   1.634e-07    0.001103    0.001124       49.45 
+Macro                                  0           0           0           0           0 
+IO                                     0           0           0           0           0 
+Combinational                  9.314e-07   1.051e-06    0.001115    0.001117       49.12 
+Clock (Combinational)          1.586e-06   6.627e-06   2.247e-05   3.069e-05        1.35 
+Clock (Sequential)             7.068e-07   1.214e-08   1.084e-06   1.803e-06     0.07932 
+-----------------------------------------------------------------------------------------
+Total                          2.401e-05   7.853e-06    0.002242    0.002274         100 
+-----------------------------------------------------------------------------------------
+
+
+Rail                  Voltage   Internal   Switching     Leakage       Total  Percentage 
+                                Power      Power         Power         Power  (%)        
+-----------------------------------------------------------------------------------------
+VDD                       0.9  2.401e-05   7.853e-06    0.002242    0.002274         100 
+
+
+Clock                           Internal   Switching     Leakage       Total  Percentage 
+                                Power      Power         Power         Power  (%)        
+-----------------------------------------------------------------------------------------
+source_100khz                   1.94e-06   4.888e-06   7.884e-07   7.617e-06       0.335 
+processing_fast                3.536e-07   1.751e-06   2.277e-05   2.487e-05       1.094 
+processing_slow                3.536e-07   1.751e-06   2.277e-05   2.487e-05       1.094 
+-----------------------------------------------------------------------------------------
+Total (excluding duplicates)   2.293e-06   6.639e-06   2.356e-05   3.249e-05       1.429 
+-----------------------------------------------------------------------------------------
+Clock: source_100khz
+Clock Period: 10.000000 usec 
+Clock Toggle Rate:     0.2000 Mhz 
+Clock Static Probability:  0.5000
+
+Clock: processing_fast
+Clock Period: 2000.000000 usec 
+Clock Toggle Rate:     0.0010 Mhz 
+Clock Static Probability:  0.5000
+
+Clock: processing_slow
+Clock Period: 2000.000000 usec 
+Clock Toggle Rate:     0.0010 Mhz 
+Clock Static Probability:  0.0025
+
+
+
+-----------------------------------------------------------------------------------------
+*	Power Distribution Summary: 
+*                Highest Average Power:  core/CTS_ccl_a_buf_00183 (CLKBUFX4):        2.106e-06 
+*                Highest Leakage Power: core/low_power_clock/clock_buffer/clock_gate (TLATNCAX12):        4.233e-07 
+*          Total Cap:      8.23997e-11 F
+*          Total instances in design: 30363
+*          Total instances in design with no power:     0
+*          Total instances in design with no activity:     0
+*          Total Fillers and Decap:     0
+-----------------------------------------------------------------------------------------
+

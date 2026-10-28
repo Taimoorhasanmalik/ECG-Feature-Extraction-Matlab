@@ -1,0 +1,37 @@
+path,type,role
+README.md,documentation,package guide and current result
+manifest.csv,manifest,file inventory for standalone package
+rtl/two_stage_shared_replay_top.v,RTL,240-entry shared replay top with configurable clock gate
+rtl/ecg_adaptive_clock.v,RTL,optional boundary-switched 500 Hz and 100 kHz divider
+rtl/ecg_sample_mailbox.v,RTL,optional one-entry source-to-processing sample handshake
+rtl/two_stage_adaptive_clock_top.v,RTL,optional adaptive core integration wrapper
+docs/two_stage_adaptive_clock.md,documentation,adaptive-clock experiment and paper caveats
+rtl/shared_classifier_mac_q.v,RTL,shared classifier MAC and gated clock
+rtl/stage2_shared_hp1_q29.v,RTL,Stage 2 causal high-pass candidate
+rtl/stage2_filter_q29.v,RTL,Stage 2 legacy filter dependency
+rtl/stage2_classifier_gated_q.v,RTL,Stage 2 classifier dependency
+stage1_hdl/01_highpass_iir_filter.v,RTL,Stage 1 high-pass filter
+stage1_hdl/02_window_sequencer.v,RTL,shared window sequencer
+tb/mostly_normal_power_tb.sv,testbench,paired mostly-normal stimulus and equivalence checks
+scripts/run_power_comparison.ps1,script,regenerate simulation activity and both routed reports
+scripts/mostly_normal_power_saif.tcl,script,generate XSIM SAIF activity trace
+scripts/report_mostly_normal_gate_power.tcl,script,route one gate mode and report power
+scripts/report_idle_clock_case_power.tcl,script,optional idle-case diagnostic using routed checkpoints
+scripts/test_stage1_full_rate_timing.tcl,script,route optional full-rate Stage 1 replay variant
+stage1_full_rate_test/README.md,documentation,full-rate functional and timing result
+stage1_full_rate_test/full_rate_utilization.rpt,report,full-rate routed resource utilization
+stage1_full_rate_test/full_rate_timing.rpt,report,full-rate routed timing
+docs/two_stage_idle_clock_gating_power.md,documentation,paper note and measurement caveats
+power_comparison/mostly_normal_240.saif,activity,paired RTL simulation activity
+power_comparison/idle_gated_240_power_saif.rpt,report,gated routed power estimate
+power_comparison/idle_always_on_240_power_saif.rpt,report,always-on routed power estimate
+power_comparison/idle_gated_240_power_saif.xml,report,gated routed power estimate XML
+power_comparison/idle_always_on_240_power_saif.xml,report,always-on routed power estimate XML
+power_comparison/idle_gated_240_utilization.rpt,report,gated resource utilization
+power_comparison/idle_always_on_240_utilization.rpt,report,always-on resource utilization
+power_comparison/idle_gated_240_timing.rpt,report,gated timing
+power_comparison/idle_always_on_240_timing.rpt,report,always-on timing
+power_comparison/idle_gated_240_saif_mapping.rpt,report,gated activity-match diagnostics
+power_comparison/idle_always_on_240_saif_mapping.rpt,report,always-on activity-match diagnostics
+power_comparison/idle_gated_240_power_case_idle.rpt,report,gated forced-idle diagnostic
+power_comparison/idle_always_on_240_power_case_idle.rpt,report,always-on forced-idle diagnostic

@@ -1,0 +1,5 @@
+non_filler_cell_count=30323
+non_filler_cell_area_um2=117652.788
+filler_cell_count=38942
+filler_cell_area_um2=69021.756
+Core and boundary areas are separate; fillers must not inflate the reported logic/clock cell area

@@ -1,0 +1,12 @@
+/vivado_project/
+/reports/*.dcp
+/.Xil/
+/xcelium.d/
+/xrun.history
+/xrun.log
+/xrun.key
+/xsim.dir/
+/*.jou
+/*.log
+/*.pb
+/*.wdb

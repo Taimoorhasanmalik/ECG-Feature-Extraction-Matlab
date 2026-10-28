@@ -1,0 +1,2 @@
+core/pipeline/g21885 NAND4XL -> NAND4X1 (same logic family, increased drive)
+core/pipeline/g21603 NAND4XL -> NAND4X1 (same logic family, increased drive)

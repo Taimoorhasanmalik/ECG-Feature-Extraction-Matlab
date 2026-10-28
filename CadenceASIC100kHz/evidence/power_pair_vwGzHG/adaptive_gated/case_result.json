@@ -1,0 +1,39 @@
+{
+  "mode": "adaptive_gated",
+  "power": {
+    "internal_uw": 0.02401,
+    "switching_uw": 0.00785,
+    "leakage_uw": 2.24171,
+    "total_uw": 2.27357,
+    "dynamic_uw": 0.03186,
+    "energy_uj": 136.4142
+  },
+  "coverage": {
+    "Primary Inputs": [
+      35,
+      35,
+      100.0
+    ],
+    "Flop outputs": [
+      9138,
+      9138,
+      100.0
+    ],
+    "Total Nets": [
+      35108,
+      35108,
+      100.0
+    ]
+  },
+  "area": {
+    "non_filler_cell_count": 30363,
+    "non_filler_area_um2": 117552.24
+  },
+  "timing": {
+    "setup_wns_ns": 4998.2,
+    "hold_wns_ns": 0.022
+  },
+  "activity_audit": "PASS",
+  "duration_seconds": 60,
+  "scope": "Full routed core, 100 kHz source, 0.9 V / 125 C; functional gate activity without SDF"
+}

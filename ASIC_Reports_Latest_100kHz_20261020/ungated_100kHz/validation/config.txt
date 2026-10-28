@@ -1,0 +1,11 @@
+mode=fixed_ungated
+workload=normal
+quick=0
+capture_bounded=1
+capture_validation=PASS
+source_hz=100000
+capture_duration_ns=60000000000
+activity_level=gate
+no_sdf=1
+clock_profile=direct100k_pulse_div200
+activity_format=TCF

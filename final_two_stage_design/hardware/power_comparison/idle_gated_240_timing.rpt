@@ -1,0 +1,529 @@
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
+| Date         : Tue Oct  6 15:19:19 2026
+| Host         : AsusROG running 64-bit major release  (build 9200)
+| Command      : report_timing_summary -file E:/Thesis/ECG-Feature-Extraction-Matlab/final_two_stage_design/hardware/power_comparison/idle_gated_240_timing.rpt
+| Design       : two_stage_shared_replay_top
+| Device       : 7a35t-cpg236
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Summary Report
+
+------------------------------------------------------------------------------------------------
+| Timer Settings
+| --------------
+------------------------------------------------------------------------------------------------
+
+  Enable Multi Corner Analysis               :  Yes
+  Enable Pessimism Removal                   :  Yes
+  Pessimism Removal Resolution               :  Nearest Common Node
+  Enable Input Delay Default Clock           :  No
+  Enable Preset / Clear Arcs                 :  No
+  Disable Flight Delays                      :  No
+  Ignore I/O Paths                           :  No
+  Timing Early Launch at Borrowing Latches   :  No
+  Borrow Time for Max Delay Exceptions       :  Yes
+  Merge Timing Exceptions                    :  Yes
+
+  Corner  Analyze    Analyze    
+  Name    Max Paths  Min Paths  
+  ------  ---------  ---------  
+  Slow    Yes        Yes        
+  Fast    Yes        Yes        
+
+
+
+check_timing report
+
+Table of Contents
+-----------------
+1. checking no_clock (0)
+2. checking constant_clock (0)
+3. checking pulse_width_clock (0)
+4. checking unconstrained_internal_endpoints (0)
+5. checking no_input_delay (34)
+6. checking no_output_delay (40)
+7. checking multiple_clock (0)
+8. checking generated_clocks (0)
+9. checking loops (0)
+10. checking partial_input_delay (0)
+11. checking partial_output_delay (0)
+12. checking latch_loops (0)
+
+1. checking no_clock (0)
+------------------------
+ There are 0 register/latch pins with no clock.
+
+
+2. checking constant_clock (0)
+------------------------------
+ There are 0 register/latch pins with constant_clock.
+
+
+3. checking pulse_width_clock (0)
+---------------------------------
+ There are 0 register/latch pins which need pulse_width check
+
+
+4. checking unconstrained_internal_endpoints (0)
+------------------------------------------------
+ There are 0 pins that are not constrained for maximum delay.
+
+ There are 0 pins that are not constrained for maximum delay due to constant clock.
+
+
+5. checking no_input_delay (34)
+-------------------------------
+ There are 34 input ports with no input delay specified. (HIGH)
+
+ There are 0 input ports with no input delay but user has a false path constraint.
+
+
+6. checking no_output_delay (40)
+--------------------------------
+ There are 40 ports with no output delay specified. (HIGH)
+
+ There are 0 ports with no output delay but user has a false path constraint
+
+ There are 0 ports with no output delay but with a timing clock defined on it or propagating through it
+
+
+7. checking multiple_clock (0)
+------------------------------
+ There are 0 register/latch pins with multiple clocks.
+
+
+8. checking generated_clocks (0)
+--------------------------------
+ There are 0 generated clocks that are not connected to a clock source.
+
+
+9. checking loops (0)
+---------------------
+ There are 0 combinational loops in the design.
+
+
+10. checking partial_input_delay (0)
+------------------------------------
+ There are 0 input ports with partial input delay specified.
+
+
+11. checking partial_output_delay (0)
+-------------------------------------
+ There are 0 ports with partial output delay specified.
+
+
+12. checking latch_loops (0)
+----------------------------
+ There are 0 combinational latch loops in the design through latch input
+
+
+
+------------------------------------------------------------------------------------------------
+| Design Timing Summary
+| ---------------------
+------------------------------------------------------------------------------------------------
+
+    WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+    -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+   9934.265        0.000                      0                 4231        0.024        0.000                      0                 4231     4999.499        0.000                       0                  2325  
+
+
+All user specified timing constraints are met.
+
+
+------------------------------------------------------------------------------------------------
+| Clock Summary
+| -------------
+------------------------------------------------------------------------------------------------
+
+Clock           Waveform(ns)           Period(ns)      Frequency(MHz)
+-----           ------------           ----------      --------------
+clk_processing  {0.000 5000.000}       10000.000       0.100           
+
+
+------------------------------------------------------------------------------------------------
+| Intra Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+Clock               WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+-----               -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+clk_processing     9934.265        0.000                      0                 4231        0.024        0.000                      0                 4231     4999.499        0.000                       0                  2325  
+
+
+------------------------------------------------------------------------------------------------
+| Inter Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Other Path Groups Table
+| -----------------------
+------------------------------------------------------------------------------------------------
+
+Path Group    From Clock    To Clock          WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------    ----------    --------          -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------  
+
+
+------------------------------------------------------------------------------------------------
+| Timing Details
+| --------------
+------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  clk_processing
+  To Clock:  clk_processing
+
+Setup :            0  Failing Endpoints,  Worst Slack     9934.265ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.024ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack     4999.499ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             9934.265ns  (required time - arrival time)
+  Source:                 active_sum_reg[12]/C
+                            (rising edge-triggered cell FDCE clocked by clk_processing  {rise@0.000ns fall@5000.000ns period=10000.000ns})
+  Destination:            f5_reg[12]/D
+                            (rising edge-triggered cell FDCE clocked by clk_processing  {rise@0.000ns fall@5000.000ns period=10000.000ns})
+  Path Group:             clk_processing
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10000.000ns  (clk_processing rise@10000.000ns - clk_processing rise@0.000ns)
+  Data Path Delay:        65.768ns  (logic 22.888ns (34.801%)  route 42.880ns (65.199%))
+  Logic Levels:           80  (CARRY4=49 LUT1=1 LUT2=3 LUT3=6 LUT4=8 LUT5=7 LUT6=6)
+  Clock Path Skew:        0.037ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.272ns = ( 10004.272 - 10000.000 ) 
+    Source Clock Delay      (SCD):    4.557ns
+    Clock Pessimism Removal (CPR):    0.322ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_processing rise edge)
+                                                      0.000     0.000 r  
+    M18                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    M18                  IBUF (Prop_ibuf_I_O)         0.938     0.938 r  clk_IBUF_inst/O
+                         net (fo=3, routed)           1.972     2.910    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.006 r  clk_IBUF_BUFG_inst/O
+                         net (fo=1821, routed)        1.551     4.557    clk_IBUF_BUFG
+    SLICE_X36Y28         FDCE                                         r  active_sum_reg[12]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X36Y28         FDCE (Prop_fdce_C_Q)         0.456     5.013 f  active_sum_reg[12]/Q
+                         net (fo=14, routed)          2.250     7.263    active_sum[12]
+    SLICE_X46Y34         LUT1 (Prop_lut1_I0_O)        0.124     7.387 r  abs_acc[4]_i_100/O
+                         net (fo=1, routed)           0.000     7.387    abs_acc[4]_i_100_n_0
+    SLICE_X46Y34         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.376     7.763 r  abs_acc_reg[4]_i_48/CO[3]
+                         net (fo=1, routed)           0.000     7.763    abs_acc_reg[4]_i_48_n_0
+    SLICE_X46Y35         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     7.880 r  abs_acc_reg[4]_i_228/CO[3]
+                         net (fo=1, routed)           0.000     7.880    abs_acc_reg[4]_i_228_n_0
+    SLICE_X46Y36         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     7.997 r  abs_acc_reg[4]_i_189/CO[3]
+                         net (fo=1, routed)           0.000     7.997    abs_acc_reg[4]_i_189_n_0
+    SLICE_X46Y37         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117     8.114 r  abs_acc_reg[4]_i_133/CO[3]
+                         net (fo=1, routed)           0.000     8.114    abs_acc_reg[4]_i_133_n_0
+    SLICE_X46Y38         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.323     8.437 r  abs_acc_reg[4]_i_61/O[1]
+                         net (fo=9, routed)           1.338     9.775    mean_fix2[26]
+    SLICE_X43Y44         LUT3 (Prop_lut3_I0_O)        0.334    10.109 r  abs_acc[4]_i_197/O
+                         net (fo=9, routed)           0.759    10.868    abs_acc[4]_i_197_n_0
+    SLICE_X43Y42         LUT6 (Prop_lut6_I3_O)        0.326    11.194 r  abs_acc[4]_i_95/O
+                         net (fo=4, routed)           1.787    12.981    abs_acc[4]_i_95_n_0
+    SLICE_X42Y33         LUT5 (Prop_lut5_I0_O)        0.124    13.105 r  abs_acc[4]_i_99/O
+                         net (fo=1, routed)           0.000    13.105    abs_acc[4]_i_99_n_0
+    SLICE_X42Y33         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513    13.618 r  abs_acc_reg[4]_i_47/CO[3]
+                         net (fo=1, routed)           0.000    13.618    abs_acc_reg[4]_i_47_n_0
+    SLICE_X42Y34         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.323    13.941 r  abs_acc_reg[4]_i_51/O[1]
+                         net (fo=2, routed)           0.812    14.753    abs_acc_reg[4]_i_51_n_6
+    SLICE_X42Y36         LUT5 (Prop_lut5_I1_O)        0.306    15.059 r  abs_acc[4]_i_152/O
+                         net (fo=2, routed)           0.815    15.874    abs_acc[4]_i_152_n_0
+    SLICE_X43Y36         LUT6 (Prop_lut6_I1_O)        0.124    15.998 r  abs_acc[4]_i_156/O
+                         net (fo=1, routed)           0.000    15.998    abs_acc[4]_i_156_n_0
+    SLICE_X43Y36         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    16.548 r  abs_acc_reg[4]_i_72/CO[3]
+                         net (fo=1, routed)           0.000    16.548    abs_acc_reg[4]_i_72_n_0
+    SLICE_X43Y37         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    16.662 r  abs_acc_reg[23]_i_40/CO[3]
+                         net (fo=1, routed)           0.000    16.662    abs_acc_reg[23]_i_40_n_0
+    SLICE_X43Y38         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    16.776 r  abs_acc_reg[31]_i_92/CO[3]
+                         net (fo=1, routed)           0.000    16.776    abs_acc_reg[31]_i_92_n_0
+    SLICE_X43Y39         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    17.110 r  abs_acc_reg[4]_i_139/O[1]
+                         net (fo=9, routed)           2.384    19.494    abs_acc_reg[4]_i_139_n_6
+    SLICE_X40Y29         LUT2 (Prop_lut2_I1_O)        0.303    19.797 r  abs_acc[4]_i_217/O
+                         net (fo=1, routed)           0.000    19.797    abs_acc[4]_i_217_n_0
+    SLICE_X40Y29         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    20.347 r  abs_acc_reg[4]_i_138/CO[3]
+                         net (fo=1, routed)           0.000    20.347    abs_acc_reg[4]_i_138_n_0
+    SLICE_X40Y30         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    20.569 r  abs_acc_reg[4]_i_65/O[0]
+                         net (fo=3, routed)           1.863    22.432    abs_acc_reg[4]_i_65_n_7
+    SLICE_X43Y42         LUT4 (Prop_lut4_I0_O)        0.325    22.757 r  abs_acc[4]_i_125/O
+                         net (fo=1, routed)           0.910    23.667    abs_acc[4]_i_125_n_0
+    SLICE_X41Y35         CARRY4 (Prop_carry4_DI[1]_CO[3])
+                                                      0.709    24.376 r  abs_acc_reg[4]_i_52/CO[3]
+                         net (fo=1, routed)           0.000    24.376    abs_acc_reg[4]_i_52_n_0
+    SLICE_X41Y36         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    24.490 f  abs_acc_reg[4]_i_28/CO[3]
+                         net (fo=1, routed)           1.080    25.569    abs_acc_reg[4]_i_28_n_0
+    SLICE_X39Y41         LUT4 (Prop_lut4_I0_O)        0.150    25.719 r  abs_acc[4]_i_16/O
+                         net (fo=114, routed)         1.294    27.013    abs_acc[4]_i_16_n_0
+    SLICE_X38Y40         LUT3 (Prop_lut3_I1_O)        0.326    27.339 r  abs_acc[4]_i_32/O
+                         net (fo=1, routed)           0.662    28.002    abs_acc[4]_i_32_n_0
+    SLICE_X41Y38         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580    28.582 r  abs_acc_reg[4]_i_18/CO[3]
+                         net (fo=1, routed)           0.000    28.582    abs_acc_reg[4]_i_18_n_0
+    SLICE_X41Y39         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    28.696 r  abs_acc_reg[11]_i_33/CO[3]
+                         net (fo=1, routed)           0.000    28.696    abs_acc_reg[11]_i_33_n_0
+    SLICE_X41Y40         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    28.810 r  abs_acc_reg[27]_i_44/CO[3]
+                         net (fo=1, routed)           0.000    28.810    abs_acc_reg[27]_i_44_n_0
+    SLICE_X41Y41         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    29.032 r  abs_acc_reg[31]_i_91/O[0]
+                         net (fo=5, routed)           1.576    30.607    mean_fix0[13]
+    SLICE_X38Y40         LUT5 (Prop_lut5_I0_O)        0.299    30.906 r  abs_acc[27]_i_43/O
+                         net (fo=3, routed)           1.051    31.957    mean_fix[13]
+    SLICE_X38Y36         LUT4 (Prop_lut4_I3_O)        0.124    32.081 r  abs_acc[27]_i_41/O
+                         net (fo=1, routed)           0.000    32.081    abs_acc[27]_i_41_n_0
+    SLICE_X38Y36         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533    32.614 r  abs_acc_reg[27]_i_23/CO[3]
+                         net (fo=1, routed)           0.000    32.614    abs_acc_reg[27]_i_23_n_0
+    SLICE_X38Y37         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    32.731 r  abs_acc_reg[31]_i_52/CO[3]
+                         net (fo=1, routed)           0.000    32.731    abs_acc_reg[31]_i_52_n_0
+    SLICE_X38Y38         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219    32.950 r  abs_acc_reg[31]_i_44/O[0]
+                         net (fo=9, routed)           2.015    34.965    centered_num0[20]
+    SLICE_X42Y24         LUT2 (Prop_lut2_I0_O)        0.295    35.260 r  abs_acc[31]_i_56/O
+                         net (fo=1, routed)           0.000    35.260    abs_acc[31]_i_56_n_0
+    SLICE_X42Y24         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513    35.773 r  abs_acc_reg[31]_i_33/CO[3]
+                         net (fo=1, routed)           0.009    35.782    abs_acc_reg[31]_i_33_n_0
+    SLICE_X42Y25         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.323    36.105 r  abs_acc_reg[31]_i_31/O[1]
+                         net (fo=3, routed)           1.034    37.140    abs_acc_reg[31]_i_31_n_6
+    SLICE_X47Y29         LUT4 (Prop_lut4_I2_O)        0.306    37.446 r  abs_acc[31]_i_22/O
+                         net (fo=1, routed)           0.000    37.446    abs_acc[31]_i_22_n_0
+    SLICE_X47Y29         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    37.847 r  abs_acc_reg[31]_i_10/CO[3]
+                         net (fo=1, routed)           0.000    37.847    abs_acc_reg[31]_i_10_n_0
+    SLICE_X47Y30         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    38.181 r  abs_acc_reg[31]_i_8/O[1]
+                         net (fo=107, routed)         2.562    40.743    centered_num[31]
+    SLICE_X41Y20         LUT4 (Prop_lut4_I2_O)        0.303    41.046 r  block_acc[7]_i_5/O
+                         net (fo=1, routed)           0.000    41.046    block_acc[7]_i_5_n_0
+    SLICE_X41Y20         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    41.596 r  block_acc_reg[7]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    41.596    block_acc_reg[7]_i_2_n_0
+    SLICE_X41Y21         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    41.710 r  block_acc_reg[11]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    41.710    block_acc_reg[11]_i_2_n_0
+    SLICE_X41Y22         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    41.824 r  block_acc_reg[15]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    41.824    block_acc_reg[15]_i_2_n_0
+    SLICE_X41Y23         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    41.938 r  block_acc_reg[19]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    41.938    block_acc_reg[19]_i_2_n_0
+    SLICE_X41Y24         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    42.251 r  block_acc_reg[23]_i_2/O[3]
+                         net (fo=14, routed)          2.552    44.802    block_next[23]
+    SLICE_X43Y14         LUT4 (Prop_lut4_I1_O)        0.306    45.108 r  transition_acc[31]_i_22/O
+                         net (fo=1, routed)           0.000    45.108    transition_acc[31]_i_22_n_0
+    SLICE_X43Y14         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    45.658 r  transition_acc_reg[31]_i_10/CO[3]
+                         net (fo=1, routed)           0.000    45.658    transition_acc_reg[31]_i_10_n_0
+    SLICE_X43Y15         CARRY4 (Prop_carry4_CI_CO[1])
+                                                      0.157    45.815 r  transition_acc_reg[31]_i_8/CO[1]
+                         net (fo=27, routed)          1.398    47.213    transition_next3
+    SLICE_X45Y11         LUT5 (Prop_lut5_I4_O)        0.329    47.542 r  transition_acc[12]_i_6/O
+                         net (fo=2, routed)           0.807    48.349    transition_acc[12]_i_6_n_0
+    SLICE_X44Y13         LUT5 (Prop_lut5_I0_O)        0.124    48.473 r  transition_acc[12]_i_10/O
+                         net (fo=1, routed)           0.000    48.473    transition_acc[12]_i_10_n_0
+    SLICE_X44Y13         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.532    49.005 r  transition_acc_reg[12]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    49.005    transition_acc_reg[12]_i_2_n_0
+    SLICE_X44Y14         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    49.119 r  transition_acc_reg[16]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    49.119    transition_acc_reg[16]_i_2_n_0
+    SLICE_X44Y15         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    49.233 r  transition_acc_reg[20]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    49.233    transition_acc_reg[20]_i_2_n_0
+    SLICE_X44Y16         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    49.546 r  transition_acc_reg[24]_i_2/O[3]
+                         net (fo=21, routed)          2.424    51.970    transition_next[24]
+    SLICE_X52Y9          LUT3 (Prop_lut3_I2_O)        0.334    52.304 r  f5[14]_i_26/O
+                         net (fo=2, routed)           0.980    53.284    f5[14]_i_26_n_0
+    SLICE_X48Y10         LUT4 (Prop_lut4_I3_O)        0.348    53.632 r  f5[14]_i_30/O
+                         net (fo=1, routed)           0.000    53.632    f5[14]_i_30_n_0
+    SLICE_X48Y10         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.398    54.030 r  f5_reg[14]_i_15/CO[3]
+                         net (fo=1, routed)           0.000    54.030    f5_reg[14]_i_15_n_0
+    SLICE_X48Y11         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    54.269 r  f5_reg[17]_i_50/O[2]
+                         net (fo=3, routed)           1.132    55.400    f5_reg[17]_i_50_n_5
+    SLICE_X51Y11         LUT3 (Prop_lut3_I2_O)        0.302    55.702 f  f5[14]_i_13/O
+                         net (fo=2, routed)           1.177    56.879    f5[14]_i_13_n_0
+    SLICE_X47Y11         LUT5 (Prop_lut5_I3_O)        0.124    57.003 r  f5[14]_i_4/O
+                         net (fo=2, routed)           0.957    57.960    f5[14]_i_4_n_0
+    SLICE_X49Y11         LUT6 (Prop_lut6_I0_O)        0.124    58.084 r  f5[14]_i_8/O
+                         net (fo=1, routed)           0.000    58.084    f5[14]_i_8_n_0
+    SLICE_X49Y11         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.398    58.482 r  f5_reg[14]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    58.482    f5_reg[14]_i_2_n_0
+    SLICE_X49Y12         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    58.596 r  f5_reg[17]_i_5/CO[3]
+                         net (fo=1, routed)           0.000    58.596    f5_reg[17]_i_5_n_0
+    SLICE_X49Y13         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    58.710 r  f5_reg[17]_i_6/CO[3]
+                         net (fo=1, routed)           0.000    58.710    f5_reg[17]_i_6_n_0
+    SLICE_X49Y14         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    58.932 r  f5_reg[17]_i_7/O[0]
+                         net (fo=11, routed)          1.469    60.401    f5_reg[17]_i_7_n_7
+    SLICE_X55Y13         LUT2 (Prop_lut2_I1_O)        0.299    60.700 r  f5[17]_i_171/O
+                         net (fo=1, routed)           0.000    60.700    f5[17]_i_171_n_0
+    SLICE_X55Y13         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    61.101 r  f5_reg[17]_i_146/CO[3]
+                         net (fo=1, routed)           0.000    61.101    f5_reg[17]_i_146_n_0
+    SLICE_X55Y14         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    61.435 r  f5_reg[17]_i_121/O[1]
+                         net (fo=3, routed)           0.752    62.187    f5_reg[17]_i_121_n_6
+    SLICE_X55Y16         LUT3 (Prop_lut3_I1_O)        0.297    62.484 f  f5[17]_i_142/O
+                         net (fo=2, routed)           0.988    63.471    f5[17]_i_142_n_0
+    SLICE_X56Y14         LUT5 (Prop_lut5_I1_O)        0.326    63.797 r  f5[17]_i_112/O
+                         net (fo=2, routed)           0.727    64.525    f5[17]_i_112_n_0
+    SLICE_X53Y14         LUT6 (Prop_lut6_I0_O)        0.124    64.649 r  f5[17]_i_116/O
+                         net (fo=1, routed)           0.000    64.649    f5[17]_i_116_n_0
+    SLICE_X53Y14         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    65.050 r  f5_reg[17]_i_68/CO[3]
+                         net (fo=1, routed)           0.000    65.050    f5_reg[17]_i_68_n_0
+    SLICE_X53Y15         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    65.384 r  f5_reg[17]_i_40/O[1]
+                         net (fo=3, routed)           0.813    66.197    f5_reg[17]_i_40_n_6
+    SLICE_X52Y15         LUT4 (Prop_lut4_I2_O)        0.303    66.500 r  f5[17]_i_66/O
+                         net (fo=1, routed)           0.000    66.500    f5[17]_i_66_n_0
+    SLICE_X52Y15         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533    67.033 r  f5_reg[17]_i_33/CO[3]
+                         net (fo=1, routed)           0.000    67.033    f5_reg[17]_i_33_n_0
+    SLICE_X52Y16         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229    67.262 r  f5_reg[17]_i_10/CO[2]
+                         net (fo=1, routed)           0.763    68.025    f5_reg[17]_i_10_n_1
+    SLICE_X53Y17         LUT3 (Prop_lut3_I0_O)        0.310    68.335 r  f5[17]_i_4/O
+                         net (fo=11, routed)          0.480    68.815    f5[17]_i_4_n_0
+    SLICE_X55Y18         LUT6 (Prop_lut6_I4_O)        0.124    68.939 r  f5[17]_i_2/O
+                         net (fo=10, routed)          1.262    70.201    f5[17]_i_2_n_0
+    SLICE_X58Y18         LUT6 (Prop_lut6_I0_O)        0.124    70.325 r  f5[12]_i_1/O
+                         net (fo=1, routed)           0.000    70.325    f5[12]_i_1_n_0
+    SLICE_X58Y18         FDCE                                         r  f5_reg[12]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_processing rise edge)
+                                                  10000.000 10000.000 r  
+    M18                                               0.000 10000.000 r  clk (IN)
+                         net (fo=0)                   0.000 10000.000    clk
+    M18                  IBUF (Prop_ibuf_I_O)         0.805 10000.805 r  clk_IBUF_inst/O
+                         net (fo=3, routed)           1.868 10002.673    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091 10002.764 r  clk_IBUF_BUFG_inst/O
+                         net (fo=1821, routed)        1.508 10004.272    clk_IBUF_BUFG
+    SLICE_X58Y18         FDCE                                         r  f5_reg[12]/C
+                         clock pessimism              0.322 10004.595    
+                         clock uncertainty           -0.035 10004.560    
+    SLICE_X58Y18         FDCE (Setup_fdce_C_D)        0.031 10004.591    f5_reg[12]
+  -------------------------------------------------------------------
+                         required time                      10004.589    
+                         arrival time                         -70.325    
+  -------------------------------------------------------------------
+                         slack                               9934.265    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.024ns  (arrival time - required time)
+  Source:                 shared_stage2_filter.filter2/output_q5_8_reg[8]/C
+                            (rising edge-triggered cell FDCE clocked by clk_processing  {rise@0.000ns fall@5000.000ns period=10000.000ns})
+  Destination:            seq/sample_out_reg[8]/D
+                            (rising edge-triggered cell FDCE clocked by clk_processing  {rise@0.000ns fall@5000.000ns period=10000.000ns})
+  Path Group:             clk_processing
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_processing rise@0.000ns - clk_processing rise@0.000ns)
+  Data Path Delay:        0.349ns  (logic 0.141ns (40.371%)  route 0.208ns (59.629%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.262ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.892ns
+    Source Clock Delay      (SCD):    1.379ns
+    Clock Pessimism Removal (CPR):    0.251ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_processing rise edge)
+                                                      0.000     0.000 r  
+    M18                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    M18                  IBUF (Prop_ibuf_I_O)         0.167     0.167 r  clk_IBUF_inst/O
+                         net (fo=3, routed)           0.634     0.801    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026     0.827 r  clk_IBUF_BUFG_inst/O
+                         net (fo=1821, routed)        0.552     1.379    shared_stage2_filter.filter2/clk_IBUF_BUFG
+    SLICE_X35Y22         FDCE                                         r  shared_stage2_filter.filter2/output_q5_8_reg[8]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X35Y22         FDCE (Prop_fdce_C_Q)         0.141     1.520 r  shared_stage2_filter.filter2/output_q5_8_reg[8]/Q
+                         net (fo=2, routed)           0.208     1.728    seq/sample_out_reg[13]_16[8]
+    SLICE_X38Y22         FDCE                                         r  seq/sample_out_reg[8]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_processing rise edge)
+                                                      0.000     0.000 r  
+    M18                                               0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    M18                  IBUF (Prop_ibuf_I_O)         0.356     0.356 r  clk_IBUF_inst/O
+                         net (fo=3, routed)           0.689     1.044    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.029     1.073 r  clk_IBUF_BUFG_inst/O
+                         net (fo=1821, routed)        0.819     1.892    seq/clk_IBUF_BUFG
+    SLICE_X38Y22         FDCE                                         r  seq/sample_out_reg[8]/C
+                         clock pessimism             -0.251     1.641    
+    SLICE_X38Y22         FDCE (Hold_fdce_C_D)         0.063     1.704    seq/sample_out_reg[8]
+  -------------------------------------------------------------------
+                         required time                         -1.704    
+                         arrival time                           1.728    
+  -------------------------------------------------------------------
+                         slack                                  0.024    
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         clk_processing
+Waveform(ns):       { 0.000 5000.000 }
+Period(ns):         10000.000
+Sources:            { clk }
+
+Check Type        Corner  Lib Pin             Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location      Pin
+Min Period        n/a     RAMB18E1/CLKARDCLK  n/a            2.944         10000.000   9997.056   RAMB18_X1Y8   window_history_reg_0/CLKARDCLK
+Low Pulse Width   Slow    FDCE/C              n/a            0.500         4999.999    4999.499   SLICE_X31Y23  shared_stage2_filter.filter2/y1_reg[30]/C
+High Pulse Width  Fast    FDCE/C              n/a            0.500         4999.999    4999.499   SLICE_X30Y21  shared_stage2_filter.filter2/y1_reg[32]/C
+
+
+

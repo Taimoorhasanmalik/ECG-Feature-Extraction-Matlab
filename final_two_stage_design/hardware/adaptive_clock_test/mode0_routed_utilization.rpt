@@ -1,0 +1,44 @@
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
+| Date         : Thu Oct  8 15:15:16 2026
+| Host         : AsusROG running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -file E:/Thesis/ECG-Feature-Extraction-Matlab/final_two_stage_design/hardware/adaptive_clock_test/mode0_routed_utilization.rpt
+| Design       : basys3_two_stage_adaptive_top
+| Device       : 7a35tcpg236-1
+| Design State : Routed
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++------------------------------------+------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+|              Instance              |            Module            | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++------------------------------------+------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+| basys3_two_stage_adaptive_top      |                        (top) |       5186 |       5186 |       0 |    0 | 2397 |      0 |      2 |         48 |
+|   (basys3_two_stage_adaptive_top)  |                        (top) |       1370 |       1370 |       0 |    0 |   12 |      0 |      0 |          0 |
+|   demo                             |         ecg_bram_demo_source |        309 |        309 |       0 |    0 |   50 |      0 |      0 |          0 |
+|   system_core                      | two_stage_adaptive_clock_top |       3527 |       3527 |       0 |    0 | 2335 |      0 |      2 |         48 |
+|     (system_core)                  | two_stage_adaptive_clock_top |          3 |          3 |       0 |    0 |    0 |      0 |      0 |          0 |
+|     low_power_clock                |           ecg_adaptive_clock |         14 |         14 |       0 |    0 |   15 |      0 |      0 |          0 |
+|     mailbox                        |           ecg_sample_mailbox |        119 |        119 |       0 |    0 |   34 |      0 |      0 |          0 |
+|     pipeline                       |  two_stage_shared_replay_top |       3391 |       3391 |       0 |    0 | 2286 |      0 |      2 |         48 |
+|       (pipeline)                   |  two_stage_shared_replay_top |       1212 |       1212 |       0 |    0 |  752 |      0 |      2 |          0 |
+|       banks[0].stats1              |     shared_stream_stats_bank |        117 |        117 |       0 |    0 |  214 |      0 |      0 |          0 |
+|       banks[0].stats2              |   shared_stream_stats_bank_0 |          9 |          9 |       0 |    0 |  198 |      0 |      0 |          0 |
+|       banks[1].stats1              |   shared_stream_stats_bank_1 |        200 |        200 |       0 |    0 |  214 |      0 |      0 |          0 |
+|       banks[1].stats2              |   shared_stream_stats_bank_2 |         55 |         55 |       0 |    0 |  198 |      0 |      0 |          0 |
+|       hp                           |           ecg_pthighpass_iir |        369 |        369 |       0 |    0 |  228 |      0 |      0 |         16 |
+|       mac2                         |      shared_classifier_mac_q |        285 |        285 |       0 |    0 |  252 |      0 |      0 |          4 |
+|       seq                          |                  feature_set |        539 |        539 |       0 |    0 |   83 |      0 |      0 |          0 |
+|       shared_stage2_filter.filter2 |        stage2_shared_hp1_q29 |        682 |        682 |       0 |    0 |  147 |      0 |      0 |         28 |
++------------------------------------+------------------------------+------------+------------+---------+------+------+--------+--------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+

@@ -1,0 +1,1903 @@
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.2 (win64) Build 3064766 Wed Nov 18 09:12:45 MST 2020
+| Date         : Thu Oct  8 15:17:10 2026
+| Host         : AsusROG running 64-bit major release  (build 9200)
+| Command      : report_timing_summary -file E:/Thesis/ECG-Feature-Extraction-Matlab/final_two_stage_design/hardware/adaptive_clock_test/mode1_timing.rpt
+| Design       : basys3_two_stage_adaptive_top
+| Device       : 7a35t-cpg236
+| Speed File   : -1  PRODUCTION 1.23 2018-06-13
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Timing Summary Report
+
+------------------------------------------------------------------------------------------------
+| Timer Settings
+| --------------
+------------------------------------------------------------------------------------------------
+
+  Enable Multi Corner Analysis               :  Yes
+  Enable Pessimism Removal                   :  Yes
+  Pessimism Removal Resolution               :  Nearest Common Node
+  Enable Input Delay Default Clock           :  No
+  Enable Preset / Clear Arcs                 :  No
+  Disable Flight Delays                      :  No
+  Ignore I/O Paths                           :  No
+  Timing Early Launch at Borrowing Latches   :  No
+  Borrow Time for Max Delay Exceptions       :  Yes
+  Merge Timing Exceptions                    :  Yes
+
+  Corner  Analyze    Analyze    
+  Name    Max Paths  Min Paths  
+  ------  ---------  ---------  
+  Slow    Yes        Yes        
+  Fast    Yes        Yes        
+
+
+
+check_timing report
+
+Table of Contents
+-----------------
+1. checking no_clock (0)
+2. checking constant_clock (0)
+3. checking pulse_width_clock (0)
+4. checking unconstrained_internal_endpoints (0)
+5. checking no_input_delay (15)
+6. checking no_output_delay (16)
+7. checking multiple_clock (0)
+8. checking generated_clocks (0)
+9. checking loops (0)
+10. checking partial_input_delay (0)
+11. checking partial_output_delay (0)
+12. checking latch_loops (0)
+
+1. checking no_clock (0)
+------------------------
+ There are 0 register/latch pins with no clock.
+
+
+2. checking constant_clock (0)
+------------------------------
+ There are 0 register/latch pins with constant_clock.
+
+
+3. checking pulse_width_clock (0)
+---------------------------------
+ There are 0 register/latch pins which need pulse_width check
+
+
+4. checking unconstrained_internal_endpoints (0)
+------------------------------------------------
+ There are 0 pins that are not constrained for maximum delay.
+
+ There are 0 pins that are not constrained for maximum delay due to constant clock.
+
+
+5. checking no_input_delay (15)
+-------------------------------
+ There are 2 input ports with no input delay specified. (HIGH)
+
+ There are 13 input ports with no input delay but user has a false path constraint. (MEDIUM)
+
+
+6. checking no_output_delay (16)
+--------------------------------
+ There are 0 ports with no output delay specified.
+
+ There are 16 ports with no output delay but user has a false path constraint (MEDIUM)
+
+ There are 0 ports with no output delay but with a timing clock defined on it or propagating through it
+
+
+7. checking multiple_clock (0)
+------------------------------
+ There are 0 register/latch pins with multiple clocks.
+
+
+8. checking generated_clocks (0)
+--------------------------------
+ There are 0 generated clocks that are not connected to a clock source.
+
+
+9. checking loops (0)
+---------------------
+ There are 0 combinational loops in the design.
+
+
+10. checking partial_input_delay (0)
+------------------------------------
+ There are 0 input ports with partial input delay specified.
+
+
+11. checking partial_output_delay (0)
+-------------------------------------
+ There are 0 ports with partial output delay specified.
+
+
+12. checking latch_loops (0)
+----------------------------
+ There are 0 combinational latch loops in the design through latch input
+
+
+
+------------------------------------------------------------------------------------------------
+| Design Timing Summary
+| ---------------------
+------------------------------------------------------------------------------------------------
+
+    WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+    -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
+      3.536        0.000                      0                 7140        0.037        0.000                      0                 7128        4.500        0.000                       0                  2411  
+
+
+All user specified timing constraints are met.
+
+
+------------------------------------------------------------------------------------------------
+| Clock Summary
+| -------------
+------------------------------------------------------------------------------------------------
+
+Clock              Waveform(ns)                 Period(ns)      Frequency(MHz)
+-----              ------------                 ----------      --------------
+clk_100mhz         {0.000 5.000}                10.000          100.000         
+  processing_fast  {0.000 5000.000}             10000.000       0.100           
+  processing_slow  {0.000 1000000.047}          2000000.095     0.000           
+
+
+------------------------------------------------------------------------------------------------
+| Intra Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+Clock                   WNS(ns)       TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints       WHS(ns)       THS(ns)  THS Failing Endpoints  THS Total Endpoints      WPWS(ns)      TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
+-----                   -------       -------  ---------------------  -------------------       -------       -------  ---------------------  -------------------      --------      --------  ----------------------  --------------------  
+clk_100mhz                4.358         0.000                      0                  148         0.122         0.000                      0                  148         4.500         0.000                       0                    96  
+  processing_fast      9937.240         0.000                      0                 4606         0.037         0.000                      0                 4606      4999.499         0.000                       0                  2315  
+  processing_slow   1999937.250         0.000                      0                 4606         0.037         0.000                      0                 4606    999999.438         0.000                       0                  2315  
+
+
+------------------------------------------------------------------------------------------------
+| Inter Clock Table
+| -----------------
+------------------------------------------------------------------------------------------------
+
+From Clock       To Clock              WNS(ns)       TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints       WHS(ns)       THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------       --------              -------       -------  ---------------------  -------------------       -------       -------  ---------------------  -------------------  
+clk_100mhz       processing_fast      4998.160         0.000                      0                   12                                                                          
+clk_100mhz       processing_slow      4998.160         0.000                      0                   12                                                                          
+
+
+------------------------------------------------------------------------------------------------
+| Other Path Groups Table
+| -----------------------
+------------------------------------------------------------------------------------------------
+
+Path Group         From Clock         To Clock                WNS(ns)       TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints       WHS(ns)       THS(ns)  THS Failing Endpoints  THS Total Endpoints  
+----------         ----------         --------                -------       -------  ---------------------  -------------------       -------       -------  ---------------------  -------------------  
+**async_default**  clk_100mhz         clk_100mhz                6.623         0.000                      0                   65         0.794         0.000                      0                   65  
+**async_default**  processing_fast    clk_100mhz                3.536         0.000                      0                    2         2.245         0.000                      0                    2  
+**async_default**  processing_slow    clk_100mhz                3.536         0.000                      0                    2         2.245         0.000                      0                    2  
+**async_default**  processing_fast    processing_fast        9988.332         0.000                      0                 2307         0.495         0.000                      0                 2307  
+**async_default**  processing_slow    processing_slow     1999988.500         0.000                      0                 2307         0.495         0.000                      0                 2307  
+
+
+------------------------------------------------------------------------------------------------
+| Timing Details
+| --------------
+------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  clk_100mhz
+  To Clock:  clk_100mhz
+
+Setup :            0  Failing Endpoints,  Worst Slack        4.358ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.122ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack        4.500ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             4.358ns  (required time - arrival time)
+  Source:                 demo/rate_accumulator_reg[6]/C
+                            (rising edge-triggered cell FDCE clocked by clk_100mhz  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            demo/sample_out_reg[2]/CE
+                            (rising edge-triggered cell FDCE clocked by clk_100mhz  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             clk_100mhz
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10.000ns  (clk_100mhz rise@10.000ns - clk_100mhz rise@0.000ns)
+  Data Path Delay:        5.076ns  (logic 1.102ns (21.708%)  route 3.974ns (78.292%))
+  Logic Levels:           5  (LUT3=1 LUT6=4)
+  Clock Path Skew:        -0.101ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.781ns = ( 14.781 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.142ns
+    Clock Pessimism Removal (CPR):    0.260ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_100mhz rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          1.621     5.142    demo/CLK
+    SLICE_X62Y22         FDCE                                         r  demo/rate_accumulator_reg[6]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X62Y22         FDCE (Prop_fdce_C_Q)         0.456     5.598 r  demo/rate_accumulator_reg[6]/Q
+                         net (fo=5, routed)           0.899     6.497    demo/rate_accumulator[6]
+    SLICE_X62Y22         LUT6 (Prop_lut6_I0_O)        0.124     6.621 r  demo/rate_accumulator[26]_i_8/O
+                         net (fo=1, routed)           0.302     6.923    demo/rate_accumulator[26]_i_8_n_0
+    SLICE_X62Y23         LUT6 (Prop_lut6_I0_O)        0.124     7.047 r  demo/rate_accumulator[26]_i_7/O
+                         net (fo=1, routed)           0.302     7.350    demo/rate_accumulator[26]_i_7_n_0
+    SLICE_X62Y24         LUT6 (Prop_lut6_I0_O)        0.124     7.474 r  demo/rate_accumulator[26]_i_5/O
+                         net (fo=1, routed)           0.468     7.941    demo/rate_accumulator[26]_i_5_n_0
+    SLICE_X62Y26         LUT6 (Prop_lut6_I1_O)        0.124     8.065 r  demo/rate_accumulator[26]_i_4/O
+                         net (fo=28, routed)          0.983     9.049    demo/rate_accumulator[26]_i_4_n_0
+    SLICE_X54Y27         LUT3 (Prop_lut3_I0_O)        0.150     9.199 r  demo/sample_valid_i_1/O
+                         net (fo=11, routed)          1.020    10.219    demo/sample_valid_i_1_n_0
+    SLICE_X49Y20         FDCE                                         r  demo/sample_out_reg[2]/CE
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_100mhz rise edge)
+                                                     10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          1.440    14.781    demo/CLK
+    SLICE_X49Y20         FDCE                                         r  demo/sample_out_reg[2]/C
+                         clock pessimism              0.260    15.041    
+                         clock uncertainty           -0.035    15.006    
+    SLICE_X49Y20         FDCE (Setup_fdce_C_CE)      -0.429    14.577    demo/sample_out_reg[2]
+  -------------------------------------------------------------------
+                         required time                         14.577    
+                         arrival time                         -10.219    
+  -------------------------------------------------------------------
+                         slack                                  4.358    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.122ns  (arrival time - required time)
+  Source:                 system_core/mailbox/ack_sync_reg[0]/C
+                            (rising edge-triggered cell FDCE clocked by clk_100mhz  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            system_core/mailbox/ack_sync_reg[1]/D
+                            (rising edge-triggered cell FDCE clocked by clk_100mhz  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             clk_100mhz
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_100mhz rise@0.000ns - clk_100mhz rise@0.000ns)
+  Data Path Delay:        0.197ns  (logic 0.141ns (71.611%)  route 0.056ns (28.389%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.000ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.949ns
+    Source Clock Delay      (SCD):    1.437ns
+    Clock Pessimism Removal (CPR):    0.512ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_100mhz rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         0.226     0.226 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           0.631     0.858    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026     0.884 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          0.554     1.437    system_core/mailbox/held_data_reg[31]_0
+    SLICE_X53Y26         FDCE                                         r  system_core/mailbox/ack_sync_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X53Y26         FDCE (Prop_fdce_C_Q)         0.141     1.578 r  system_core/mailbox/ack_sync_reg[0]/Q
+                         net (fo=1, routed)           0.056     1.634    system_core/mailbox/ack_sync[0]
+    SLICE_X53Y26         FDCE                                         r  system_core/mailbox/ack_sync_reg[1]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_100mhz rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         0.414     0.414 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           0.685     1.099    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.029     1.128 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          0.822     1.949    system_core/mailbox/held_data_reg[31]_0
+    SLICE_X53Y26         FDCE                                         r  system_core/mailbox/ack_sync_reg[1]/C
+                         clock pessimism             -0.512     1.437    
+    SLICE_X53Y26         FDCE (Hold_fdce_C_D)         0.075     1.512    system_core/mailbox/ack_sync_reg[1]
+  -------------------------------------------------------------------
+                         required time                         -1.512    
+                         arrival time                           1.634    
+  -------------------------------------------------------------------
+                         slack                                  0.122    
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         clk_100mhz
+Waveform(ns):       { 0.000 5.000 }
+Period(ns):         10.000
+Sources:            { clk }
+
+Check Type        Corner  Lib Pin  Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location       Pin
+Min Period        n/a     BUFG/I   n/a            2.155         10.000      7.845      BUFGCTRL_X0Y0  clk_IBUF_BUFG_inst/I
+Low Pulse Width   Fast    FDCE/C   n/a            0.500         5.000       4.500      SLICE_X59Y23   demo/rate_accumulator_reg[10]/C
+High Pulse Width  Slow    FDCE/C   n/a            0.500         5.000       4.500      SLICE_X56Y28   button_last_reg/C
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  processing_fast
+  To Clock:  processing_fast
+
+Setup :            0  Failing Endpoints,  Worst Slack     9937.240ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.037ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack     4999.499ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             9937.240ns  (required time - arrival time)
+  Source:                 system_core/pipeline/active_sum_reg[0]/C
+                            (rising edge-triggered cell FDCE clocked by processing_fast  {rise@0.000ns fall@5000.000ns period=10000.000ns})
+  Destination:            system_core/pipeline/f5_reg[12]/D
+                            (rising edge-triggered cell FDCE clocked by processing_fast  {rise@0.000ns fall@5000.000ns period=10000.000ns})
+  Path Group:             processing_fast
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            10000.000ns  (processing_fast rise@10000.000ns - processing_fast rise@0.000ns)
+  Data Path Delay:        62.626ns  (logic 23.052ns (36.809%)  route 39.574ns (63.191%))
+  Logic Levels:           86  (CARRY4=55 LUT1=1 LUT2=2 LUT3=6 LUT4=8 LUT5=6 LUT6=8)
+  Clock Path Skew:        -0.129ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    7.903ns = ( 10007.902 - 10000.000 ) 
+    Source Clock Delay      (SCD):    8.597ns
+    Clock Pessimism Removal (CPR):    0.565ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock processing_fast rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          1.560     5.081    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.518     5.599 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           1.341     6.940    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     7.036 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        1.560     8.597    system_core/pipeline/CLK
+    SLICE_X48Y30         FDCE                                         r  system_core/pipeline/active_sum_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X48Y30         FDCE (Prop_fdce_C_Q)         0.456     9.053 f  system_core/pipeline/active_sum_reg[0]/Q
+                         net (fo=10, routed)          1.079    10.131    system_core/pipeline/active_sum[0]
+    SLICE_X43Y30         LUT1 (Prop_lut1_I0_O)        0.124    10.255 r  system_core/pipeline/abs_acc[4]_i_183/O
+                         net (fo=1, routed)           0.343    10.598    system_core/pipeline/abs_acc[4]_i_183_n_0
+    SLICE_X40Y31         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580    11.178 r  system_core/pipeline/abs_acc_reg[4]_i_83/CO[3]
+                         net (fo=1, routed)           0.000    11.178    system_core/pipeline/abs_acc_reg[4]_i_83_n_0
+    SLICE_X40Y32         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    11.400 r  system_core/pipeline/abs_acc_reg[4]_i_49/O[0]
+                         net (fo=11, routed)          1.918    13.318    system_core/pipeline/mean_fix2[5]
+    SLICE_X40Y30         LUT3 (Prop_lut3_I0_O)        0.325    13.643 r  system_core/pipeline/abs_acc[4]_i_304/O
+                         net (fo=4, routed)           1.137    14.780    system_core/pipeline/abs_acc[4]_i_304_n_0
+    SLICE_X42Y29         LUT6 (Prop_lut6_I5_O)        0.326    15.106 r  system_core/pipeline/abs_acc[4]_i_297/O
+                         net (fo=4, routed)           0.813    15.919    system_core/pipeline/abs_acc[4]_i_297_n_0
+    SLICE_X41Y27         LUT6 (Prop_lut6_I1_O)        0.124    16.043 r  system_core/pipeline/abs_acc[4]_i_354/O
+                         net (fo=1, routed)           0.000    16.043    system_core/pipeline/abs_acc[4]_i_354_n_0
+    SLICE_X41Y27         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    16.444 r  system_core/pipeline/abs_acc_reg[4]_i_325/CO[3]
+                         net (fo=1, routed)           0.000    16.444    system_core/pipeline/abs_acc_reg[4]_i_325_n_0
+    SLICE_X41Y28         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    16.558 r  system_core/pipeline/abs_acc_reg[4]_i_287/CO[3]
+                         net (fo=1, routed)           0.000    16.558    system_core/pipeline/abs_acc_reg[4]_i_287_n_0
+    SLICE_X41Y29         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    16.672 r  system_core/pipeline/abs_acc_reg[4]_i_232/CO[3]
+                         net (fo=1, routed)           0.000    16.672    system_core/pipeline/abs_acc_reg[4]_i_232_n_0
+    SLICE_X41Y30         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    16.786 r  system_core/pipeline/abs_acc_reg[4]_i_160/CO[3]
+                         net (fo=1, routed)           0.000    16.786    system_core/pipeline/abs_acc_reg[4]_i_160_n_0
+    SLICE_X41Y31         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    16.900 r  system_core/pipeline/abs_acc_reg[4]_i_159/CO[3]
+                         net (fo=1, routed)           0.000    16.900    system_core/pipeline/abs_acc_reg[4]_i_159_n_0
+    SLICE_X41Y32         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    17.014 r  system_core/pipeline/abs_acc_reg[4]_i_82/CO[3]
+                         net (fo=1, routed)           0.000    17.014    system_core/pipeline/abs_acc_reg[4]_i_82_n_0
+    SLICE_X41Y33         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    17.348 r  system_core/pipeline/abs_acc_reg[4]_i_47/O[1]
+                         net (fo=2, routed)           0.959    18.307    system_core/pipeline/abs_acc_reg[4]_i_47_n_6
+    SLICE_X42Y32         LUT5 (Prop_lut5_I1_O)        0.325    18.632 r  system_core/pipeline/abs_acc[4]_i_22/O
+                         net (fo=2, routed)           0.667    19.299    system_core/pipeline/abs_acc[4]_i_22_n_0
+    SLICE_X38Y33         LUT6 (Prop_lut6_I1_O)        0.328    19.627 r  system_core/pipeline/abs_acc[4]_i_26/O
+                         net (fo=1, routed)           0.000    19.627    system_core/pipeline/abs_acc[4]_i_26_n_0
+    SLICE_X38Y33         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533    20.160 r  system_core/pipeline/abs_acc_reg[4]_i_15/CO[3]
+                         net (fo=1, routed)           0.000    20.160    system_core/pipeline/abs_acc_reg[4]_i_15_n_0
+    SLICE_X38Y34         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    20.399 r  system_core/pipeline/abs_acc_reg[4]_i_72/O[2]
+                         net (fo=8, routed)           1.411    21.810    system_core_n_795
+    SLICE_X37Y33         LUT2 (Prop_lut2_I1_O)        0.301    22.111 r  abs_acc[4]_i_350/O
+                         net (fo=1, routed)           0.000    22.111    system_core/pipeline/abs_acc[4]_i_342_0[2]
+    SLICE_X37Y33         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.398    22.509 r  system_core/pipeline/abs_acc_reg[4]_i_316/CO[3]
+                         net (fo=1, routed)           0.000    22.509    system_core/pipeline/abs_acc_reg[4]_i_316_n_0
+    SLICE_X37Y34         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    22.623 r  system_core/pipeline/abs_acc_reg[4]_i_271/CO[3]
+                         net (fo=1, routed)           0.000    22.623    system_core/pipeline/abs_acc_reg[4]_i_271_n_0
+    SLICE_X37Y35         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    22.737 r  system_core/pipeline/abs_acc_reg[4]_i_214/CO[3]
+                         net (fo=1, routed)           0.000    22.737    system_core/pipeline/abs_acc_reg[4]_i_214_n_0
+    SLICE_X37Y36         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    22.976 r  system_core/pipeline/abs_acc_reg[4]_i_138/O[2]
+                         net (fo=3, routed)           1.105    24.081    system_core/pipeline/abs_acc_reg[4]_i_138_n_5
+    SLICE_X35Y36         LUT4 (Prop_lut4_I0_O)        0.330    24.411 r  system_core/pipeline/abs_acc[4]_i_202/O
+                         net (fo=1, routed)           0.627    25.038    system_core/pipeline/abs_acc[4]_i_202_n_0
+    SLICE_X36Y36         CARRY4 (Prop_carry4_DI[3]_CO[3])
+                                                      0.587    25.625 r  system_core/pipeline/abs_acc_reg[4]_i_122/CO[3]
+                         net (fo=1, routed)           0.000    25.625    system_core/pipeline/abs_acc_reg[4]_i_122_n_0
+    SLICE_X36Y37         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    25.739 r  system_core/pipeline/abs_acc_reg[4]_i_52/CO[3]
+                         net (fo=1, routed)           0.000    25.739    system_core/pipeline/abs_acc_reg[4]_i_52_n_0
+    SLICE_X36Y38         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    25.853 f  system_core/pipeline/abs_acc_reg[4]_i_28/CO[3]
+                         net (fo=1, routed)           0.886    26.739    system_core/pipeline/abs_acc_reg[4]_i_28_n_0
+    SLICE_X37Y39         LUT4 (Prop_lut4_I0_O)        0.124    26.863 r  system_core/pipeline/abs_acc[4]_i_16/O
+                         net (fo=114, routed)         2.502    29.365    system_core/pipeline/abs_acc[4]_i_16_n_0
+    SLICE_X44Y36         LUT3 (Prop_lut3_I1_O)        0.124    29.489 r  system_core/pipeline/abs_acc[4]_i_35/O
+                         net (fo=1, routed)           0.000    29.489    system_core/pipeline/abs_acc[4]_i_35_n_0
+    SLICE_X44Y36         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    30.039 r  system_core/pipeline/abs_acc_reg[4]_i_18/CO[3]
+                         net (fo=1, routed)           0.000    30.039    system_core/pipeline/abs_acc_reg[4]_i_18_n_0
+    SLICE_X44Y37         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    30.153 r  system_core/pipeline/abs_acc_reg[11]_i_33/CO[3]
+                         net (fo=1, routed)           0.000    30.153    system_core/pipeline/abs_acc_reg[11]_i_33_n_0
+    SLICE_X44Y38         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    30.267 r  system_core/pipeline/abs_acc_reg[27]_i_44/CO[3]
+                         net (fo=1, routed)           0.000    30.267    system_core/pipeline/abs_acc_reg[27]_i_44_n_0
+    SLICE_X44Y39         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    30.381 r  system_core/pipeline/abs_acc_reg[31]_i_91/CO[3]
+                         net (fo=1, routed)           0.000    30.381    system_core/pipeline/abs_acc_reg[31]_i_91_n_0
+    SLICE_X44Y40         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    30.603 r  system_core/pipeline/abs_acc_reg[31]_i_89/O[0]
+                         net (fo=4, routed)           0.608    31.211    system_core/pipeline/mean_fix0[17]
+    SLICE_X45Y41         LUT5 (Prop_lut5_I0_O)        0.299    31.510 r  system_core/pipeline/abs_acc[31]_i_79/O
+                         net (fo=6, routed)           1.263    32.773    system_core/pipeline/mean_fix[17]
+    SLICE_X43Y40         LUT6 (Prop_lut6_I5_O)        0.124    32.897 r  system_core/pipeline/abs_acc[31]_i_83/O
+                         net (fo=1, routed)           0.000    32.897    system_core/pipeline/abs_acc[31]_i_83_n_0
+    SLICE_X43Y40         CARRY4 (Prop_carry4_S[1]_O[3])
+                                                      0.640    33.537 r  system_core/pipeline/abs_acc_reg[31]_i_52/O[3]
+                         net (fo=9, routed)           1.497    35.035    pipeline/centered_num0[19]
+    SLICE_X47Y35         LUT4 (Prop_lut4_I2_O)        0.306    35.341 r  abs_acc[31]_i_61/O
+                         net (fo=1, routed)           0.000    35.341    abs_acc[31]_i_61_n_0
+    SLICE_X47Y35         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    35.742 r  abs_acc_reg[31]_i_34/CO[3]
+                         net (fo=1, routed)           0.000    35.742    abs_acc_reg[31]_i_34_n_0
+    SLICE_X47Y36         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    35.964 r  abs_acc_reg[31]_i_30/O[0]
+                         net (fo=3, routed)           1.533    37.497    abs_acc_reg[31]_i_30_n_7
+    SLICE_X47Y45         LUT4 (Prop_lut4_I1_O)        0.299    37.796 r  abs_acc[31]_i_24/O
+                         net (fo=1, routed)           0.000    37.796    abs_acc[31]_i_24_n_0
+    SLICE_X47Y45         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    38.346 r  abs_acc_reg[31]_i_10/CO[3]
+                         net (fo=1, routed)           0.000    38.346    abs_acc_reg[31]_i_10_n_0
+    SLICE_X47Y46         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    38.680 r  abs_acc_reg[31]_i_8/O[1]
+                         net (fo=107, routed)         2.737    41.417    system_core/pipeline/centered_num[24]
+    SLICE_X36Y41         LUT4 (Prop_lut4_I2_O)        0.303    41.720 r  system_core/pipeline/block_acc[7]_i_3/O
+                         net (fo=1, routed)           0.000    41.720    system_core/pipeline/block_acc[7]_i_3_n_0
+    SLICE_X36Y41         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    42.121 r  system_core/pipeline/block_acc_reg[7]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    42.121    system_core/pipeline/block_acc_reg[7]_i_2_n_0
+    SLICE_X36Y42         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    42.235 r  system_core/pipeline/block_acc_reg[11]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    42.235    system_core/pipeline/block_acc_reg[11]_i_2_n_0
+    SLICE_X36Y43         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    42.349 r  system_core/pipeline/block_acc_reg[15]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    42.349    system_core/pipeline/block_acc_reg[15]_i_2_n_0
+    SLICE_X36Y44         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    42.463 r  system_core/pipeline/block_acc_reg[19]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    42.463    system_core/pipeline/block_acc_reg[19]_i_2_n_0
+    SLICE_X36Y45         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    42.577 r  system_core/pipeline/block_acc_reg[23]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    42.577    system_core/pipeline/block_acc_reg[23]_i_2_n_0
+    SLICE_X36Y46         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    42.691 r  system_core/pipeline/block_acc_reg[27]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    42.691    system_core/pipeline/block_acc_reg[27]_i_2_n_0
+    SLICE_X36Y47         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    42.930 r  system_core/pipeline/block_acc_reg[31]_i_2/O[2]
+                         net (fo=14, routed)          1.590    44.520    system_core/pipeline/block_next[30]
+    SLICE_X31Y45         LUT4 (Prop_lut4_I3_O)        0.302    44.822 r  system_core/pipeline/transition_acc[31]_i_13/O
+                         net (fo=1, routed)           0.000    44.822    system_core/pipeline/transition_acc[31]_i_13_n_0
+    SLICE_X31Y45         CARRY4 (Prop_carry4_S[1]_CO[1])
+                                                      0.491    45.313 r  system_core/pipeline/transition_acc_reg[31]_i_8/CO[1]
+                         net (fo=27, routed)          1.760    47.073    system_core/pipeline/transition_next3
+    SLICE_X31Y39         LUT6 (Prop_lut6_I5_O)        0.329    47.402 r  system_core/pipeline/transition_acc[8]_i_6/O
+                         net (fo=2, routed)           0.612    48.014    system_core/pipeline/transition_acc[8]_i_6_n_0
+    SLICE_X30Y40         LUT5 (Prop_lut5_I0_O)        0.124    48.138 r  system_core/pipeline/transition_acc[8]_i_10/O
+                         net (fo=1, routed)           0.000    48.138    system_core/pipeline/transition_acc[8]_i_10_n_0
+    SLICE_X30Y40         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513    48.651 r  system_core/pipeline/transition_acc_reg[8]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    48.651    system_core/pipeline/transition_acc_reg[8]_i_2_n_0
+    SLICE_X30Y41         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    48.768 r  system_core/pipeline/transition_acc_reg[12]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    48.768    system_core/pipeline/transition_acc_reg[12]_i_2_n_0
+    SLICE_X30Y42         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    48.885 r  system_core/pipeline/transition_acc_reg[16]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    48.885    system_core/pipeline/transition_acc_reg[16]_i_2_n_0
+    SLICE_X30Y43         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219    49.104 r  system_core/pipeline/transition_acc_reg[20]_i_2/O[0]
+                         net (fo=21, routed)          2.305    51.409    pipeline/transition_next[17]
+    SLICE_X9Y44          LUT3 (Prop_lut3_I2_O)        0.325    51.734 r  f5[10]_i_129/O
+                         net (fo=2, routed)           1.001    52.735    f5[10]_i_129_n_0
+    SLICE_X14Y46         LUT4 (Prop_lut4_I3_O)        0.327    53.062 r  f5[10]_i_133/O
+                         net (fo=1, routed)           0.000    53.062    f5[10]_i_133_n_0
+    SLICE_X14Y46         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533    53.595 r  f5_reg[10]_i_98/CO[3]
+                         net (fo=1, routed)           0.000    53.595    f5_reg[10]_i_98_n_0
+    SLICE_X14Y47         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    53.712 r  f5_reg[10]_i_67/CO[3]
+                         net (fo=1, routed)           0.000    53.712    f5_reg[10]_i_67_n_0
+    SLICE_X14Y48         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    53.829 r  f5_reg[10]_i_36/CO[3]
+                         net (fo=1, routed)           0.000    53.829    f5_reg[10]_i_36_n_0
+    SLICE_X14Y49         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219    54.048 r  f5_reg[10]_i_21/O[0]
+                         net (fo=3, routed)           0.965    55.013    f5_reg[10]_i_21_n_7
+    SLICE_X14Y52         LUT3 (Prop_lut3_I1_O)        0.295    55.308 f  f5[10]_i_37/O
+                         net (fo=2, routed)           1.410    56.718    f5[10]_i_37_n_0
+    SLICE_X8Y49          LUT5 (Prop_lut5_I3_O)        0.152    56.870 r  f5[10]_i_13/O
+                         net (fo=2, routed)           0.979    57.849    f5[10]_i_13_n_0
+    SLICE_X13Y49         LUT6 (Prop_lut6_I0_O)        0.348    58.197 r  f5[10]_i_17/O
+                         net (fo=1, routed)           0.000    58.197    f5[10]_i_17_n_0
+    SLICE_X13Y49         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    58.598 r  f5_reg[10]_i_3/CO[3]
+                         net (fo=1, routed)           0.001    58.598    f5_reg[10]_i_3_n_0
+    SLICE_X13Y50         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    58.712 r  f5_reg[10]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    58.712    f5_reg[10]_i_2_n_0
+    SLICE_X13Y51         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    58.826 r  f5_reg[14]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    58.826    f5_reg[14]_i_2_n_0
+    SLICE_X13Y52         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    59.048 r  f5_reg[17]_i_2/O[0]
+                         net (fo=14, routed)          1.972    61.020    f5_reg[17]_i_2_n_7
+    SLICE_X29Y50         LUT2 (Prop_lut2_I1_O)        0.299    61.319 r  f5[17]_i_200/O
+                         net (fo=1, routed)           0.000    61.319    f5[17]_i_200_n_0
+    SLICE_X29Y50         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    61.720 r  f5_reg[17]_i_187/CO[3]
+                         net (fo=1, routed)           0.000    61.720    f5_reg[17]_i_187_n_0
+    SLICE_X29Y51         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    61.834 r  f5_reg[17]_i_170/CO[3]
+                         net (fo=1, routed)           0.000    61.834    f5_reg[17]_i_170_n_0
+    SLICE_X29Y52         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    62.147 r  f5_reg[17]_i_146/O[3]
+                         net (fo=3, routed)           1.384    63.531    f5_reg[17]_i_146_n_4
+    SLICE_X31Y52         LUT3 (Prop_lut3_I1_O)        0.306    63.837 f  f5[17]_i_144/O
+                         net (fo=2, routed)           0.819    64.655    f5[17]_i_144_n_0
+    SLICE_X31Y53         LUT5 (Prop_lut5_I4_O)        0.124    64.779 r  f5[17]_i_114/O
+                         net (fo=2, routed)           0.317    65.096    f5[17]_i_114_n_0
+    SLICE_X28Y53         LUT6 (Prop_lut6_I0_O)        0.124    65.220 r  f5[17]_i_118/O
+                         net (fo=1, routed)           0.000    65.220    f5[17]_i_118_n_0
+    SLICE_X28Y53         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    65.770 r  f5_reg[17]_i_84/CO[3]
+                         net (fo=1, routed)           0.000    65.770    f5_reg[17]_i_84_n_0
+    SLICE_X28Y54         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    65.992 r  f5_reg[17]_i_35/O[0]
+                         net (fo=3, routed)           0.812    66.804    f5_reg[17]_i_35_n_7
+    SLICE_X30Y54         LUT4 (Prop_lut4_I1_O)        0.299    67.103 r  f5[17]_i_82/O
+                         net (fo=1, routed)           0.000    67.103    f5[17]_i_82_n_0
+    SLICE_X30Y54         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533    67.636 r  f5_reg[17]_i_28/CO[3]
+                         net (fo=1, routed)           0.000    67.636    f5_reg[17]_i_28_n_0
+    SLICE_X30Y55         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229    67.865 r  f5_reg[17]_i_14/CO[2]
+                         net (fo=1, routed)           0.501    68.367    system_core/pipeline/f5_reg[17]_0[0]
+    SLICE_X31Y55         LUT3 (Prop_lut3_I0_O)        0.338    68.705 r  system_core/pipeline/f5[17]_i_3/O
+                         net (fo=11, routed)          1.037    69.742    system_core/pipeline/f5[17]_i_3_n_0
+    SLICE_X32Y57         LUT6 (Prop_lut6_I4_O)        0.332    70.074 f  system_core/pipeline/f5[17]_i_5/O
+                         net (fo=10, routed)          1.025    71.099    system_core/pipeline/f5[17]_i_5_n_0
+    SLICE_X32Y55         LUT5 (Prop_lut5_I4_O)        0.124    71.223 r  system_core/pipeline/f5[12]_i_1/O
+                         net (fo=1, routed)           0.000    71.223    system_core/pipeline/f5[12]_i_1_n_0
+    SLICE_X32Y55         FDCE                                         r  system_core/pipeline/f5_reg[12]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock processing_fast rise edge)
+                                                  10000.000 10000.000 r  
+    W5                                                0.000 10000.000 r  clk (IN)
+                         net (fo=0)                   0.000 10000.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388 10001.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862 10003.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091 10003.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          1.444 10004.784    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.418 10005.202 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           1.177 10006.379    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091 10006.470 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        1.432 10007.901    system_core/pipeline/CLK
+    SLICE_X32Y55         FDCE                                         r  system_core/pipeline/f5_reg[12]/C
+                         clock pessimism              0.565 10008.467    
+                         clock uncertainty           -0.035 10008.432    
+    SLICE_X32Y55         FDCE (Setup_fdce_C_D)        0.031 10008.463    system_core/pipeline/f5_reg[12]
+  -------------------------------------------------------------------
+                         required time                      10008.463    
+                         arrival time                         -71.223    
+  -------------------------------------------------------------------
+                         slack                               9937.240    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.037ns  (arrival time - required time)
+  Source:                 system_core/pipeline/mac2/result_id_core_reg[24]/C
+                            (rising edge-triggered cell FDCE clocked by processing_fast  {rise@0.000ns fall@5000.000ns period=10000.000ns})
+  Destination:            system_core/pipeline/mac2/result_window_id_reg[24]/D
+                            (rising edge-triggered cell FDCE clocked by processing_fast  {rise@0.000ns fall@5000.000ns period=10000.000ns})
+  Path Group:             processing_fast
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (processing_fast rise@0.000ns - processing_fast rise@0.000ns)
+  Data Path Delay:        0.237ns  (logic 0.128ns (54.058%)  route 0.109ns (45.942%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.208ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    3.676ns
+    Source Clock Delay      (SCD):    2.840ns
+    Clock Pessimism Removal (CPR):    0.628ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock processing_fast rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         0.226     0.226 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           0.631     0.858    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026     0.884 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          0.567     1.450    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.164     1.614 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           0.589     2.203    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     2.229 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        0.030     2.259    system_core/pipeline/mac2/CLK
+    BUFGCTRL_X0Y17       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.026     2.285 r  system_core/pipeline/mac2/gate/O
+                         net (fo=105, routed)         0.555     2.840    system_core/pipeline/mac2/gated_clk
+    SLICE_X33Y27         FDCE                                         r  system_core/pipeline/mac2/result_id_core_reg[24]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X33Y27         FDCE (Prop_fdce_C_Q)         0.128     2.968 r  system_core/pipeline/mac2/result_id_core_reg[24]/Q
+                         net (fo=1, routed)           0.109     3.077    system_core/pipeline/mac2/result_id_core[24]
+    SLICE_X33Y26         FDCE                                         r  system_core/pipeline/mac2/result_window_id_reg[24]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock processing_fast rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         0.414     0.414 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           0.685     1.099    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.029     1.128 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          0.835     1.963    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.204     2.167 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           0.661     2.829    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     2.858 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        0.819     3.676    system_core/pipeline/mac2/CLK
+    SLICE_X33Y26         FDCE                                         r  system_core/pipeline/mac2/result_window_id_reg[24]/C
+                         clock pessimism             -0.628     3.048    
+    SLICE_X33Y26         FDCE (Hold_fdce_C_D)        -0.008     3.040    system_core/pipeline/mac2/result_window_id_reg[24]
+  -------------------------------------------------------------------
+                         required time                         -3.040    
+                         arrival time                           3.077    
+  -------------------------------------------------------------------
+                         slack                                  0.037    
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         processing_fast
+Waveform(ns):       { 0.000 5000.000 }
+Period(ns):         10000.000
+Sources:            { system_core/low_power_clock/clock_buffer/O }
+
+Check Type        Corner  Lib Pin             Reference Pin  Required(ns)  Actual(ns)  Slack(ns)  Location      Pin
+Min Period        n/a     RAMB18E1/CLKARDCLK  n/a            2.944         10000.000   9997.056   RAMB18_X1Y12  system_core/pipeline/window_history_reg_0/CLKARDCLK
+Low Pulse Width   Fast    FDCE/C              n/a            0.500         4999.999    4999.499   SLICE_X53Y27  system_core/pipeline/hp/x2_reg[0]/C
+High Pulse Width  Slow    FDCE/C              n/a            0.500         5000.000    4999.500   SLICE_X41Y23  system_core/pipeline/shared_stage2_filter.filter2/y1_reg[30]/C
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  processing_slow
+  To Clock:  processing_slow
+
+Setup :            0  Failing Endpoints,  Worst Slack  1999937.250ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.037ns,  Total Violation        0.000ns
+PW    :            0  Failing Endpoints,  Worst Slack   999999.438ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             1999937.250ns  (required time - arrival time)
+  Source:                 system_core/pipeline/active_sum_reg[0]/C
+                            (rising edge-triggered cell FDCE clocked by processing_slow  {rise@0.000ns fall@1000000.063ns period=2000000.125ns})
+  Destination:            system_core/pipeline/f5_reg[12]/D
+                            (rising edge-triggered cell FDCE clocked by processing_slow  {rise@0.000ns fall@1000000.063ns period=2000000.125ns})
+  Path Group:             processing_slow
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            2000000.125ns  (processing_slow rise@2000000.125ns - processing_slow rise@0.000ns)
+  Data Path Delay:        62.626ns  (logic 23.052ns (36.809%)  route 39.574ns (63.191%))
+  Logic Levels:           86  (CARRY4=55 LUT1=1 LUT2=2 LUT3=6 LUT4=8 LUT5=6 LUT6=8)
+  Clock Path Skew:        -0.129ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    7.903ns = ( 2000008.000 - 2000000.125 ) 
+    Source Clock Delay      (SCD):    8.597ns
+    Clock Pessimism Removal (CPR):    0.565ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock processing_slow rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          1.560     5.081    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.518     5.599 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           1.341     6.940    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     7.036 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        1.560     8.597    system_core/pipeline/CLK
+    SLICE_X48Y30         FDCE                                         r  system_core/pipeline/active_sum_reg[0]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X48Y30         FDCE (Prop_fdce_C_Q)         0.456     9.053 f  system_core/pipeline/active_sum_reg[0]/Q
+                         net (fo=10, routed)          1.079    10.131    system_core/pipeline/active_sum[0]
+    SLICE_X43Y30         LUT1 (Prop_lut1_I0_O)        0.124    10.255 r  system_core/pipeline/abs_acc[4]_i_183/O
+                         net (fo=1, routed)           0.343    10.598    system_core/pipeline/abs_acc[4]_i_183_n_0
+    SLICE_X40Y31         CARRY4 (Prop_carry4_CYINIT_CO[3])
+                                                      0.580    11.178 r  system_core/pipeline/abs_acc_reg[4]_i_83/CO[3]
+                         net (fo=1, routed)           0.000    11.178    system_core/pipeline/abs_acc_reg[4]_i_83_n_0
+    SLICE_X40Y32         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    11.400 r  system_core/pipeline/abs_acc_reg[4]_i_49/O[0]
+                         net (fo=11, routed)          1.918    13.318    system_core/pipeline/mean_fix2[5]
+    SLICE_X40Y30         LUT3 (Prop_lut3_I0_O)        0.325    13.643 r  system_core/pipeline/abs_acc[4]_i_304/O
+                         net (fo=4, routed)           1.137    14.780    system_core/pipeline/abs_acc[4]_i_304_n_0
+    SLICE_X42Y29         LUT6 (Prop_lut6_I5_O)        0.326    15.106 r  system_core/pipeline/abs_acc[4]_i_297/O
+                         net (fo=4, routed)           0.813    15.919    system_core/pipeline/abs_acc[4]_i_297_n_0
+    SLICE_X41Y27         LUT6 (Prop_lut6_I1_O)        0.124    16.043 r  system_core/pipeline/abs_acc[4]_i_354/O
+                         net (fo=1, routed)           0.000    16.043    system_core/pipeline/abs_acc[4]_i_354_n_0
+    SLICE_X41Y27         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    16.444 r  system_core/pipeline/abs_acc_reg[4]_i_325/CO[3]
+                         net (fo=1, routed)           0.000    16.444    system_core/pipeline/abs_acc_reg[4]_i_325_n_0
+    SLICE_X41Y28         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    16.558 r  system_core/pipeline/abs_acc_reg[4]_i_287/CO[3]
+                         net (fo=1, routed)           0.000    16.558    system_core/pipeline/abs_acc_reg[4]_i_287_n_0
+    SLICE_X41Y29         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    16.672 r  system_core/pipeline/abs_acc_reg[4]_i_232/CO[3]
+                         net (fo=1, routed)           0.000    16.672    system_core/pipeline/abs_acc_reg[4]_i_232_n_0
+    SLICE_X41Y30         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    16.786 r  system_core/pipeline/abs_acc_reg[4]_i_160/CO[3]
+                         net (fo=1, routed)           0.000    16.786    system_core/pipeline/abs_acc_reg[4]_i_160_n_0
+    SLICE_X41Y31         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    16.900 r  system_core/pipeline/abs_acc_reg[4]_i_159/CO[3]
+                         net (fo=1, routed)           0.000    16.900    system_core/pipeline/abs_acc_reg[4]_i_159_n_0
+    SLICE_X41Y32         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    17.014 r  system_core/pipeline/abs_acc_reg[4]_i_82/CO[3]
+                         net (fo=1, routed)           0.000    17.014    system_core/pipeline/abs_acc_reg[4]_i_82_n_0
+    SLICE_X41Y33         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    17.348 r  system_core/pipeline/abs_acc_reg[4]_i_47/O[1]
+                         net (fo=2, routed)           0.959    18.307    system_core/pipeline/abs_acc_reg[4]_i_47_n_6
+    SLICE_X42Y32         LUT5 (Prop_lut5_I1_O)        0.325    18.632 r  system_core/pipeline/abs_acc[4]_i_22/O
+                         net (fo=2, routed)           0.667    19.299    system_core/pipeline/abs_acc[4]_i_22_n_0
+    SLICE_X38Y33         LUT6 (Prop_lut6_I1_O)        0.328    19.627 r  system_core/pipeline/abs_acc[4]_i_26/O
+                         net (fo=1, routed)           0.000    19.627    system_core/pipeline/abs_acc[4]_i_26_n_0
+    SLICE_X38Y33         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533    20.160 r  system_core/pipeline/abs_acc_reg[4]_i_15/CO[3]
+                         net (fo=1, routed)           0.000    20.160    system_core/pipeline/abs_acc_reg[4]_i_15_n_0
+    SLICE_X38Y34         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    20.399 r  system_core/pipeline/abs_acc_reg[4]_i_72/O[2]
+                         net (fo=8, routed)           1.411    21.810    system_core_n_795
+    SLICE_X37Y33         LUT2 (Prop_lut2_I1_O)        0.301    22.111 r  abs_acc[4]_i_350/O
+                         net (fo=1, routed)           0.000    22.111    system_core/pipeline/abs_acc[4]_i_342_0[2]
+    SLICE_X37Y33         CARRY4 (Prop_carry4_S[2]_CO[3])
+                                                      0.398    22.509 r  system_core/pipeline/abs_acc_reg[4]_i_316/CO[3]
+                         net (fo=1, routed)           0.000    22.509    system_core/pipeline/abs_acc_reg[4]_i_316_n_0
+    SLICE_X37Y34         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    22.623 r  system_core/pipeline/abs_acc_reg[4]_i_271/CO[3]
+                         net (fo=1, routed)           0.000    22.623    system_core/pipeline/abs_acc_reg[4]_i_271_n_0
+    SLICE_X37Y35         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    22.737 r  system_core/pipeline/abs_acc_reg[4]_i_214/CO[3]
+                         net (fo=1, routed)           0.000    22.737    system_core/pipeline/abs_acc_reg[4]_i_214_n_0
+    SLICE_X37Y36         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    22.976 r  system_core/pipeline/abs_acc_reg[4]_i_138/O[2]
+                         net (fo=3, routed)           1.105    24.081    system_core/pipeline/abs_acc_reg[4]_i_138_n_5
+    SLICE_X35Y36         LUT4 (Prop_lut4_I0_O)        0.330    24.411 r  system_core/pipeline/abs_acc[4]_i_202/O
+                         net (fo=1, routed)           0.627    25.038    system_core/pipeline/abs_acc[4]_i_202_n_0
+    SLICE_X36Y36         CARRY4 (Prop_carry4_DI[3]_CO[3])
+                                                      0.587    25.625 r  system_core/pipeline/abs_acc_reg[4]_i_122/CO[3]
+                         net (fo=1, routed)           0.000    25.625    system_core/pipeline/abs_acc_reg[4]_i_122_n_0
+    SLICE_X36Y37         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    25.739 r  system_core/pipeline/abs_acc_reg[4]_i_52/CO[3]
+                         net (fo=1, routed)           0.000    25.739    system_core/pipeline/abs_acc_reg[4]_i_52_n_0
+    SLICE_X36Y38         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    25.853 f  system_core/pipeline/abs_acc_reg[4]_i_28/CO[3]
+                         net (fo=1, routed)           0.886    26.739    system_core/pipeline/abs_acc_reg[4]_i_28_n_0
+    SLICE_X37Y39         LUT4 (Prop_lut4_I0_O)        0.124    26.863 r  system_core/pipeline/abs_acc[4]_i_16/O
+                         net (fo=114, routed)         2.502    29.365    system_core/pipeline/abs_acc[4]_i_16_n_0
+    SLICE_X44Y36         LUT3 (Prop_lut3_I1_O)        0.124    29.489 r  system_core/pipeline/abs_acc[4]_i_35/O
+                         net (fo=1, routed)           0.000    29.489    system_core/pipeline/abs_acc[4]_i_35_n_0
+    SLICE_X44Y36         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    30.039 r  system_core/pipeline/abs_acc_reg[4]_i_18/CO[3]
+                         net (fo=1, routed)           0.000    30.039    system_core/pipeline/abs_acc_reg[4]_i_18_n_0
+    SLICE_X44Y37         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    30.153 r  system_core/pipeline/abs_acc_reg[11]_i_33/CO[3]
+                         net (fo=1, routed)           0.000    30.153    system_core/pipeline/abs_acc_reg[11]_i_33_n_0
+    SLICE_X44Y38         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    30.267 r  system_core/pipeline/abs_acc_reg[27]_i_44/CO[3]
+                         net (fo=1, routed)           0.000    30.267    system_core/pipeline/abs_acc_reg[27]_i_44_n_0
+    SLICE_X44Y39         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    30.381 r  system_core/pipeline/abs_acc_reg[31]_i_91/CO[3]
+                         net (fo=1, routed)           0.000    30.381    system_core/pipeline/abs_acc_reg[31]_i_91_n_0
+    SLICE_X44Y40         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    30.603 r  system_core/pipeline/abs_acc_reg[31]_i_89/O[0]
+                         net (fo=4, routed)           0.608    31.211    system_core/pipeline/mean_fix0[17]
+    SLICE_X45Y41         LUT5 (Prop_lut5_I0_O)        0.299    31.510 r  system_core/pipeline/abs_acc[31]_i_79/O
+                         net (fo=6, routed)           1.263    32.773    system_core/pipeline/mean_fix[17]
+    SLICE_X43Y40         LUT6 (Prop_lut6_I5_O)        0.124    32.897 r  system_core/pipeline/abs_acc[31]_i_83/O
+                         net (fo=1, routed)           0.000    32.897    system_core/pipeline/abs_acc[31]_i_83_n_0
+    SLICE_X43Y40         CARRY4 (Prop_carry4_S[1]_O[3])
+                                                      0.640    33.537 r  system_core/pipeline/abs_acc_reg[31]_i_52/O[3]
+                         net (fo=9, routed)           1.497    35.035    pipeline/centered_num0[19]
+    SLICE_X47Y35         LUT4 (Prop_lut4_I2_O)        0.306    35.341 r  abs_acc[31]_i_61/O
+                         net (fo=1, routed)           0.000    35.341    abs_acc[31]_i_61_n_0
+    SLICE_X47Y35         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    35.742 r  abs_acc_reg[31]_i_34/CO[3]
+                         net (fo=1, routed)           0.000    35.742    abs_acc_reg[31]_i_34_n_0
+    SLICE_X47Y36         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    35.964 r  abs_acc_reg[31]_i_30/O[0]
+                         net (fo=3, routed)           1.533    37.497    abs_acc_reg[31]_i_30_n_7
+    SLICE_X47Y45         LUT4 (Prop_lut4_I1_O)        0.299    37.796 r  abs_acc[31]_i_24/O
+                         net (fo=1, routed)           0.000    37.796    abs_acc[31]_i_24_n_0
+    SLICE_X47Y45         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    38.346 r  abs_acc_reg[31]_i_10/CO[3]
+                         net (fo=1, routed)           0.000    38.346    abs_acc_reg[31]_i_10_n_0
+    SLICE_X47Y46         CARRY4 (Prop_carry4_CI_O[1])
+                                                      0.334    38.680 r  abs_acc_reg[31]_i_8/O[1]
+                         net (fo=107, routed)         2.737    41.417    system_core/pipeline/centered_num[24]
+    SLICE_X36Y41         LUT4 (Prop_lut4_I2_O)        0.303    41.720 r  system_core/pipeline/block_acc[7]_i_3/O
+                         net (fo=1, routed)           0.000    41.720    system_core/pipeline/block_acc[7]_i_3_n_0
+    SLICE_X36Y41         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    42.121 r  system_core/pipeline/block_acc_reg[7]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    42.121    system_core/pipeline/block_acc_reg[7]_i_2_n_0
+    SLICE_X36Y42         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    42.235 r  system_core/pipeline/block_acc_reg[11]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    42.235    system_core/pipeline/block_acc_reg[11]_i_2_n_0
+    SLICE_X36Y43         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    42.349 r  system_core/pipeline/block_acc_reg[15]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    42.349    system_core/pipeline/block_acc_reg[15]_i_2_n_0
+    SLICE_X36Y44         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    42.463 r  system_core/pipeline/block_acc_reg[19]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    42.463    system_core/pipeline/block_acc_reg[19]_i_2_n_0
+    SLICE_X36Y45         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    42.577 r  system_core/pipeline/block_acc_reg[23]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    42.577    system_core/pipeline/block_acc_reg[23]_i_2_n_0
+    SLICE_X36Y46         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    42.691 r  system_core/pipeline/block_acc_reg[27]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    42.691    system_core/pipeline/block_acc_reg[27]_i_2_n_0
+    SLICE_X36Y47         CARRY4 (Prop_carry4_CI_O[2])
+                                                      0.239    42.930 r  system_core/pipeline/block_acc_reg[31]_i_2/O[2]
+                         net (fo=14, routed)          1.590    44.520    system_core/pipeline/block_next[30]
+    SLICE_X31Y45         LUT4 (Prop_lut4_I3_O)        0.302    44.822 r  system_core/pipeline/transition_acc[31]_i_13/O
+                         net (fo=1, routed)           0.000    44.822    system_core/pipeline/transition_acc[31]_i_13_n_0
+    SLICE_X31Y45         CARRY4 (Prop_carry4_S[1]_CO[1])
+                                                      0.491    45.313 r  system_core/pipeline/transition_acc_reg[31]_i_8/CO[1]
+                         net (fo=27, routed)          1.760    47.073    system_core/pipeline/transition_next3
+    SLICE_X31Y39         LUT6 (Prop_lut6_I5_O)        0.329    47.402 r  system_core/pipeline/transition_acc[8]_i_6/O
+                         net (fo=2, routed)           0.612    48.014    system_core/pipeline/transition_acc[8]_i_6_n_0
+    SLICE_X30Y40         LUT5 (Prop_lut5_I0_O)        0.124    48.138 r  system_core/pipeline/transition_acc[8]_i_10/O
+                         net (fo=1, routed)           0.000    48.138    system_core/pipeline/transition_acc[8]_i_10_n_0
+    SLICE_X30Y40         CARRY4 (Prop_carry4_S[0]_CO[3])
+                                                      0.513    48.651 r  system_core/pipeline/transition_acc_reg[8]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    48.651    system_core/pipeline/transition_acc_reg[8]_i_2_n_0
+    SLICE_X30Y41         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    48.768 r  system_core/pipeline/transition_acc_reg[12]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    48.768    system_core/pipeline/transition_acc_reg[12]_i_2_n_0
+    SLICE_X30Y42         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    48.885 r  system_core/pipeline/transition_acc_reg[16]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    48.885    system_core/pipeline/transition_acc_reg[16]_i_2_n_0
+    SLICE_X30Y43         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219    49.104 r  system_core/pipeline/transition_acc_reg[20]_i_2/O[0]
+                         net (fo=21, routed)          2.305    51.409    pipeline/transition_next[17]
+    SLICE_X9Y44          LUT3 (Prop_lut3_I2_O)        0.325    51.734 r  f5[10]_i_129/O
+                         net (fo=2, routed)           1.001    52.735    f5[10]_i_129_n_0
+    SLICE_X14Y46         LUT4 (Prop_lut4_I3_O)        0.327    53.062 r  f5[10]_i_133/O
+                         net (fo=1, routed)           0.000    53.062    f5[10]_i_133_n_0
+    SLICE_X14Y46         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533    53.595 r  f5_reg[10]_i_98/CO[3]
+                         net (fo=1, routed)           0.000    53.595    f5_reg[10]_i_98_n_0
+    SLICE_X14Y47         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    53.712 r  f5_reg[10]_i_67/CO[3]
+                         net (fo=1, routed)           0.000    53.712    f5_reg[10]_i_67_n_0
+    SLICE_X14Y48         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.117    53.829 r  f5_reg[10]_i_36/CO[3]
+                         net (fo=1, routed)           0.000    53.829    f5_reg[10]_i_36_n_0
+    SLICE_X14Y49         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.219    54.048 r  f5_reg[10]_i_21/O[0]
+                         net (fo=3, routed)           0.965    55.013    f5_reg[10]_i_21_n_7
+    SLICE_X14Y52         LUT3 (Prop_lut3_I1_O)        0.295    55.308 f  f5[10]_i_37/O
+                         net (fo=2, routed)           1.410    56.718    f5[10]_i_37_n_0
+    SLICE_X8Y49          LUT5 (Prop_lut5_I3_O)        0.152    56.870 r  f5[10]_i_13/O
+                         net (fo=2, routed)           0.979    57.849    f5[10]_i_13_n_0
+    SLICE_X13Y49         LUT6 (Prop_lut6_I0_O)        0.348    58.197 r  f5[10]_i_17/O
+                         net (fo=1, routed)           0.000    58.197    f5[10]_i_17_n_0
+    SLICE_X13Y49         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    58.598 r  f5_reg[10]_i_3/CO[3]
+                         net (fo=1, routed)           0.001    58.598    f5_reg[10]_i_3_n_0
+    SLICE_X13Y50         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    58.712 r  f5_reg[10]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    58.712    f5_reg[10]_i_2_n_0
+    SLICE_X13Y51         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    58.826 r  f5_reg[14]_i_2/CO[3]
+                         net (fo=1, routed)           0.000    58.826    f5_reg[14]_i_2_n_0
+    SLICE_X13Y52         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    59.048 r  f5_reg[17]_i_2/O[0]
+                         net (fo=14, routed)          1.972    61.020    f5_reg[17]_i_2_n_7
+    SLICE_X29Y50         LUT2 (Prop_lut2_I1_O)        0.299    61.319 r  f5[17]_i_200/O
+                         net (fo=1, routed)           0.000    61.319    f5[17]_i_200_n_0
+    SLICE_X29Y50         CARRY4 (Prop_carry4_S[3]_CO[3])
+                                                      0.401    61.720 r  f5_reg[17]_i_187/CO[3]
+                         net (fo=1, routed)           0.000    61.720    f5_reg[17]_i_187_n_0
+    SLICE_X29Y51         CARRY4 (Prop_carry4_CI_CO[3])
+                                                      0.114    61.834 r  f5_reg[17]_i_170/CO[3]
+                         net (fo=1, routed)           0.000    61.834    f5_reg[17]_i_170_n_0
+    SLICE_X29Y52         CARRY4 (Prop_carry4_CI_O[3])
+                                                      0.313    62.147 r  f5_reg[17]_i_146/O[3]
+                         net (fo=3, routed)           1.384    63.531    f5_reg[17]_i_146_n_4
+    SLICE_X31Y52         LUT3 (Prop_lut3_I1_O)        0.306    63.837 f  f5[17]_i_144/O
+                         net (fo=2, routed)           0.819    64.655    f5[17]_i_144_n_0
+    SLICE_X31Y53         LUT5 (Prop_lut5_I4_O)        0.124    64.779 r  f5[17]_i_114/O
+                         net (fo=2, routed)           0.317    65.096    f5[17]_i_114_n_0
+    SLICE_X28Y53         LUT6 (Prop_lut6_I0_O)        0.124    65.220 r  f5[17]_i_118/O
+                         net (fo=1, routed)           0.000    65.220    f5[17]_i_118_n_0
+    SLICE_X28Y53         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.550    65.770 r  f5_reg[17]_i_84/CO[3]
+                         net (fo=1, routed)           0.000    65.770    f5_reg[17]_i_84_n_0
+    SLICE_X28Y54         CARRY4 (Prop_carry4_CI_O[0])
+                                                      0.222    65.992 r  f5_reg[17]_i_35/O[0]
+                         net (fo=3, routed)           0.812    66.804    f5_reg[17]_i_35_n_7
+    SLICE_X30Y54         LUT4 (Prop_lut4_I1_O)        0.299    67.103 r  f5[17]_i_82/O
+                         net (fo=1, routed)           0.000    67.103    f5[17]_i_82_n_0
+    SLICE_X30Y54         CARRY4 (Prop_carry4_S[1]_CO[3])
+                                                      0.533    67.636 r  f5_reg[17]_i_28/CO[3]
+                         net (fo=1, routed)           0.000    67.636    f5_reg[17]_i_28_n_0
+    SLICE_X30Y55         CARRY4 (Prop_carry4_CI_CO[2])
+                                                      0.229    67.865 r  f5_reg[17]_i_14/CO[2]
+                         net (fo=1, routed)           0.501    68.367    system_core/pipeline/f5_reg[17]_0[0]
+    SLICE_X31Y55         LUT3 (Prop_lut3_I0_O)        0.338    68.705 r  system_core/pipeline/f5[17]_i_3/O
+                         net (fo=11, routed)          1.037    69.742    system_core/pipeline/f5[17]_i_3_n_0
+    SLICE_X32Y57         LUT6 (Prop_lut6_I4_O)        0.332    70.074 f  system_core/pipeline/f5[17]_i_5/O
+                         net (fo=10, routed)          1.025    71.099    system_core/pipeline/f5[17]_i_5_n_0
+    SLICE_X32Y55         LUT5 (Prop_lut5_I4_O)        0.124    71.223 r  system_core/pipeline/f5[12]_i_1/O
+                         net (fo=1, routed)           0.000    71.223    system_core/pipeline/f5[12]_i_1_n_0
+    SLICE_X32Y55         FDCE                                         r  system_core/pipeline/f5_reg[12]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock processing_slow rise edge)
+                                                  2000000.125 2000000.125 r  
+    W5                                                0.000 2000000.125 r  clk (IN)
+                         net (fo=0)                   0.000 2000000.125    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388 2000001.500 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862 2000003.375    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091 2000003.500 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          1.444 2000005.000    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.418 2000005.375 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           1.177 2000006.500    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091 2000006.625 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        1.432 2000008.000    system_core/pipeline/CLK
+    SLICE_X32Y55         FDCE                                         r  system_core/pipeline/f5_reg[12]/C
+                         clock pessimism              0.565 2000008.625    
+                         clock uncertainty           -0.035 2000008.625    
+    SLICE_X32Y55         FDCE (Setup_fdce_C_D)        0.031 2000008.625    system_core/pipeline/f5_reg[12]
+  -------------------------------------------------------------------
+                         required time                      2000008.500    
+                         arrival time                         -71.223    
+  -------------------------------------------------------------------
+                         slack                              1999937.250    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.037ns  (arrival time - required time)
+  Source:                 system_core/pipeline/mac2/result_id_core_reg[24]/C
+                            (rising edge-triggered cell FDCE clocked by processing_slow  {rise@0.000ns fall@1000000.063ns period=2000000.125ns})
+  Destination:            system_core/pipeline/mac2/result_window_id_reg[24]/D
+                            (rising edge-triggered cell FDCE clocked by processing_slow  {rise@0.000ns fall@1000000.063ns period=2000000.125ns})
+  Path Group:             processing_slow
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (processing_slow rise@0.000ns - processing_slow rise@0.000ns)
+  Data Path Delay:        0.237ns  (logic 0.128ns (54.058%)  route 0.109ns (45.942%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.208ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    3.676ns
+    Source Clock Delay      (SCD):    2.840ns
+    Clock Pessimism Removal (CPR):    0.628ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock processing_slow rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         0.226     0.226 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           0.631     0.858    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026     0.884 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          0.567     1.450    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.164     1.614 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           0.589     2.203    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     2.229 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        0.030     2.259    system_core/pipeline/mac2/CLK
+    BUFGCTRL_X0Y17       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.026     2.285 r  system_core/pipeline/mac2/gate/O
+                         net (fo=105, routed)         0.555     2.840    system_core/pipeline/mac2/gated_clk
+    SLICE_X33Y27         FDCE                                         r  system_core/pipeline/mac2/result_id_core_reg[24]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X33Y27         FDCE (Prop_fdce_C_Q)         0.128     2.968 r  system_core/pipeline/mac2/result_id_core_reg[24]/Q
+                         net (fo=1, routed)           0.109     3.077    system_core/pipeline/mac2/result_id_core[24]
+    SLICE_X33Y26         FDCE                                         r  system_core/pipeline/mac2/result_window_id_reg[24]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock processing_slow rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         0.414     0.414 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           0.685     1.099    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.029     1.128 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          0.835     1.963    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.204     2.167 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           0.661     2.829    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     2.858 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        0.819     3.676    system_core/pipeline/mac2/CLK
+    SLICE_X33Y26         FDCE                                         r  system_core/pipeline/mac2/result_window_id_reg[24]/C
+                         clock pessimism             -0.628     3.048    
+    SLICE_X33Y26         FDCE (Hold_fdce_C_D)        -0.008     3.040    system_core/pipeline/mac2/result_window_id_reg[24]
+  -------------------------------------------------------------------
+                         required time                         -3.040    
+                         arrival time                           3.077    
+  -------------------------------------------------------------------
+                         slack                                  0.037    
+
+
+
+
+
+Pulse Width Checks
+--------------------------------------------------------------------------------------
+Clock Name:         processing_slow
+Waveform(ns):       { 0.000 1000000.062 }
+Period(ns):         2000000.125
+Sources:            { system_core/low_power_clock/clock_buffer/O }
+
+Check Type        Corner  Lib Pin             Reference Pin  Required(ns)  Actual(ns)   Slack(ns)    Location      Pin
+Min Period        n/a     RAMB18E1/CLKARDCLK  n/a            2.944         2000000.095  1999997.068  RAMB18_X1Y12  system_core/pipeline/window_history_reg_0/CLKARDCLK
+Low Pulse Width   Fast    FDCE/C              n/a            0.500         1000000.047  999999.582   SLICE_X41Y23  system_core/pipeline/shared_stage2_filter.filter2/y1_reg[30]/C
+High Pulse Width  Slow    FDCE/C              n/a            0.500         999999.931   999999.465   SLICE_X41Y23  system_core/pipeline/shared_stage2_filter.filter2/y1_reg[30]/C
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  clk_100mhz
+  To Clock:  processing_fast
+
+Setup :            0  Failing Endpoints,  Worst Slack     4998.160ns,  Total Violation        0.000ns
+Hold  :           NA  Failing Endpoints,  Worst Slack           NA  ,  Total Violation           NA
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             4998.160ns  (required time - arrival time)
+  Source:                 system_core/mailbox/held_data_reg[8]/C
+                            (rising edge-triggered cell FDCE clocked by clk_100mhz  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            system_core/mailbox/processing_data_reg[8]/D
+                            (rising edge-triggered cell FDCE clocked by processing_fast  {rise@0.000ns fall@5000.000ns period=10000.000ns})
+  Path Group:             processing_fast
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5000.000ns  (MaxDelay Path 5000.000ns)
+  Data Path Delay:        1.782ns  (logic 0.518ns (29.069%)  route 1.264ns (70.931%))
+  Logic Levels:           0  
+  Timing Exception:       MaxDelay Path 5000.000ns -datapath_only
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X50Y20                                      0.000     0.000 r  system_core/mailbox/held_data_reg[8]/C
+    SLICE_X50Y20         FDCE (Prop_fdce_C_Q)         0.518     0.518 r  system_core/mailbox/held_data_reg[8]/Q
+                         net (fo=1, routed)           1.264     1.782    system_core/mailbox/held_data[8]
+    SLICE_X50Y24         FDCE                                         r  system_core/mailbox/processing_data_reg[8]/D
+  -------------------------------------------------------------------    -------------------
+
+                         max delay                 5000.000  5000.000    
+    SLICE_X50Y24         FDCE (Setup_fdce_C_D)       -0.058  4999.942    system_core/mailbox/processing_data_reg[8]
+  -------------------------------------------------------------------
+                         required time                       4999.942    
+                         arrival time                          -1.782    
+  -------------------------------------------------------------------
+                         slack                               4998.160    
+
+
+
+
+
+---------------------------------------------------------------------------------------------------
+From Clock:  clk_100mhz
+  To Clock:  processing_slow
+
+Setup :            0  Failing Endpoints,  Worst Slack     4998.160ns,  Total Violation        0.000ns
+Hold  :           NA  Failing Endpoints,  Worst Slack           NA  ,  Total Violation           NA
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             4998.160ns  (required time - arrival time)
+  Source:                 system_core/mailbox/held_data_reg[8]/C
+                            (rising edge-triggered cell FDCE clocked by clk_100mhz  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            system_core/mailbox/processing_data_reg[8]/D
+                            (rising edge-triggered cell FDCE clocked by processing_slow  {rise@0.000ns fall@1000000.063ns period=2000000.125ns})
+  Path Group:             processing_slow
+  Path Type:              Setup (Max at Slow Process Corner)
+  Requirement:            5000.000ns  (MaxDelay Path 5000.000ns)
+  Data Path Delay:        1.782ns  (logic 0.518ns (29.069%)  route 1.264ns (70.931%))
+  Logic Levels:           0  
+  Timing Exception:       MaxDelay Path 5000.000ns -datapath_only
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+    SLICE_X50Y20                                      0.000     0.000 r  system_core/mailbox/held_data_reg[8]/C
+    SLICE_X50Y20         FDCE (Prop_fdce_C_Q)         0.518     0.518 r  system_core/mailbox/held_data_reg[8]/Q
+                         net (fo=1, routed)           1.264     1.782    system_core/mailbox/held_data[8]
+    SLICE_X50Y24         FDCE                                         r  system_core/mailbox/processing_data_reg[8]/D
+  -------------------------------------------------------------------    -------------------
+
+                         max delay                 5000.000  5000.000    
+    SLICE_X50Y24         FDCE (Setup_fdce_C_D)       -0.058  4999.942    system_core/mailbox/processing_data_reg[8]
+  -------------------------------------------------------------------
+                         required time                       4999.942    
+                         arrival time                          -1.782    
+  -------------------------------------------------------------------
+                         slack                               4998.160    
+
+
+
+
+
+---------------------------------------------------------------------------------------------------
+Path Group:  **async_default**
+From Clock:  clk_100mhz
+  To Clock:  clk_100mhz
+
+Setup :            0  Failing Endpoints,  Worst Slack        6.623ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.794ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             6.623ns  (required time - arrival time)
+  Source:                 source_ready_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by clk_100mhz  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            demo/rate_accumulator_reg[4]/CLR
+                            (recovery check against rising-edge clock clk_100mhz  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            10.000ns  (clk_100mhz rise@10.000ns - clk_100mhz rise@0.000ns)
+  Data Path Delay:        2.960ns  (logic 0.580ns (19.597%)  route 2.380ns (80.403%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.023ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.846ns = ( 14.846 - 10.000 ) 
+    Source Clock Delay      (SCD):    5.083ns
+    Clock Pessimism Removal (CPR):    0.260ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_100mhz rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          1.562     5.083    clk_IBUF_BUFG
+    SLICE_X57Y32         FDCE                                         r  source_ready_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X57Y32         FDCE (Prop_fdce_C_Q)         0.456     5.539 r  source_ready_reg[1]/Q
+                         net (fo=2, routed)           0.819     6.358    demo/read_address_reg_rep[0]_rep_0[0]
+    SLICE_X56Y28         LUT2 (Prop_lut2_I0_O)        0.124     6.482 f  demo/rate_accumulator[26]_i_3/O
+                         net (fo=49, routed)          1.561     8.043    demo/rate_accumulator[26]_i_3_n_0
+    SLICE_X62Y22         FDCE                                         f  demo/rate_accumulator_reg[4]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_100mhz rise edge)
+                                                     10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          1.505    14.846    demo/CLK
+    SLICE_X62Y22         FDCE                                         r  demo/rate_accumulator_reg[4]/C
+                         clock pessimism              0.260    15.106    
+                         clock uncertainty           -0.035    15.071    
+    SLICE_X62Y22         FDCE (Recov_fdce_C_CLR)     -0.405    14.666    demo/rate_accumulator_reg[4]
+  -------------------------------------------------------------------
+                         required time                         14.666    
+                         arrival time                          -8.043    
+  -------------------------------------------------------------------
+                         slack                                  6.623    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.794ns  (arrival time - required time)
+  Source:                 source_ready_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by clk_100mhz  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Destination:            demo/playback_done_reg/CLR
+                            (removal check against rising-edge clock clk_100mhz  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_100mhz rise@0.000ns - clk_100mhz rise@0.000ns)
+  Data Path Delay:        0.755ns  (logic 0.186ns (24.647%)  route 0.569ns (75.353%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.028ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.951ns
+    Source Clock Delay      (SCD):    1.445ns
+    Clock Pessimism Removal (CPR):    0.478ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_100mhz rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         0.226     0.226 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           0.631     0.858    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026     0.884 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          0.562     1.445    clk_IBUF_BUFG
+    SLICE_X57Y32         FDCE                                         r  source_ready_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X57Y32         FDCE (Prop_fdce_C_Q)         0.141     1.586 r  source_ready_reg[1]/Q
+                         net (fo=2, routed)           0.293     1.879    demo/read_address_reg_rep[0]_rep_0[0]
+    SLICE_X56Y28         LUT2 (Prop_lut2_I0_O)        0.045     1.924 f  demo/rate_accumulator[26]_i_3/O
+                         net (fo=49, routed)          0.276     2.200    demo/rate_accumulator[26]_i_3_n_0
+    SLICE_X54Y27         FDCE                                         f  demo/playback_done_reg/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_100mhz rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         0.414     0.414 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           0.685     1.099    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.029     1.128 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          0.824     1.951    demo/CLK
+    SLICE_X54Y27         FDCE                                         r  demo/playback_done_reg/C
+                         clock pessimism             -0.478     1.473    
+    SLICE_X54Y27         FDCE (Remov_fdce_C_CLR)     -0.067     1.406    demo/playback_done_reg
+  -------------------------------------------------------------------
+                         required time                         -1.406    
+                         arrival time                           2.200    
+  -------------------------------------------------------------------
+                         slack                                  0.794    
+
+
+
+
+
+---------------------------------------------------------------------------------------------------
+Path Group:  **async_default**
+From Clock:  processing_fast
+  To Clock:  clk_100mhz
+
+Setup :            0  Failing Endpoints,  Worst Slack        3.536ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        2.245ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             3.536ns  (required time - arrival time)
+  Source:                 system_core/low_power_clock/ready_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by processing_fast  {rise@0.000ns fall@5000.000ns period=10000.000ns})
+  Destination:            system_core/mailbox/source_init_reg[0]/CLR
+                            (recovery check against rising-edge clock clk_100mhz  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            10.000ns  (clk_100mhz rise@10.000ns - processing_fast rise@0.000ns)
+  Data Path Delay:        2.383ns  (logic 0.580ns (24.340%)  route 1.803ns (75.660%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        -3.641ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.777ns = ( 14.777 - 10.000 ) 
+    Source Clock Delay      (SCD):    8.599ns
+    Clock Pessimism Removal (CPR):    0.180ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock processing_fast rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          1.560     5.081    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.518     5.599 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           1.341     6.940    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     7.036 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        1.562     8.599    system_core/low_power_clock/CLK
+    SLICE_X57Y31         FDCE                                         r  system_core/low_power_clock/ready_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X57Y31         FDCE (Prop_fdce_C_Q)         0.456     9.055 r  system_core/low_power_clock/ready_sync_reg[1]/Q
+                         net (fo=6, routed)           0.747     9.802    system_core/low_power_clock/ready_sync[1]
+    SLICE_X58Y34         LUT2 (Prop_lut2_I0_O)        0.124     9.926 f  system_core/low_power_clock/y1[39]_i_2/O
+                         net (fo=2309, routed)        1.056    10.981    system_core/mailbox/source_init_reg[1]_0
+    SLICE_X49Y26         FDCE                                         f  system_core/mailbox/source_init_reg[0]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_100mhz rise edge)
+                                                     10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          1.436    14.777    system_core/mailbox/held_data_reg[31]_0
+    SLICE_X49Y26         FDCE                                         r  system_core/mailbox/source_init_reg[0]/C
+                         clock pessimism              0.180    14.957    
+                         clock uncertainty           -0.035    14.922    
+    SLICE_X49Y26         FDCE (Recov_fdce_C_CLR)     -0.405    14.517    system_core/mailbox/source_init_reg[0]
+  -------------------------------------------------------------------
+                         required time                         14.517    
+                         arrival time                         -10.981    
+  -------------------------------------------------------------------
+                         slack                                  3.536    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             2.245ns  (arrival time - required time)
+  Source:                 system_core/low_power_clock/ready_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by processing_fast  {rise@0.000ns fall@5000.000ns period=10000.000ns})
+  Destination:            system_core/mailbox/source_init_reg[0]/CLR
+                            (removal check against rising-edge clock clk_100mhz  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_100mhz rise@0.000ns - processing_fast rise@0.000ns)
+  Data Path Delay:        1.065ns  (logic 0.186ns (17.467%)  route 0.879ns (82.533%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        -1.088ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.948ns
+    Source Clock Delay      (SCD):    2.792ns
+    Clock Pessimism Removal (CPR):    0.244ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock processing_fast rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         0.226     0.226 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           0.631     0.858    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026     0.884 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          0.567     1.450    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.164     1.614 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           0.589     2.203    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     2.229 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        0.563     2.792    system_core/low_power_clock/CLK
+    SLICE_X57Y31         FDCE                                         r  system_core/low_power_clock/ready_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X57Y31         FDCE (Prop_fdce_C_Q)         0.141     2.933 r  system_core/low_power_clock/ready_sync_reg[1]/Q
+                         net (fo=6, routed)           0.367     3.300    system_core/low_power_clock/ready_sync[1]
+    SLICE_X58Y34         LUT2 (Prop_lut2_I0_O)        0.045     3.345 f  system_core/low_power_clock/y1[39]_i_2/O
+                         net (fo=2309, routed)        0.512     3.857    system_core/mailbox/source_init_reg[1]_0
+    SLICE_X49Y26         FDCE                                         f  system_core/mailbox/source_init_reg[0]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_100mhz rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         0.414     0.414 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           0.685     1.099    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.029     1.128 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          0.821     1.948    system_core/mailbox/held_data_reg[31]_0
+    SLICE_X49Y26         FDCE                                         r  system_core/mailbox/source_init_reg[0]/C
+                         clock pessimism             -0.244     1.704    
+    SLICE_X49Y26         FDCE (Remov_fdce_C_CLR)     -0.092     1.612    system_core/mailbox/source_init_reg[0]
+  -------------------------------------------------------------------
+                         required time                         -1.612    
+                         arrival time                           3.857    
+  -------------------------------------------------------------------
+                         slack                                  2.245    
+
+
+
+
+
+---------------------------------------------------------------------------------------------------
+Path Group:  **async_default**
+From Clock:  processing_slow
+  To Clock:  clk_100mhz
+
+Setup :            0  Failing Endpoints,  Worst Slack        3.536ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        2.245ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             3.536ns  (required time - arrival time)
+  Source:                 system_core/low_power_clock/ready_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by processing_slow  {rise@0.000ns fall@1000000.063ns period=2000000.125ns})
+  Destination:            system_core/mailbox/source_init_reg[0]/CLR
+                            (recovery check against rising-edge clock clk_100mhz  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            10.000ns  (clk_100mhz rise@10.000ns - processing_slow rise@0.000ns)
+  Data Path Delay:        2.383ns  (logic 0.580ns (24.340%)  route 1.803ns (75.660%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        -3.641ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    4.777ns = ( 14.777 - 10.000 ) 
+    Source Clock Delay      (SCD):    8.599ns
+    Clock Pessimism Removal (CPR):    0.180ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock processing_slow rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          1.560     5.081    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.518     5.599 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           1.341     6.940    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     7.036 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        1.562     8.599    system_core/low_power_clock/CLK
+    SLICE_X57Y31         FDCE                                         r  system_core/low_power_clock/ready_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X57Y31         FDCE (Prop_fdce_C_Q)         0.456     9.055 r  system_core/low_power_clock/ready_sync_reg[1]/Q
+                         net (fo=6, routed)           0.747     9.802    system_core/low_power_clock/ready_sync[1]
+    SLICE_X58Y34         LUT2 (Prop_lut2_I0_O)        0.124     9.926 f  system_core/low_power_clock/y1[39]_i_2/O
+                         net (fo=2309, routed)        1.056    10.981    system_core/mailbox/source_init_reg[1]_0
+    SLICE_X49Y26         FDCE                                         f  system_core/mailbox/source_init_reg[0]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_100mhz rise edge)
+                                                     10.000    10.000 r  
+    W5                                                0.000    10.000 r  clk (IN)
+                         net (fo=0)                   0.000    10.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388    11.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862    13.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091    13.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          1.436    14.777    system_core/mailbox/held_data_reg[31]_0
+    SLICE_X49Y26         FDCE                                         r  system_core/mailbox/source_init_reg[0]/C
+                         clock pessimism              0.180    14.957    
+                         clock uncertainty           -0.035    14.922    
+    SLICE_X49Y26         FDCE (Recov_fdce_C_CLR)     -0.405    14.517    system_core/mailbox/source_init_reg[0]
+  -------------------------------------------------------------------
+                         required time                         14.517    
+                         arrival time                         -10.981    
+  -------------------------------------------------------------------
+                         slack                                  3.536    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             2.245ns  (arrival time - required time)
+  Source:                 system_core/low_power_clock/ready_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by processing_slow  {rise@0.000ns fall@1000000.063ns period=2000000.125ns})
+  Destination:            system_core/mailbox/source_init_reg[0]/CLR
+                            (removal check against rising-edge clock clk_100mhz  {rise@0.000ns fall@5.000ns period=10.000ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_100mhz rise@0.000ns - processing_slow rise@0.000ns)
+  Data Path Delay:        1.065ns  (logic 0.186ns (17.467%)  route 0.879ns (82.533%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        -1.088ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    1.948ns
+    Source Clock Delay      (SCD):    2.792ns
+    Clock Pessimism Removal (CPR):    0.244ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock processing_slow rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         0.226     0.226 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           0.631     0.858    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026     0.884 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          0.567     1.450    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.164     1.614 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           0.589     2.203    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     2.229 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        0.563     2.792    system_core/low_power_clock/CLK
+    SLICE_X57Y31         FDCE                                         r  system_core/low_power_clock/ready_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X57Y31         FDCE (Prop_fdce_C_Q)         0.141     2.933 r  system_core/low_power_clock/ready_sync_reg[1]/Q
+                         net (fo=6, routed)           0.367     3.300    system_core/low_power_clock/ready_sync[1]
+    SLICE_X58Y34         LUT2 (Prop_lut2_I0_O)        0.045     3.345 f  system_core/low_power_clock/y1[39]_i_2/O
+                         net (fo=2309, routed)        0.512     3.857    system_core/mailbox/source_init_reg[1]_0
+    SLICE_X49Y26         FDCE                                         f  system_core/mailbox/source_init_reg[0]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_100mhz rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         0.414     0.414 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           0.685     1.099    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.029     1.128 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          0.821     1.948    system_core/mailbox/held_data_reg[31]_0
+    SLICE_X49Y26         FDCE                                         r  system_core/mailbox/source_init_reg[0]/C
+                         clock pessimism             -0.244     1.704    
+    SLICE_X49Y26         FDCE (Remov_fdce_C_CLR)     -0.092     1.612    system_core/mailbox/source_init_reg[0]
+  -------------------------------------------------------------------
+                         required time                         -1.612    
+                         arrival time                           3.857    
+  -------------------------------------------------------------------
+                         slack                                  2.245    
+
+
+
+
+
+---------------------------------------------------------------------------------------------------
+Path Group:  **async_default**
+From Clock:  processing_fast
+  To Clock:  processing_fast
+
+Setup :            0  Failing Endpoints,  Worst Slack     9988.332ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.495ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             9988.332ns  (required time - arrival time)
+  Source:                 system_core/low_power_clock/ready_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by processing_fast  {rise@0.000ns fall@5000.000ns period=10000.000ns})
+  Destination:            system_core/pipeline/hp/y3_reg[46]/CLR
+                            (recovery check against rising-edge clock processing_fast  {rise@0.000ns fall@5000.000ns period=10000.000ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            10000.000ns  (processing_fast rise@10000.000ns - processing_fast rise@0.000ns)
+  Data Path Delay:        11.174ns  (logic 0.580ns (5.191%)  route 10.594ns (94.809%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        -0.139ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    7.895ns = ( 10007.895 - 10000.000 ) 
+    Source Clock Delay      (SCD):    8.599ns
+    Clock Pessimism Removal (CPR):    0.565ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock processing_fast rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          1.560     5.081    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.518     5.599 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           1.341     6.940    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     7.036 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        1.562     8.599    system_core/low_power_clock/CLK
+    SLICE_X57Y31         FDCE                                         r  system_core/low_power_clock/ready_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X57Y31         FDCE (Prop_fdce_C_Q)         0.456     9.055 r  system_core/low_power_clock/ready_sync_reg[1]/Q
+                         net (fo=6, routed)           0.747     9.802    system_core/low_power_clock/ready_sync[1]
+    SLICE_X58Y34         LUT2 (Prop_lut2_I0_O)        0.124     9.926 f  system_core/low_power_clock/y1[39]_i_2/O
+                         net (fo=2309, routed)        9.847    19.772    system_core/pipeline/hp/y3_reg[63]_0
+    SLICE_X54Y73         FDCE                                         f  system_core/pipeline/hp/y3_reg[46]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock processing_fast rise edge)
+                                                  10000.000 10000.000 r  
+    W5                                                0.000 10000.000 r  clk (IN)
+                         net (fo=0)                   0.000 10000.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388 10001.388 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862 10003.250    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091 10003.341 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          1.444 10004.784    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.418 10005.202 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           1.177 10006.379    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091 10006.470 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        1.424 10007.894    system_core/pipeline/hp/CLK
+    SLICE_X54Y73         FDCE                                         r  system_core/pipeline/hp/y3_reg[46]/C
+                         clock pessimism              0.565 10008.459    
+                         clock uncertainty           -0.035 10008.424    
+    SLICE_X54Y73         FDCE (Recov_fdce_C_CLR)     -0.319 10008.104    system_core/pipeline/hp/y3_reg[46]
+  -------------------------------------------------------------------
+                         required time                      10008.104    
+                         arrival time                         -19.772    
+  -------------------------------------------------------------------
+                         slack                               9988.332    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.495ns  (arrival time - required time)
+  Source:                 system_core/low_power_clock/ready_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by processing_fast  {rise@0.000ns fall@5000.000ns period=10000.000ns})
+  Destination:            system_core/pipeline/banks[1].stats2/max_acc_reg[7]/CLR
+                            (removal check against rising-edge clock processing_fast  {rise@0.000ns fall@5000.000ns period=10000.000ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Fast Process Corner)
+  Requirement:            0.000ns  (processing_fast rise@0.000ns - processing_fast rise@0.000ns)
+  Data Path Delay:        0.775ns  (logic 0.186ns (23.988%)  route 0.589ns (76.012%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.372ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    3.792ns
+    Source Clock Delay      (SCD):    2.792ns
+    Clock Pessimism Removal (CPR):    0.628ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock processing_fast rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         0.226     0.226 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           0.631     0.858    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026     0.884 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          0.567     1.450    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.164     1.614 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           0.589     2.203    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     2.229 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        0.563     2.792    system_core/low_power_clock/CLK
+    SLICE_X57Y31         FDCE                                         r  system_core/low_power_clock/ready_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X57Y31         FDCE (Prop_fdce_C_Q)         0.141     2.933 r  system_core/low_power_clock/ready_sync_reg[1]/Q
+                         net (fo=6, routed)           0.367     3.300    system_core/low_power_clock/ready_sync[1]
+    SLICE_X58Y34         LUT2 (Prop_lut2_I0_O)        0.045     3.345 f  system_core/low_power_clock/y1[39]_i_2/O
+                         net (fo=2309, routed)        0.222     3.567    system_core/pipeline/banks[1].stats2/sum_acc_reg[0]_0
+    SLICE_X58Y34         FDCE                                         f  system_core/pipeline/banks[1].stats2/max_acc_reg[7]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock processing_fast rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         0.414     0.414 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           0.685     1.099    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.029     1.128 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          0.835     1.963    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.204     2.167 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           0.661     2.829    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     2.858 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        0.046     2.904    system_core/pipeline/CLK
+    BUFGCTRL_X0Y31       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.029     2.933 r  system_core/pipeline/stage2_stats_gate/O
+                         net (fo=396, routed)         0.860     3.792    system_core/pipeline/banks[1].stats2/s2_stats_clk
+    SLICE_X58Y34         FDCE                                         r  system_core/pipeline/banks[1].stats2/max_acc_reg[7]/C
+                         clock pessimism             -0.628     3.164    
+    SLICE_X58Y34         FDCE (Remov_fdce_C_CLR)     -0.092     3.072    system_core/pipeline/banks[1].stats2/max_acc_reg[7]
+  -------------------------------------------------------------------
+                         required time                         -3.072    
+                         arrival time                           3.567    
+  -------------------------------------------------------------------
+                         slack                                  0.495    
+
+
+
+
+
+---------------------------------------------------------------------------------------------------
+Path Group:  **async_default**
+From Clock:  processing_slow
+  To Clock:  processing_slow
+
+Setup :            0  Failing Endpoints,  Worst Slack  1999988.500ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.495ns,  Total Violation        0.000ns
+---------------------------------------------------------------------------------------------------
+
+
+Max Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             1999988.500ns  (required time - arrival time)
+  Source:                 system_core/low_power_clock/ready_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by processing_slow  {rise@0.000ns fall@1000000.063ns period=2000000.125ns})
+  Destination:            system_core/pipeline/hp/y2_reg[45]/CLR
+                            (recovery check against rising-edge clock processing_slow  {rise@0.000ns fall@1000000.063ns period=2000000.125ns})
+  Path Group:             **async_default**
+  Path Type:              Recovery (Max at Slow Process Corner)
+  Requirement:            2000000.125ns  (processing_slow rise@2000000.125ns - processing_slow rise@0.000ns)
+  Data Path Delay:        11.035ns  (logic 0.580ns (5.256%)  route 10.455ns (94.744%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        -0.138ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    7.896ns = ( 2000008.000 - 2000000.125 ) 
+    Source Clock Delay      (SCD):    8.599ns
+    Clock Pessimism Removal (CPR):    0.565ns
+  Clock Uncertainty:      0.035ns  ((TSJ^2 + TIJ^2)^1/2 + DJ) / 2 + PE
+    Total System Jitter     (TSJ):    0.071ns
+    Total Input Jitter      (TIJ):    0.000ns
+    Discrete Jitter          (DJ):    0.000ns
+    Phase Error              (PE):    0.000ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock processing_slow rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.458     1.458 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.967     3.425    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.096     3.521 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          1.560     5.081    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.518     5.599 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           1.341     6.940    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.096     7.036 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        1.562     8.599    system_core/low_power_clock/CLK
+    SLICE_X57Y31         FDCE                                         r  system_core/low_power_clock/ready_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X57Y31         FDCE (Prop_fdce_C_Q)         0.456     9.055 r  system_core/low_power_clock/ready_sync_reg[1]/Q
+                         net (fo=6, routed)           0.747     9.802    system_core/low_power_clock/ready_sync[1]
+    SLICE_X58Y34         LUT2 (Prop_lut2_I0_O)        0.124     9.926 f  system_core/low_power_clock/y1[39]_i_2/O
+                         net (fo=2309, routed)        9.708    19.634    system_core/pipeline/hp/y3_reg[63]_0
+    SLICE_X55Y72         FDCE                                         f  system_core/pipeline/hp/y2_reg[45]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock processing_slow rise edge)
+                                                  2000000.125 2000000.125 r  
+    W5                                                0.000 2000000.125 r  clk (IN)
+                         net (fo=0)                   0.000 2000000.125    clk
+    W5                   IBUF (Prop_ibuf_I_O)         1.388 2000001.500 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           1.862 2000003.375    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.091 2000003.500 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          1.444 2000005.000    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.418 2000005.375 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           1.177 2000006.500    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.091 2000006.625 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        1.425 2000008.000    system_core/pipeline/hp/CLK
+    SLICE_X55Y72         FDCE                                         r  system_core/pipeline/hp/y2_reg[45]/C
+                         clock pessimism              0.565 2000008.625    
+                         clock uncertainty           -0.035 2000008.625    
+    SLICE_X55Y72         FDCE (Recov_fdce_C_CLR)     -0.405 2000008.250    system_core/pipeline/hp/y2_reg[45]
+  -------------------------------------------------------------------
+                         required time                      2000008.000    
+                         arrival time                         -19.634    
+  -------------------------------------------------------------------
+                         slack                              1999988.500    
+
+
+
+
+
+Min Delay Paths
+--------------------------------------------------------------------------------------
+Slack (MET) :             0.495ns  (arrival time - required time)
+  Source:                 system_core/low_power_clock/ready_sync_reg[1]/C
+                            (rising edge-triggered cell FDCE clocked by processing_slow  {rise@0.000ns fall@1000000.063ns period=2000000.125ns})
+  Destination:            system_core/pipeline/banks[1].stats2/max_acc_reg[7]/CLR
+                            (removal check against rising-edge clock processing_slow  {rise@0.000ns fall@1000000.063ns period=2000000.125ns})
+  Path Group:             **async_default**
+  Path Type:              Removal (Min at Fast Process Corner)
+  Requirement:            0.000ns  (processing_slow rise@0.000ns - processing_slow rise@0.000ns)
+  Data Path Delay:        0.775ns  (logic 0.186ns (23.988%)  route 0.589ns (76.012%))
+  Logic Levels:           1  (LUT2=1)
+  Clock Path Skew:        0.372ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    3.792ns
+    Source Clock Delay      (SCD):    2.792ns
+    Clock Pessimism Removal (CPR):    0.628ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock processing_slow rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         0.226     0.226 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           0.631     0.858    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026     0.884 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          0.567     1.450    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.164     1.614 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           0.589     2.203    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.026     2.229 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        0.563     2.792    system_core/low_power_clock/CLK
+    SLICE_X57Y31         FDCE                                         r  system_core/low_power_clock/ready_sync_reg[1]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X57Y31         FDCE (Prop_fdce_C_Q)         0.141     2.933 r  system_core/low_power_clock/ready_sync_reg[1]/Q
+                         net (fo=6, routed)           0.367     3.300    system_core/low_power_clock/ready_sync[1]
+    SLICE_X58Y34         LUT2 (Prop_lut2_I0_O)        0.045     3.345 f  system_core/low_power_clock/y1[39]_i_2/O
+                         net (fo=2309, routed)        0.222     3.567    system_core/pipeline/banks[1].stats2/sum_acc_reg[0]_0
+    SLICE_X58Y34         FDCE                                         f  system_core/pipeline/banks[1].stats2/max_acc_reg[7]/CLR
+  -------------------------------------------------------------------    -------------------
+
+                         (clock processing_slow rise edge)
+                                                      0.000     0.000 r  
+    W5                                                0.000     0.000 r  clk (IN)
+                         net (fo=0)                   0.000     0.000    clk
+    W5                   IBUF (Prop_ibuf_I_O)         0.414     0.414 r  clk_IBUF_inst/O
+                         net (fo=1, routed)           0.685     1.099    clk_IBUF
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.029     1.128 r  clk_IBUF_BUFG_inst/O
+                         net (fo=95, routed)          0.835     1.963    system_core/low_power_clock/request_sync_reg[1]_0
+    SLICE_X56Y50         FDCE (Prop_fdce_C_Q)         0.204     2.167 r  system_core/low_power_clock/divided_clock_reg/Q
+                         net (fo=2, routed)           0.661     2.829    system_core/low_power_clock/divided_clock
+    BUFGCTRL_X0Y16       BUFG (Prop_bufg_I_O)         0.029     2.858 r  system_core/low_power_clock/clock_buffer/O
+                         net (fo=1814, routed)        0.046     2.904    system_core/pipeline/CLK
+    BUFGCTRL_X0Y31       BUFGCTRL (Prop_bufgctrl_I0_O)
+                                                      0.029     2.933 r  system_core/pipeline/stage2_stats_gate/O
+                         net (fo=396, routed)         0.860     3.792    system_core/pipeline/banks[1].stats2/s2_stats_clk
+    SLICE_X58Y34         FDCE                                         r  system_core/pipeline/banks[1].stats2/max_acc_reg[7]/C
+                         clock pessimism             -0.628     3.164    
+    SLICE_X58Y34         FDCE (Remov_fdce_C_CLR)     -0.092     3.072    system_core/pipeline/banks[1].stats2/max_acc_reg[7]
+  -------------------------------------------------------------------
+                         required time                         -3.072    
+                         arrival time                           3.567    
+  -------------------------------------------------------------------
+                         slack                                  0.495    
+
+
+
+
+

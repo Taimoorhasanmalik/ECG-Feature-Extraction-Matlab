@@ -1,0 +1,39 @@
+{
+  "mode": "fixed_ungated",
+  "power": {
+    "internal_uw": 1.58925,
+    "switching_uw": 0.38314000000000004,
+    "leakage_uw": 2.24162,
+    "total_uw": 4.21401,
+    "dynamic_uw": 1.97239,
+    "energy_uj": 252.8406
+  },
+  "coverage": {
+    "Primary Inputs": [
+      35,
+      35,
+      100.0
+    ],
+    "Flop outputs": [
+      9109,
+      9109,
+      100.0
+    ],
+    "Total Nets": [
+      35048,
+      35048,
+      100.0
+    ]
+  },
+  "area": {
+    "non_filler_cell_count": 30323,
+    "non_filler_area_um2": 117652.788
+  },
+  "timing": {
+    "setup_wns_ns": 4998.1,
+    "hold_wns_ns": 0.013
+  },
+  "activity_audit": "PASS",
+  "duration_seconds": 60,
+  "scope": "Full routed core, 100 kHz source, 0.9 V / 125 C; functional gate activity without SDF"
+}

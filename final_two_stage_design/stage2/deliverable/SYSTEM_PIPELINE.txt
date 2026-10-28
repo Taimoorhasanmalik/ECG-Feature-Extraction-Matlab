@@ -1,0 +1,184 @@
+STAGE 1 + STAGE 2 SYSTEM PIPELINE AND RESOURCE-SHARING SPEC (120 Hz)
+=====================================================================
+
+This document covers the TWO-STAGE SYSTEM: how Stage 1 (the existing,
+independently-trained normal-vs-abnormal gate) and Stage 2 (this deliverable's
+VT-vs-VF classifier) share hardware and coordinate in time. HARDWARE_SPEC.txt
+in this same folder covers Stage 2 in isolation; read that first for Stage 2's
+own preprocessing/filter/features/classifier detail.
+
+Every claim below was empirically tested, not assumed -- see section 3 for
+the two experiments that ruled out the most aggressive sharing option.
+
+
+1. WHY 120 Hz FOR BOTH STAGES
+------------------------------
+Stage 1 has always run at 120 Hz. Stage 2 was originally developed at 250 Hz
+(matching the native rate of the VFDB/CUDB training databases). Moving Stage 2
+to 120 Hz -- Stage 1's own rate, not just a multiple of it -- means both
+stages can share a single ADC/clock feed with no divider or second clock
+domain at all. This was re-validated end to end before being adopted, not
+assumed: honest held-out accuracy, MATLAB fixed-point accuracy, and the full
+Stage1+Stage2 cascade all matched the original 250 Hz numbers within noise
+(held-out accuracy 0.9510 at both rates; cascade held-out accuracy 0.9231 at
+250 Hz vs 0.9183 at 120 Hz, a difference well inside the noise floor for a
+208-window sample).
+
+Nyquist objection checked and cleared: Stage 2's own filter passband tops out
+at 40 Hz, so it needs fs >= 80 Hz to avoid aliasing its own passband. 120 Hz
+gives a 60 Hz Nyquist frequency, 1.5x the 40 Hz cutoff -- comfortable margin,
+not a knife-edge. (Heart rate itself is not the relevant number here; even
+extreme VT/VF is only ~2.5-6 Hz, far below what determines the sampling
+requirement -- the requirement is set by the filter's own passband.)
+
+
+2. SHARED RESOURCES (one physical instance, used by both stages)
+------------------------------------------------------------------
+  - ADC / sampling clock: single 120 Hz feed, one clock domain.
+  - Quantizer logic: the same truncate-toward-zero-and-clamp circuit is used
+    at every quantization point in both stages -- generic and reusable as one
+    parameterizable block design, just with a different integer-bits setting
+    per point. Stage 1's raw pre-filter signal (before its 5 Hz highpass) and
+    Stage 2's feature values (5 of 7) use Q3.8; every point AFTER a filter has
+    run, in either stage -- Stage 1's post-highpass signal, and both of
+    Stage 2's points (after its DC blocker, and after its 0.5-40 Hz bandpass)
+    -- uses the wider Q5.8 uniformly, because each of those filters has real
+    gain/overshoot that exceeds its own input range (see HARDWARE_SPEC.txt
+    section 1e/1c in the 120hz/ folder for the measurements behind this).
+    Stage 2's classifier weights use Q2.13. Same circuit, different clamp
+    threshold per point.
+  - Window/stride timing generator: both stages use the identical 2.0 s
+    window / 1.0 s stride grid, and because both now run at 120 Hz, their
+    window boundaries are not just time-aligned but SAMPLE-INDEX-aligned --
+    window w's 240 samples are the literal same sample indices for both
+    stages. One counter/state machine can drive both stages' window
+    boundaries; no cross-domain timing conversion is needed.
+  - Feature-extraction arithmetic datapath (the compute circuit, NOT the
+    state): abs-accumulate (mean_abs_amp/line_length-style sums) and
+    compare-and-count (zero-crossing/threshold-crossing counters) are the
+    same operation type in both stages, just fed by two different filtered
+    signals. These can be time-multiplexed onto one shared adder/comparator
+    within a sample period -- see section 4 for why there is no timing risk
+    in doing this. Each stage still needs its OWN accumulator/counter
+    REGISTERS; only the compute circuit that updates them is shared.
+
+
+3. NOT SHARED -- TESTED IN BOTH DIRECTIONS, BOTH FAILED
+----------------------------------------------------------
+The most aggressive sharing option -- one filter feeding both stages -- was
+tried both ways by actually retraining and re-evaluating, not by reasoning
+about it in the abstract.
+
+  (a) Stage 2 using Stage 1's filter (causal 5 Hz highpass) instead of its
+      own 0.5-40 Hz bandpass, with Stage 2's classifier retrained on the
+      features that filter produces:
+        VT-vs-VF held-out accuracy:  0.9510 -> 0.9118
+        VT precision:                0.9310 -> 0.7073
+        Balanced accuracy:           0.8798 -> 0.8788  (nearly unchanged)
+      Mechanism: VT's defining trait -- organized activity repeating at a
+      fairly fixed rate -- has its fundamental frequency in the 0.5-5 Hz
+      band (a 150-300 bpm rate is 2.5-5 Hz). Stage 1's 5 Hz highpass deletes
+      that band before Stage 2 ever sees the signal, so Stage 2 loses the
+      information it needs specifically for VT vs VF (not for detecting
+      abnormality in general, which is why balanced accuracy barely moved).
+
+  (b) Stage 1 using Stage 2's filter (causal 0.5-40 Hz bandpass) instead of
+      its own 5 Hz highpass, with Stage 1 fully retrained on the full
+      mitdb+vfdb+cudb training set the same way the deployed model was:
+        Accuracy:      91.93% -> 74.86%
+        Precision:     0.5483 -> 0.2744
+        Sensitivity:   0.9734 -> 0.9694  (nearly unchanged)
+        Specificity:   0.9135 -> 0.7249
+        Confusion:     TN=23248,FP=2202,FN=73,TP=2673  ->  TN=18543,FP=7038,FN=84,TP=2662
+      Mechanism: Stage 1's 5 Hz highpass was tuned to discard low-frequency
+      content that doesn't matter for its coarse "abnormal or not" job.
+      Stage 2's wider filter keeps that content on purpose (see (a)), but
+      for Stage 1 it's just extra variability that erodes specificity --
+      false positives more than tripled while true positives barely changed.
+
+  CONCLUSION: each stage's filter is tuned for that stage's specific job.
+  Sharing one filter between them costs real, measured accuracy in both
+  directions. The filters (and everything downstream of them -- feature
+  VALUES and classifiers) must stay on two independent signal paths, each
+  fed from the same raw quantized ADC stream.
+
+  (Both trained models from these experiments are kept in models/ as
+  documented negative results:
+  stage1_normal_vs_abnormal_window_quantized_q3_8_fix_meanonly_stage2bandpass_recall90_guard98_robust_lsvm_120hz_....mat
+  and the corresponding Stage-2-on-Stage-1-features test in
+  greedy_record_inclusion/results/stage1_feature_reuse_feasibility_2026_09_29/.)
+
+
+4. PIPELINE / TIMING STRATEGY
+--------------------------------
+Two nested rates:
+
+  STAGE A -- continuous, every sample (120 Hz, every 8.33 ms):
+    1. ADC captures 1 sample.
+    2. Quantize to Q3.8.
+    3. Feed the shared MAC/datapath, time-multiplexed: Stage 1's 1-2 biquad
+       sections, then Stage 2's 4 biquad sections (separate filter state per
+       stage, shared compute circuit).
+    4. Update each stage's own feature accumulators (time-multiplexed on a
+       shared adder/comparator, separate accumulator registers per stage).
+    Runs unconditionally, every sample, regardless of gate state.
+
+  STAGE B -- once per window (1 Hz, every 120 samples):
+    5. Stage 1's 4 accumulated features finalize -> window-SVM -> base_abnormal.
+    6. 2-of-3 sequence vote over the last 3 base_abnormal values -> gate_active.
+
+  STAGE C -- once per window, conditional:
+    7. If gate_active = 1: Stage 2's 7 accumulated features (already sitting
+       ready from Stage A) go straight into the Q2.13 classifier -> VT/VF
+       decision. If gate_active = 0: Stage 2's classifier is clock-gated off.
+
+  LATENCY PROPERTY: because Stage 2's filter and accumulators run
+  continuously in Stage A (the "always-on" choice, see section 5), Stage C
+  has ZERO added latency -- the instant Stage B resolves gate_active, Stage
+  2's features for that same window are already computed. The classifier is
+  a single dot product and compare; it executes in the same cycle the gate
+  decision lands.
+
+  TIMING BUDGET: at 120 Hz, one sample period is 8.33 ms. Even a slow,
+  low-power clock (1-10 MHz) gives 8,300-83,000 cycles in that window --
+  the actual work per sample (a handful of biquad MAC operations, a few
+  adds/compares for the accumulators, for BOTH stages combined) is a few
+  dozen cycles at most. There is no throughput pressure; the time-multiplexed
+  sharing in section 2 carries no timing risk.
+
+
+5. OPEN DESIGN DECISION: ALWAYS-ON vs GATED STAGE 2 FILTER
+--------------------------------------------------------------
+Not yet resolved, flagged explicitly rather than silently decided:
+
+  ALWAYS-ON (the default assumed throughout sections 2-4, and the only mode
+  actually validated end to end in this project): Stage 2's filter and
+  feature accumulators run every sample regardless of gate_active. Cost:
+  continuous power draw on Stage 2's filter (the most expensive block in
+  the whole design, 4 biquads). Benefit: zero-latency activation (section 4).
+
+  GATED / BUFFERED-BURST (a further, NOT yet tested optimization): buffer
+  raw quantized samples cheaply (just memory, no continuous filter compute);
+  only burst-run Stage 2's filter over the last ~2 s + a settling margin
+  (roughly 1.5-2 s for this filter's low corner, so ~3.5-4 s of buffered
+  history) when gate_active transitions to 1. Benefit: Stage 2's filter sits
+  idle most of the time, saving real continuous power. Cost: real added
+  latency after every gate opening -- the first decision after a gate
+  transition would have to wait for the burst-filter to settle, and nothing
+  in this project has validated that settling behavior or sized the buffer
+  precisely.
+
+  RECOMMENDATION: default to always-on unless Stage 2's filter power draw is
+  shown to be the actual system bottleneck. If it is, the buffered-burst
+  mode is the next thing to prototype and validate -- not something to adopt
+  on the strength of this document alone.
+
+
+6. INTERFACE CONTRACT BETWEEN THE STAGES
+---------------------------------------------
+Stage 1 passes Stage 2 exactly ONE bit: gate_active. No shared features, no
+shared filtered signal, no shared classifier state cross the stage boundary
+-- both directions of trying to share more than that were tested and failed
+(section 3). Stage 2 is otherwise fully independent, running its own
+preprocessing/filter/features/classifier chain as specified in
+HARDWARE_SPEC.txt in this same folder.

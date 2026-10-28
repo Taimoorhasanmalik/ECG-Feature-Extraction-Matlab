@@ -1,0 +1,7 @@
+path,type,role
+code/train_q38_recall90_guard98_gate_fix_q38_meanonly_pthighpass.m,script,training script for final Q3.8 high-pass base model
+code/eval_pthighpass_seq_120hz.m,script,runnable sequence-count test script using CPU export
+code/evaluate_q38_sequence_count_hard_rule_fix_meanonly_pthighpass_120hz.m,script,original long-name sequence evaluator kept for traceability
+models/stage1_normal_vs_abnormal_window_quantized_q3_8_fix_meanonly_pthighpass_recall90_guard98_robust_lsvm_120hz_without_rms_amplitude_robust_range.mat,model,final trained low-power base model
+models/pthighpass_svm_cpu_export.mat,model export,CPU/export weights and threshold used by sequence evaluator
+docs/stage1_highpass_sequence_tradeoff.md,documentation,one-page explanation of sequence tradeoff and selected 2-of-3 rule

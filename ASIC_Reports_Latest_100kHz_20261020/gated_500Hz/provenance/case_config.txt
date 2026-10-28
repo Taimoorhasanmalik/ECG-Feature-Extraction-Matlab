@@ -1,0 +1,4 @@
+mode=adaptive_gated
+synthesis=/home/ec2-user/CadenceASIC100kHz/runs/synth_nxrT1d
+source_hz=100000
+measure_seconds=60

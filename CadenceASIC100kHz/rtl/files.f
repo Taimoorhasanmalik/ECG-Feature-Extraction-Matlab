@@ -1,0 +1,12 @@
+rtl/01_highpass_iir_filter.v
+rtl/02_window_sequencer.v
+rtl/ecg_adaptive_clock.v
+rtl/ecg_sample_mailbox.v
+rtl/stage2_filter_q29.v
+rtl/stage2_shared_hp1_q29.v
+rtl/stage2_classifier_gated_q.v
+rtl/shared_classifier_mac_q.v
+rtl/two_stage_shared_replay_top.v
+rtl/two_stage_adaptive_clock_top.v
+rtl/asic_clock_primitives.v
+rtl/ecg_asic_power_top.v

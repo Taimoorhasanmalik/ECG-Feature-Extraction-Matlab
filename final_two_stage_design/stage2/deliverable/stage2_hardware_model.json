@@ -1,0 +1,240 @@
+{
+  "description": "Stage 2 VT-vs-VF hardware-producible model at 120 Hz (same rate as Stage 1): causal filter + 7 hardware-light features + linear classifier, fixed-point.",
+  "sampling_rate_hz": 120,
+  "window_seconds": 2,
+  "stride_seconds": 1,
+  "window_samples": 240,
+  "stride_samples": 120,
+  "rate_choice_rationale": [
+    "120 Hz was chosen to EXACTLY match Stage 1's own sample rate (not a multiple of it) -- ",
+    "the maximum possible hardware simplification, letting both stages share one ADC/clock feed ",
+    "with no divider at all. Nyquist only requires fs >= 80 Hz to represent this filter's own ",
+    "0.5-40 Hz passband without aliasing; 120 Hz gives a 60 Hz Nyquist frequency, 1.5x the 40 Hz ",
+    "upper cutoff. Re-validated end to end (not assumed from the 250 Hz result): honest held-out ",
+    "accuracy, MATLAB fixed-point accuracy, and the full Stage1+Stage2 cascade all matched the ",
+    "250 Hz numbers within noise."
+  ],
+  "filter": {
+    "description": "Causal (forward-only) 4th-order Butterworth 0.5-40 Hz bandpass, realized as 4 cascaded biquad sections. NOT zero-phase/filtfilt -- streaming-realizable.",
+    "order_requested": 4,
+    "effective_order": 8,
+    "band_hz": [
+      0.5,
+      40
+    ],
+    "sos_with_gain_folded_in": [
+      [
+        0.22529328776281179,
+        0.45058657552562359,
+        0.22529328776281179,
+        1,
+        0.5436087484938108,
+        0.10900269670893106
+      ],
+      [
+        1,
+        2,
+        1,
+        1,
+        0.75085577458233566,
+        0.50660205743658115
+      ],
+      [
+        1,
+        -2,
+        1,
+        1,
+        -1.951590688748043,
+        0.95227732013828825
+      ],
+      [
+        1,
+        -2,
+        1,
+        1,
+        -1.9796936687293374,
+        0.98037523367285828
+      ]
+    ],
+    "sos_note": "Each row = [b0 b1 b2 a0 a1 a2] for one biquad; apply sections in sequence via a direct-form-II transposed structure. Coefficients are float64 -- NOT yet quantized to fixed-point (open item, see spec)."
+  },
+  "signal_format": {
+    "description": "ECG signal quantization. Both quantization points in this pipeline sit immediately after a causal filter has run (the DC blocker, then the main bandpass) and both use the same wide Q5.8 format uniformly -- there is no narrow Q3.8 signal point left in Stage 2's own path; see post_filter_rationale.",
+    "pre_filter_q_format": "Q5.8",
+    "pre_filter_integer_bits": 5,
+    "pre_filter_range": [
+      -32,
+      31.99609375
+    ],
+    "post_filter_q_format": "Q5.8",
+    "post_filter_integer_bits": 5,
+    "post_filter_range": [
+      -32,
+      31.99609375
+    ],
+    "post_filter_rationale": [
+      "The causal bandpass filter has real gain/overshoot that regularly exceeds its OWN input ",
+      "range -- measured worst case 13.7 across the full 49-record candidate pool while its input ",
+      "was already bounded to +-8 (Q3.8). Under the original Q3.8-on-both-sides design, this ",
+      "silently clipped: confirmed actual clipping inside 2 of vfdb/615's 29 real held-out test ",
+      "windows (peak -10.745, at ~508s into the record). The DC blocker's OWN output has the same ",
+      "character, independent of its cutoff (swept 0.02-0.5 Hz: worst case stayed 8.9-9.9 the whole ",
+      "way, ~0.001-0.003% of samples over range regardless). A highpass-order sweep (1st/2nd/3rd) ",
+      "found order 1 has the LOWEST overshoot of the three, confirming rather than motivating a ",
+      "change from the original single-pole design. Q5.8 (+-32) is used uniformly at both points ",
+      "-- one format everywhere a filter has already run, rather than a patchwork of different ",
+      "widths -- and covers every worst case found with margin. Held-out accuracy measured ",
+      "identical (0.9510) before and after this fix, but that is not a guarantee for all future ",
+      "data -- the fix removes a real, previously silent risk rather than relying on it happening ",
+      "not to matter."
+    ],
+    "fraction_bits": 8,
+    "resolution": 0.00390625,
+    "truncation_rule": "fix() truncation toward zero, then clamp to range",
+    "baseline_removal": "Causal single-pole (1st-order Butterworth) highpass at 0.1 Hz -- replaces a non-causal whole-record median subtraction used in earlier versions of this pipeline, which is impossible for a real streaming device to compute. Verified: identical held-out accuracy (0.9510) to the non-causal version. 0.1 Hz sits a full octave+ below this filter's own 0.5 Hz low corner.",
+    "invalid_sample_handling": "WFDB format-212 dropout sentinel (digital code -2048) detected and linearly interpolated (flat-clamped before the first / after the last valid sample) before quantization."
+  },
+  "features": {
+    "names_in_order": [
+      "mean_abs_amp",
+      "line_length",
+      "derivative_zero_crossings",
+      "threshold_crossings",
+      "local_amp_mean",
+      "local_amp_range",
+      "amp_transition"
+    ],
+    "formulas": {
+      "mean_abs_amp": "mean(abs(window - mean(window)))",
+      "line_length": "sum(abs(diff(window - mean(window))))",
+      "derivative_zero_crossings": "sign changes in diff(centered), after discarding samples with |value| <= 0.05*mean(|diff(centered)|)",
+      "threshold_crossings": "count of crossings of abs(centered) >= 0.20*max(abs(centered))",
+      "local_amp_mean": "mean over 8 blocks of 0.25s (30 samples each, exact -- covers the full 240-sample window with no leftover, unlike 250 Hz's 496-of-500) of mean(abs(centered)) per block",
+      "local_amp_range": "max block mean minus min block mean (same 8 blocks)",
+      "amp_transition": "mean absolute difference between consecutive block means"
+    },
+    "q_formats": {
+      "mean_abs_amp": "Q3.8",
+      "line_length": "Q8.8",
+      "derivative_zero_crossings": "Q8.0 (integer count, no fraction bits)",
+      "threshold_crossings": "Q8.0 (integer count, no fraction bits)",
+      "local_amp_mean": "Q3.8",
+      "local_amp_range": "Q3.8",
+      "amp_transition": "Q3.8"
+    },
+    "q_format_rationale": [
+      "Sized from each feature's own observed range across the full 49-record candidate pool ",
+      "(mean_abs_amp/local_amp_mean max 4.17, local_amp_range max 5.14, amp_transition max 1.56 -- ",
+      "all comfortably inside Q3.8's +-8 range on their own -- narrower than the Q5.8 signal format, ",
+      "since these are per-window statistics, not raw filter output with overshoot risk. line_length reaches 186 (needs ",
+      "Q8.8's wider integer headroom, same fraction width as the signal). derivative_zero_crossings ",
+      "(max 115) and threshold_crossings (max 81) are counts by construction -- Q8.0 needs no ",
+      "fractional hardware at all, just a wide-enough integer register. The classifier was retrained ",
+      "on these quantized feature values (not just re-quantized after the fact), and held-out accuracy ",
+      "was unchanged (0.9510, identical to the float baseline) -- the quantization error is at most ",
+      "1/256 for the amplitude features and exactly zero for the two counts, which are already integers."
+    ],
+    "retention_rationale": [
+      "An ablation on the same held-out set found derivative_zero_crossings contributes no measurable ",
+      "accuracy change if dropped (0.9608 with or without), while threshold_crossings is load-bearing ",
+      "(dropping it costs 0.9608 -> 0.9559 accuracy and 0.80 -> 0.77 VT recall) despite having a similarly ",
+      "small learned coefficient. Both are kept anyway: Stage 1's own base model already computes ",
+      "zero_crossings and threshold_crossing_count as two of its four features, so the counter/comparator ",
+      "hardware for this class of feature is already required elsewhere in the design -- keeping both here ",
+      "reuses that same cheap primitive on a second signal path rather than adding new hardware, so there is ",
+      "no cost to keeping the one (derivative_zero_crossings) that showed no measured benefit on this test."
+    ]
+  },
+  "classifier": {
+    "description": "StandardScaler + LinearSVC folded offline into one weight-plus-bias linear form -- no runtime division.",
+    "decision_rule": "score = dot(features, weight) + bias; predict VF if score > 0, else VT",
+    "vt_label": 0,
+    "vf_label": 1,
+    "weight_q_format": "Q2.13",
+    "weight_integer_bits": 2,
+    "weight_fraction_bits": 13,
+    "weight_float64": [
+      -0.92634679891223548,
+      0.02311361901509966,
+      -0.00022505829828296819,
+      0.00038224262053715105,
+      -0.9261226642266005,
+      -0.63582544232882554,
+      0.15213510126261404
+    ],
+    "weight_fixed_point_q2_13": [
+      -0.92626953125,
+      0.0230712890625,
+      -0.0001220703125,
+      0.0003662109375,
+      -0.926025390625,
+      -0.6357421875,
+      0.152099609375
+    ],
+    "bias_float64": 0.99861273531855033,
+    "bias_fixed_point_q2_13": 0.99853515625,
+    "why_not_q5_8": "2 of 7 weights underflow to exactly zero at Q5.8's 1/256 resolution (silently dropping those features); Q2.13's finer 1/8192 resolution preserves them. Measured on the same held-out set: float64 accuracy 0.9510, Q2.13 accuracy 0.9510 (delta +0.0000), Q5.8 accuracy 0.9461 (delta -0.0049)."
+  },
+  "validation": {
+    "held_out_records": [
+      "vfdb/429",
+      "vfdb/615",
+      "cudb/cu13",
+      "cudb/cu32"
+    ],
+    "held_out_windows": 204,
+    "held_out_accuracy_float64": 0.9509803921568627,
+    "held_out_accuracy_fixed_point_q2_13": 0.9509803921568627,
+    "training_record_count": 34,
+    "training_records": [
+      "vfdb/418",
+      "vfdb/419",
+      "vfdb/424",
+      "vfdb/425",
+      "vfdb/426",
+      "vfdb/428",
+      "vfdb/605",
+      "vfdb/607",
+      "vfdb/609",
+      "vfdb/611",
+      "vfdb/614",
+      "cudb/cu01",
+      "cudb/cu03",
+      "cudb/cu04",
+      "cudb/cu05",
+      "cudb/cu06",
+      "cudb/cu07",
+      "cudb/cu08",
+      "cudb/cu09",
+      "cudb/cu10",
+      "cudb/cu11",
+      "cudb/cu12",
+      "cudb/cu16",
+      "cudb/cu17",
+      "cudb/cu19",
+      "cudb/cu21",
+      "cudb/cu22",
+      "cudb/cu23",
+      "cudb/cu24",
+      "cudb/cu25",
+      "cudb/cu26",
+      "cudb/cu27",
+      "cudb/cu33",
+      "cudb/cu34"
+    ],
+    "dropped_records": [
+      "vfdb/610",
+      "cudb/cu18"
+    ],
+    "dropped_reason": "vfdb/610 has only 4 windows (too small to trust as a test record); cudb/cu18 was the single most consistent poor performer across every diagnostic run in this project."
+  },
+  "open_items": [
+    "Filter (SOS) coefficients are still float64, not quantized -- coefficient quantization can shift pole locations and was not tested here.",
+    "RESOLVED (was open in the 250 Hz deliverable): sample rate now exactly matches Stage 1's 120 Hz, so both stages can share one ADC/clock feed.",
+    "RESOLVED: the 7 feature values themselves now have explicit, validated Q-formats (see section 4), not just the signal and the classifier weights -- retrained and re-validated end to end with zero accuracy loss.",
+    "RESOLVED: baseline removal was a non-causal whole-record median (impossible on a live stream) -- replaced with a causal single-pole 0.1 Hz highpass, verified identical accuracy (0.9510).",
+    "RESOLVED: the causal bandpass filter's own gain/overshoot (worst case 13.7 across the pool) was silently clipped by reusing Q3.8 on its output -- confirmed real clipping inside 2 of vfdb/615's actual held-out test windows. The DC blocker's own output has the same character (worst case 8.9-9.9 across a 0.02-0.5 Hz cutoff sweep, ~0.001-0.003% of samples regardless of cutoff). Fixed with a uniform Q5.8 used at both points (not a patchwork of different widths); held-out accuracy unchanged (0.9510). A highpass-order sweep (1st/2nd/3rd) also confirmed the single-pole design has the lowest overshoot of the three, not just the lowest cost.",
+    "The 250->120 Hz resampling used here (both in testing and in this validation) is simple linear interpolation, which does not band-limit before downsampling. A live ADC sampling directly at 120 Hz needs its own standard analog anti-aliasing filter ahead of the ADC (true for any sample rate, not unique to 120 Hz) -- this was not an issue in testing (0 mismatches vs Python's properly anti-aliased resampler) because real recorded ECG has little energy above the new Nyquist, but should be designed deliberately, not assumed, in the final hardware front end.",
+    "This is a forced binary VT-vs-VF decision with no 'neither' option; Stage 1's gate wakes on non-VT/VF activity a meaningful fraction of the time (71.5% of gate activations in the full cascade test)."
+  ]
+}

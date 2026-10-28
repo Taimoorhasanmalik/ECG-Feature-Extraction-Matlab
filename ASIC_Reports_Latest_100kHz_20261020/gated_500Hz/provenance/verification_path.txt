@@ -1,0 +1,1 @@
+Physical verification directory: /home/ec2-user/CadenceASICImplementation/runs/physical_verify_JJEymC/verification
