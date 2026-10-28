@@ -6,6 +6,7 @@ __pycache__/
 # Bulk archives from ASIC / AWS transfers (too large for GitHub; keep locally)
 *.tar.gz
 *.zip
+*.rar
 
 # Older, incomplete copy nested inside the latest ASIC report package
 ASIC_Reports_Latest_100kHz_20261020/ASIC_Reports_Latest_100kHz_20261020/

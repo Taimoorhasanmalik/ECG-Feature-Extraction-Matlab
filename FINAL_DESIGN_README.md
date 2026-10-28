@@ -6,6 +6,8 @@ and which files are exploration only.
 
 Detailed methods, every results table, design decisions and limitations are in
 [Documents/thesis_final_results.md](Documents/thesis_final_results.md).
+A map of every folder in the repository, with what is final and what is in
+git, is in [NAVIGATION.md](NAVIGATION.md).
 
 ---
 
@@ -126,6 +128,8 @@ retrained, the RTL constants must be regenerated.
 | What | Location |
 | --- | --- |
 | **Latest ASIC results (100 kHz source, routed, area/power/timing)** | `ASIC_Reports_Latest_100kHz_20261020/` (start with its `README.md`, `SUMMARY.csv`) |
+| Original, unedited Cadence tool reports for the same runs | `Cadence_Original_Reports_100kHz_20261020/` (checksums in `SHA256_MANIFEST.csv`; the Innovus power report is in mW) |
+| Power-analysis scripts (full-core pre-layout; direct-clock pipeline pair) | `CadencePowerAnalysis/`, `CadenceDirectClockPower/` |
 | Scripts for the latest ASIC runs | `CadenceASIC100kHz/` |
 | Earlier routed run (100 MHz source) and delivery | `CadenceASICImplementation/` |
 | ASIC summary for writing | `Documents/asic_paper_reporting_data.md` |
